@@ -132,6 +132,9 @@
   <data name="MaxLeng" xml:space="preserve">
     <value>最大长度为{0}</value>
   </data>
+  <data name="NotBeNull" xml:space="preserve">
+    <value>参数{0}不能为空</value>
+  </data>
   <data name="OrderIdIsEmpty" xml:space="preserve">
     <value>商户订单号不能为空</value>
   </data>

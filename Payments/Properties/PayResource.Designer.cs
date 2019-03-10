@@ -106,6 +106,15 @@ namespace Payments.Properties {
         }
         
         /// <summary>
+        ///   查找类似 参数{0}不能为空 的本地化字符串。
+        /// </summary>
+        internal static string NotBeNull {
+            get {
+                return ResourceManager.GetString("NotBeNull", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 商户订单号不能为空 的本地化字符串。
         /// </summary>
         internal static string OrderIdIsEmpty {

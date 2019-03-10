@@ -2,6 +2,7 @@
 using Payments.Core;
 using Payments.Core.Response;
 using Payments.Extensions;
+using Payments.Properties;
 using Payments.Wechatpay.Abstractions;
 using Payments.Wechatpay.Configs;
 using Payments.Wechatpay.Parameters;
@@ -43,7 +44,7 @@ namespace Payments.Wechatpay.Services
         {
             if (param.OutTradeNo.IsEmpty() && param.TransactionId.IsEmpty())
             {
-                throw new ArgumentNullException("TransactionId and OutTradeNo not all null");
+                throw new ArgumentNullException(PayResource.TIdOutTradeAllNull);
             }
         }
 

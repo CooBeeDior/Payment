@@ -15,6 +15,7 @@ using System.IO;
 using System.Threading.Tasks;
 using System.Xml;
 using System.Collections.ObjectModel;
+using Payments.Properties;
 
 namespace Payments.Extensions
 {
@@ -29,7 +30,7 @@ namespace Payments.Extensions
         public static void CheckNull(this object obj, string parameterName)
         {
             if (obj == null)
-                throw new ArgumentNullException(parameterName,$"{parameterName} could not be null");
+                throw new ArgumentNullException(parameterName, string.Format(PayResource.NotBeNull, parameterName));
         }
 
         /// <summary>
@@ -746,7 +747,7 @@ namespace Payments.Extensions
         #endregion
 
         #region
-   
+
 
         #endregion
     }

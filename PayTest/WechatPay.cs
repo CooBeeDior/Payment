@@ -37,10 +37,10 @@ namespace PayTest
         {
             //Native 下单 
 
-            string orderId = "77785588585877856";
+            string orderId = "77785522288585877856";
 
-            var wechatpayNativePayService = serviceProvider.GetService<IWechatpayJsApiPayService>();
-            var wechatpayNativePayRequest = new WechatpayJsApiPayRequest()
+            var wechatpayNativePayService = serviceProvider.GetService<IWechatpayNativePayService>();
+            var wechatpayNativePayRequest = new WechatpayNativePayRequest()
             {
                 Body = "sssss",
                 OutTradeNo = orderId,
