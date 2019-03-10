@@ -1,6 +1,7 @@
 ﻿using Payments.Core;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Text;
 
 namespace Payments.Wechatpay.Parameters.Requests
@@ -10,7 +11,12 @@ namespace Payments.Wechatpay.Parameters.Requests
     /// </summary>
     public class WechatpayNativePayRequest : WechatpayPayRequestBase
     {
-    
+        /// <summary>
+        /// 商品ID
+        /// </summary>
+        [Required]
+        [MaxLength(32)]
+        public override string ProductId { get; set; }
     }
 
 }

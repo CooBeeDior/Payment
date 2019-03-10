@@ -14,7 +14,7 @@ namespace Payments.Wechatpay.Parameters.Requests
     /// <summary>
     /// 订单支付参数
     /// </summary>
-    public class WechatpayPayRequestBase : Validation,IWechatpayRequest, IValidation
+    public class WechatpayPayRequestBase : Validation, IWechatpayRequest, IValidation
     {
         /// <summary>
         /// 订单标题
@@ -34,7 +34,7 @@ namespace Payments.Wechatpay.Parameters.Requests
         [Required]
         [MinValue(0)]
         public virtual decimal TotalFee { get; set; }
-        
+
         /// <summary>
         /// 商品详细描述
         /// </summary>
@@ -106,7 +106,7 @@ namespace Payments.Wechatpay.Parameters.Requests
 
 
 
-     
+
 
         /// <summary>
         /// 商品详情

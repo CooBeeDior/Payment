@@ -68,7 +68,7 @@ namespace Payments.Wechatpay.Configs
         /// 付款码支付
         /// </summary>
         /// <returns></returns>
-        public string GetCodeOrderUrl()
+        public string GetMicroPayUrl()
         {
             return Url.Combine(GatewayUrl, "pay/micropay");
         }

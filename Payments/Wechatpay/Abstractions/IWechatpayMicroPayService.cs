@@ -7,11 +7,10 @@ using System.Text;
 namespace Payments.Wechatpay.Abstractions
 {
     /// <summary>
-    /// 微信提交付款码支付
+    /// 提交付款码支付
     /// </summary>
     [PayService("微信提交付款码支付")]
-    public interface IWechatpayJsApiPayService : IWechatpayPayService<WechatpayJsApiPayRequest>
+    public interface IWechatpayMicroPayService : IWechatpayPayService<WechatpayMicroPayRequest>
     {
-
     }
 }
