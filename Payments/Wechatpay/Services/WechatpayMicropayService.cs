@@ -16,11 +16,11 @@ namespace Payments.Wechatpay.Services
     /// 提交付款码支付
     /// </summary>
     public class WechatpayMicropayService : WechatpayServiceBase<WechatpayMicroPayRequest>, IWechatpayMicroPayService
-    { 
+    {
         /// <summary>
-      /// 初始化微信App支付服务
-      /// </summary>
-      /// <param name="provider">微信支付配置提供器</param>
+        /// 初始化微信App支付服务
+        /// </summary>
+        /// <param name="provider">微信支付配置提供器</param>
         public WechatpayMicropayService(IWechatpayConfigProvider provider, ILoggerFactory loggerFactory) : base(provider, loggerFactory)
         {
         }
@@ -34,6 +34,7 @@ namespace Payments.Wechatpay.Services
         {
             return Request(t);
         }
+
 
         /// <summary>
         /// 获取URL
@@ -68,10 +69,19 @@ namespace Payments.Wechatpay.Services
                 .Package()
                 .ToJson();
         }
-
+        /// <summary>
+        /// 初始化参数生成器
+        /// </summary>
+        /// <param name="builder">参数生成器</param>
+        /// <param name="param">支付参数</param>
         protected override void InitBuilder(WechatpayParameterBuilder builder, WechatpayMicroPayRequest param)
         {
-            throw new NotImplementedException();
+            builder.Body(param.Body).OutTradeNo(param.OutTradeNo)
+             .TotalFee(param.TotalFee).NotifyUrl(param.NotifyUrl).Attach(param.Attach)
+             .Detail(param.Detail).FeeType(param.FeeType).TimeStart(param.TimeStart)
+             .TimeExpire(param.TimeExpire).GoodsTag(param.GoodsTag).ProductId(param.ProductId)
+             .LimitPay(param.LimitPay).Receipt(param.Receipt).SceneInfo(param.SceneInfo)
+             .OpenId(param.OpenId);
         }
     }
 }
