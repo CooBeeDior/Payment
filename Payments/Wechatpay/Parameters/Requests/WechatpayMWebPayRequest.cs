@@ -7,7 +7,7 @@ namespace Payments.Wechatpay.Parameters.Requests
     /// <summary>
     /// NWeb支付
     /// </summary>
-    public class WechatpayNWebPayRequest : WechatpayPayRequestBase
+    public class WechatpayMWebPayRequest : WechatpayPayRequestBase
     {
     }
 }

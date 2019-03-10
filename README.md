@@ -2,25 +2,50 @@
 #### 基于netcore2.x实现的微信和支付宝支付的服务。
 
 # 微信支付服务
-#### 1.Native支付【IWechatpayNativePayService】
-#### 2.App支付【IWechatpayAppPayService】
-#### 3.JsApi支付【IWechatpayJsApiPayService】
-#### 4.小程序支付【IWechatpayMiniProgramPayService】
-#### 5.查询支付订单【IWechatOrderQueryService】
-#### 6.关闭支付订单【IWechatCloseOrderService】
-#### 7.退款支付订单【IWechatRefundOrderService】
-#### 8.退款支付订单查询【IWechatRefundQueryService】
-#### 9.支付异步回调【IWechatpayNotifyService】
-#### 10.退款异步支付回调【IWechatRefundNotifyService】
+#### Native支付【IWechatpayNativePayService】
+#### App支付【IWechatpayAppPayService】
+#### JsApi支付【IWechatpayJsApiPayService】
+#### 小程序支付【IWechatpayMiniProgramPayService】
+#### H5支付【IWechatpayMWebPayService】
+#### 付款码支付【】
+
+#### 查询支付订单【IWechatOrderQueryService】
+#### 撤销支付订单【】
+#### 关闭支付订单【IWechatCloseOrderService】
+#### 申请退款订单【IWechatRefundOrderService】
+#### 退款订单查询【IWechatRefundQueryService】
+#### 支付异步回调【IWechatpayNotifyService】
+#### 退款异步支付回调【IWechatRefundNotifyService】
+
+#### 下载对账单【】
+#### 下载资金账单【】
+#### 交易保障【】
+#### 拉取订单评价数据【】
+
+#### 授权码查询openid【】
+#### 发放代金券【】
+#### 查询代金券批次【】
+#### 查询代金券信息【】
+
+#### 发放普通红包【】
+#### 发放裂变红包【】
+#### 查询红包记录【】
+
+#### 企业付款【】
+#### 查询企业付款【】
+
+
+
+
 
 # 支付宝支付
-#### 1.Page支付【IAlipayPagePayService】
-#### 2.二维码支付【IAlipayQrCodePayService】
-#### 3.App支付【IAlipayAppPayService】
-#### 4.条码支付【IAlipayBarcodePayService】
-#### 5.手机wap支付【IAlipayWapPayService】
-#### 6.异步回调【IAlipayNotifyService】
-#### 7.同步回调【IAlipayReturnService】
+#### Page支付【IAlipayPagePayService】
+#### 二维码支付【IAlipayQrCodePayService】
+#### App支付【IAlipayAppPayService】
+#### 条码支付【IAlipayBarcodePayService】
+#### 手机wap支付【IAlipayWapPayService】
+#### 异步回调【IAlipayNotifyService】
+#### 同步回调【IAlipayReturnService】
 
 
 # 使用方法，注册支付服务到容器里面.

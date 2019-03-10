@@ -39,8 +39,8 @@ namespace PayTest
 
             string orderId = "77785522288585877856";
 
-            var wechatpayNativePayService = serviceProvider.GetService<IWechatpayNativePayService>();
-            var wechatpayNativePayRequest = new WechatpayNativePayRequest()
+            var wechatpayNativePayService = serviceProvider.GetService<IWechatpayMWebPayService>();
+            var wechatpayNativePayRequest = new WechatpayMWebPayRequest()
             {
                 Body = "sssss",
                 OutTradeNo = orderId,

@@ -194,7 +194,7 @@ namespace Payments.Extensions
         #endregion
 
         #region Xml
-        public static string ToXml(this IDictionary<string, string> builderData)
+        public static string ToXml(this IDictionary<string, object> builderData)
         {
             var xml = new Xml();
             foreach (var param in builderData)

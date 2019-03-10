@@ -6,6 +6,9 @@ using System.Text;
 
 namespace Payments.Util.Validations
 {
+    /// <summary>
+    /// 参数验证
+    /// </summary>
     public class Validation : IValidation
     {
         /// <summary>

@@ -1,18 +1,14 @@
 ﻿using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.ObjectPool;
-using Payments.Core;
 using Payments.Core.Response;
 using Payments.Extensions;
 using Payments.Util.Http;
 using Payments.Util.Logger;
-using Payments.Util.ObjectPools;
 using Payments.Util.Validations;
 using Payments.Wechatpay.Configs;
 using Payments.Wechatpay.Parameters;
 using Payments.Wechatpay.Parameters.Requests;
 using Payments.Wechatpay.Results;
 using System;
-using System.Net.Http;
 using System.Threading.Tasks;
 namespace Payments.Wechatpay.Services.Base
 {
@@ -20,7 +16,7 @@ namespace Payments.Wechatpay.Services.Base
     /// 支付基类
     /// </summary>
     /// <typeparam name="TPayParam"></typeparam>
-    public abstract class WechatpayServiceBase<TPayParam> where TPayParam : IWechatpayRequest, IValidation, new()
+    public abstract class WechatpayServiceBase<TPayParam> where TPayParam : class, IWechatpayRequest, IValidation, new()
     {
         protected ILogger<WechatpayServiceBase> Logger { get; }
         /// <summary>
@@ -132,9 +128,9 @@ namespace Payments.Wechatpay.Services.Base
                 .SetEventId(Guid.NewGuid()).SetMoudle(GetType().FullName).SetTitle("微信支付")
                 .AddContent($"支付方式 : {GetType()}")
                 .AddContent($"支付网关 : {config.GetOrderUrl()}")
-                .AddContent($"请求参数:{builder.ToXml()}")
-                .AddContent($"返回结果:{result.GetParams()}")
-                .AddContent($"原始响应:{result.Raw}")
+                .AddContent($"请求参数:{builder?.ToXml()}")
+                .AddContent($"返回结果:{result?.GetParams()}")
+                .AddContent($"原始响应:{result?.Raw}")
                 .Build();
             Logger.LogInfo(logContent);
 

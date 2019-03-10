@@ -19,17 +19,17 @@ namespace Payments.Wechatpay.Services
     /// <summary>
     /// 微信NWeb支付服务
     /// </summary>
-    public class WechatpayNWebPayService : WechatpayServiceBase, IWechatpayNWebPayService
+    public class WechatpayMWebPayService : WechatpayServiceBase, IWechatpayMWebPayService
     {
         /// <summary>
         /// 初始化微信App支付服务
         /// </summary>
         /// <param name="provider">微信支付配置提供器</param>
-        public WechatpayNWebPayService(IWechatpayConfigProvider provider, ILoggerFactory loggerFactory) : base(provider, loggerFactory)
+        public WechatpayMWebPayService(IWechatpayConfigProvider provider, ILoggerFactory loggerFactory) : base(provider, loggerFactory)
         {
         }
 
-        public Task<PayResult> PayAsync(WechatpayNWebPayRequest t)
+        public Task<PayResult> PayAsync(WechatpayMWebPayRequest t)
         {
             return base.PayAsync(t);
         }
@@ -40,7 +40,7 @@ namespace Payments.Wechatpay.Services
         /// </summary>
         protected override string GetTradeType()
         {
-            return "NWEB";
+            return "MWEB";
         }
         /// <summary>
         /// 验证参数
