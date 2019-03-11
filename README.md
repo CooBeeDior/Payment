@@ -7,10 +7,10 @@
 #### JsApi支付【IWechatpayJsApiPayService】
 #### 小程序支付【IWechatpayMiniProgramPayService】
 #### H5支付【IWechatpayMWebPayService】
-#### 付款码支付【】
+#### 付款码支付【IWechatpayMicroPayService】
 
 #### 查询支付订单【IWechatOrderQueryService】
-#### 撤销支付订单【】
+#### 撤销支付订单【IWechatReverseOrderService】测试接口报错
 #### 关闭支付订单【IWechatCloseOrderService】
 #### 申请退款订单【IWechatRefundOrderService】
 #### 退款订单查询【IWechatRefundQueryService】

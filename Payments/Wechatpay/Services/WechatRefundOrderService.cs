@@ -38,10 +38,10 @@ namespace Payments.Wechatpay.Services
 
         protected override void InitBuilder(WechatpayParameterBuilder builder, WechatRefundOrderRequest param)
         {
-            builder.TransactionId( param.TransactionId).OutTradeNo( param.OutTradeNo)
-                .Add(WechatpayConst.OutRefundNo, param.OutRefundNo).TotalFee(param.TotalFee)
+            builder.TransactionId(param.TransactionId).OutTradeNo(param.OutTradeNo)
+                .OutRefundNo(param.OutRefundNo).TotalFee(param.TotalFee).RefundFeeType(param.RefundFeeType)
                 .RefundFee(param.RefundFee).NotifyUrl(param.NotifyUrl).Add(WechatpayConst.RefundDesc, param.RefundDesc)
-                .Remove(WechatpayConst.SpbillCreateIp).Remove(WechatpayConst.NotifyUrl);
+               .RefundAccount(param.RefundAccount).Remove(WechatpayConst.SpbillCreateIp).Remove(WechatpayConst.NotifyUrl);
         }
 
         protected override void ValidateParam(WechatRefundOrderRequest param)
@@ -49,7 +49,7 @@ namespace Payments.Wechatpay.Services
             if (param.TransactionId.IsEmpty() && param.OutTradeNo.IsEmpty())
             {
                 throw new ArgumentNullException(PayResource.TIdOutTradeAllNull);
-            }            
+            }
         }
 
         /// <summary>

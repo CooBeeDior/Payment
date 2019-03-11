@@ -14,7 +14,7 @@ namespace Payments.Wechatpay.Parameters.Requests
         /// <summary>
         /// 商品ID
         /// </summary>
-        [Required]
+        //[Required]
         [MaxLength(32)]
         public override string ProductId { get; set; }
     }

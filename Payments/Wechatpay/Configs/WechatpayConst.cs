@@ -207,7 +207,94 @@
         /// </summary>   
         public const string SceneInfo = "scene_info";
 
-         
+        /// <summary>
+        /// 扫码支付授权码，设备读取用户微信中的条码或者二维码信息
+        /// </summary>
+        public const string AuthCode = "auth_code";
 
+        /// <summary>
+        /// 偏移量，当部分退款次数超过10次时可使用，表示返回的查询结果从这个偏移量开始取记录
+        /// </summary>
+        public const string Offset = "offset";
+
+        /// <summary>
+        /// 退款货币种类
+        /// </summary>
+        public const string RefundFeeType = "refund_fee_type";
+
+        /// <summary>
+        /// 退款资金来源
+        /// </summary>
+        public const string RefundAccount = "refund_account";
+
+        /// <summary>
+        /// 商户订单号
+        /// </summary>
+        public const string MchBillno = "mch_billno";
+
+        /// <summary>
+        /// 公众账号appid
+        /// </summary>
+        public const string WxAppid = "wxappid";
+
+        /// <summary>
+        /// 商户名称
+        /// </summary>
+        public const string SendName = "send_name";
+
+        /// <summary>
+        /// 用户openid https://mp.weixin.qq.com/wiki?t=resource/res_main&id=mp1445241432
+        /// </summary>
+        public const string ReOpenid = "re_openid";
+
+        /// <summary>
+        /// 付款金额
+        /// </summary>
+        public const string TotalAmount = "total_amount";
+
+        /// <summary>
+        /// 红包发放总人数
+        /// </summary>
+        public const string TotalNum = "total_num";
+
+        /// <summary>
+        /// 红包祝福语
+        /// </summary>
+        public const string Wishing = "wishing";
+
+        /// <summary>
+        /// Ip地址
+        /// </summary>
+        public const string ClientIp = "client_ip";
+
+        /// <summary>
+        /// 活动名称
+        /// </summary>
+        public const string ActName = "act_name";
+
+        /// <summary>
+        /// 备注
+        /// </summary>
+        public const string Remark = "remark";
+
+        /// <summary>
+        /// 场景id
+        /// </summary>
+        public const string SceneId = "scene_id";
+
+        /// <summary>
+        /// 活动信息
+        /// </summary>
+        public const string RiskInfo = "risk_info";
+
+        /// <summary>
+        /// 红包金额设置方式 
+        /// </summary>
+        public const string AmtType = "amt_type";
+
+        /// <summary>
+        /// MCHT:通过商户订单号获取红包信息。  
+        /// </summary>
+        public const string BillType = "bill_type ";
     }
 }

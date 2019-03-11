@@ -13,12 +13,12 @@ namespace Payments.Wechatpay.Abstractions
     /// </summary>
     [PayService("订单退款服务")]
     public interface IWechatRefundOrderService
-    { 
+    {
         /// <summary>
-       /// 订单查询
-       /// </summary>
-       /// <param name="param"></param>
-       /// <returns></returns>
+        /// 订单查询
+        /// </summary>
+        /// <param name="param"></param>
+        /// <returns></returns>
         Task<PayResult> RefundAsync(WechatRefundOrderRequest param);
     }
 }

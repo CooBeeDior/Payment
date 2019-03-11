@@ -11,7 +11,7 @@ namespace Payments.Wechatpay.Parameters.Requests
         /// <summary>
         /// 用户标识
         /// </summary>
-        [Required]
+        //[Required]
         [MaxLength(128)]
         public override string OpenId { get; set; }
     }

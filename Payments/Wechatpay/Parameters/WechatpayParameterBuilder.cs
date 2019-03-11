@@ -130,7 +130,26 @@ namespace Payments.Wechatpay.Parameters
             _builder.Add(WechatpayConst.OutTradeNo, outTradeNo);
             return this;
         }
-
+        /// <summary>
+        /// 微信退款单号
+        /// </summary>
+        /// <param name="refundId"></param>
+        /// <returns></returns>
+        public WechatpayParameterBuilder RefundId(string refundId)
+        {
+            _builder.Add(WechatpayConst.RefundId, refundId);
+            return this;
+        }
+        /// <summary>
+        /// 商户退款单号
+        /// </summary>
+        /// <param name="outRefundNo"></param>
+        /// <returns></returns>
+        public WechatpayParameterBuilder OutRefundNo(string outRefundNo)
+        {
+            _builder.Add(WechatpayConst.OutRefundNo, outRefundNo);
+            return this;
+        }
         /// <summary>
         /// 微信订单号
         /// </summary>
@@ -145,7 +164,7 @@ namespace Payments.Wechatpay.Parameters
         /// <summary>
         /// 订单优惠标记
         /// </summary>
-        /// <param name="feeType">货币类型</param>
+        /// <param name="goodsTag"> </param>
         public WechatpayParameterBuilder GoodsTag(string goodsTag)
         {
             _builder.Add(WechatpayConst.GoodsTag, goodsTag);
@@ -174,6 +193,16 @@ namespace Payments.Wechatpay.Parameters
             return this;
         }
 
+        /// <summary>
+        /// 退款货币种类     
+        /// </summary>
+        /// <param name="refundFeeType"></param>
+        /// <returns></returns>
+        public WechatpayParameterBuilder RefundFeeType(FeeType? refundFeeType)
+        {
+            _builder.Add(WechatpayConst.RefundFeeType, refundFeeType?.ToString());
+            return this;
+        }
         /// <summary>
         /// 设置总金额
         /// </summary>
@@ -244,6 +273,18 @@ namespace Payments.Wechatpay.Parameters
             _builder.Add(WechatpayConst.NotifyUrl, GetNotifyUrl(notifyUrl));
             return this;
         }
+
+        /// <summary>
+        /// 退款资金来源
+        /// </summary>
+        /// <param name="refundAccount"></param>
+        /// <returns></returns>
+        public WechatpayParameterBuilder RefundAccount(string refundAccount)
+        {
+            _builder.Add(WechatpayConst.RefundAccount, refundAccount);
+            return this;
+        }
+
 
         /// <summary>
         /// 获取回调通知地址
@@ -332,6 +373,27 @@ namespace Payments.Wechatpay.Parameters
         public WechatpayParameterBuilder OpenId(string openId)
         {
             _builder.Add(WechatpayConst.OpenId, openId);
+            return this;
+        }
+
+        /// <summary>
+        /// 扫码支付授权码，设备读取用户微信中的条码或者二维码信息
+        /// </summary>
+        /// <param name="authCode"></param>
+        /// <returns></returns>
+        public WechatpayParameterBuilder AuthCode(string authCode)
+        {
+            _builder.Add(WechatpayConst.AuthCode, authCode);
+            return this;
+        }
+        /// <summary>
+        /// 偏移量，当部分退款次数超过10次时可使用，表示返回的查询结果从这个偏移量开始取记录
+        /// </summary>
+        /// <param name="offset"></param>
+        /// <returns></returns>
+        public WechatpayParameterBuilder Offset(int? offset)
+        {
+            _builder.Add(WechatpayConst.Offset, offset);
             return this;
         }
         /// <summary>

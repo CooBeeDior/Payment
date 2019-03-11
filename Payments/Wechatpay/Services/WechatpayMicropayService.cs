@@ -79,9 +79,9 @@ namespace Payments.Wechatpay.Services
             builder.Body(param.Body).OutTradeNo(param.OutTradeNo)
              .TotalFee(param.TotalFee).NotifyUrl(param.NotifyUrl).Attach(param.Attach)
              .Detail(param.Detail).FeeType(param.FeeType).TimeStart(param.TimeStart)
-             .TimeExpire(param.TimeExpire).GoodsTag(param.GoodsTag).ProductId(param.ProductId)
-             .LimitPay(param.LimitPay).Receipt(param.Receipt).SceneInfo(param.SceneInfo)
-             .OpenId(param.OpenId);
+             .TimeExpire(param.TimeExpire).GoodsTag(param.GoodsTag).LimitPay(param.LimitPay)
+             .Receipt(param.Receipt).SceneInfo(param.SceneInfo)
+             .AuthCode(param.AuthCode).Remove(WechatpayConst.NotifyUrl);
         }
     }
 }

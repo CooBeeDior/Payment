@@ -21,13 +21,13 @@ namespace PayTest
             ServiceCollection serviceDescriptors = new ServiceCollection();
             serviceDescriptors.AddLogging();
 
-            serviceDescriptors.AddWechatPay( w =>
-            {
-                w.AppId = "wx6e95a65ad4ee0135";
-                w.MerchantId = "1517630381";
-                w.PrivateKey = "XIAKEweixinpay2019shjGGYGHD54hlk";
-                w.NotifyUrl = "https://www.baidu.com";
-            });
+            serviceDescriptors.AddWechatPay(w =>
+           {
+               w.AppId = "wx6e95a65ad4ee0135";
+               w.MerchantId = "1517630381";
+               w.PrivateKey = "XIAKEweixinpay2019shjGGYGHD54hlk";
+               w.NotifyUrl = "https://www.baidu.com";
+           });
             serviceDescriptors.AddPayService();
             serviceProvider = serviceDescriptors.BuildServiceProvider();
         }
@@ -35,131 +35,120 @@ namespace PayTest
         [TestMethod]
         public void WechatPayTest()
         {
-            //Native 下单 
-
-            string orderId = "77785522288585877856";
-
-            var wechatpayNativePayService = serviceProvider.GetService<IWechatpayMWebPayService>();
-            var wechatpayNativePayRequest = new WechatpayMWebPayRequest()
+            //下单 
+            string orderId = "dwaddwadd";
+            var wechatpayNativePayService = serviceProvider.GetService<IWechatpayNativePayService>();
+            var wechatpayNativePayRequest = new WechatpayNativePayRequest()
             {
                 Body = "sssss",
                 OutTradeNo = orderId,
                 TotalFee = 0.01m,
                 Attach = "dadadaaaa",
-                FeeType= FeeType.CNY,
+                FeeType = FeeType.CNY,
                 Detail = new WechatpayPayRequestBase.GoodsDetail()
                 {
-                    GoodsId= "GoodsId",
-                    WxpayGoodsId= "WxpayGoodsId",
-                    GoodsName= "GoodsName",
-                    Quantity=2,
-                    Price=1
+                    GoodsId = "GoodsId",
+                    WxpayGoodsId = "WxpayGoodsId",
+                    GoodsName = "GoodsName",
+                    Quantity = 2,
+                    Price = 1
 
                 },
-                Receipt="Y",
-                LimitPay= "no_credit",
+                Receipt = "Y",
+                LimitPay = "no_credit",
 
-                ProductId= "ProductId",
-                GoodsTag= "GoodsTag",
-                TimeExpire= DateTime.Now.AddHours(2),
-                TimeStart=DateTime.Now,
-                SceneInfo=new WechatpayPayRequestBase.SotreSceneInfo() {
-                    Id= "Id",
-                    Address= "Address",
-                    AreaCode= "AreaCode",
-                    Name= "Name"
+                //ProductId = "ProductId",
+                GoodsTag = "GoodsTag",
+                TimeExpire = DateTime.Now.AddHours(2),
+                TimeStart = DateTime.Now,
+                SceneInfo = new WechatpayPayRequestBase.SotreSceneInfo()
+                {
+                    Id = "Id",
+                    Address = "Address",
+                    AreaCode = "AreaCode",
+                    Name = "Name"
                 },
-            OpenId="98980989080980"
-               
+                //AuthCode = "134641486878412680",
+                OpenId = "98980989080980"
+
             };
-
-            var result1 = wechatpayNativePayService.PayAsync(wechatpayNativePayRequest).GetAwaiter().GetResult();
-
-            var wechatOrderQueryService = serviceProvider.GetService<IWechatOrderQueryService>();
-
-            var result2 = wechatOrderQueryService.QueryAsync(new WechatOrderQueryRequest()
-
-            {
-
-                OutTradeNo = orderId
-
-            }).GetAwaiter().GetResult();
-
-
-
-
-
-            //밑균땐데
-
+            var result = wechatpayNativePayService.PayAsync(wechatpayNativePayRequest).GetAwaiter().GetResult();
+            //关闭订单
             var wechatCloseOrderService = serviceProvider.GetService<IWechatCloseOrderService>();
-
             var result3 = wechatCloseOrderService.CloseAsync(new WechatCloseOrderRequest()
-
             {
 
                 OutTradeNo = orderId
 
             }).GetAwaiter().GetResult();
 
-
-
-            //꿴璂땐데
-
-            var result4 = wechatOrderQueryService.QueryAsync(new WechatOrderQueryRequest()
-
+            //查询订单
+            var wechatOrderQueryService = serviceProvider.GetService<IWechatOrderQueryService>();
+            var result2 = wechatOrderQueryService.QueryAsync(new WechatOrderQueryRequest()
             {
-
                 OutTradeNo = orderId
-
             }).GetAwaiter().GetResult();
 
+            Console.Read();
+
+            //撤销订单
+            //var wechatReverseOrderService = serviceProvider.GetService<IWechatReverseOrderService>();
+            //var result32 = wechatReverseOrderService.ReverseAsync(new WechatReverseOrderRequest()
+            //{
+            //    OutTradeNo = orderId
+            //}).GetAwaiter().GetResult();
+
+
+            //查询订单2
+            //var result22 = wechatOrderQueryService.QueryAsync(new WechatOrderQueryRequest()
+            //{
+            //    OutTradeNo = orderId
+            //}).GetAwaiter().GetResult();
+
+
+            //关闭订单
+            //var wechatCloseOrderService = serviceProvider.GetService<IWechatCloseOrderService>();
+            //var result3 = wechatCloseOrderService.CloseAsync(new WechatCloseOrderRequest()
+            //{
+
+            //    OutTradeNo = orderId
+
+            //}).GetAwaiter().GetResult();
 
 
 
+            ////查询订单
+            //var result4 = wechatOrderQueryService.QueryAsync(new WechatOrderQueryRequest()
+            //{
+            //    OutTradeNo = orderId
+            //}).GetAwaiter().GetResult();
 
-            //藁운땐데륩蛟
-
+            //申请退款
             var wechatRefundOrderService = serviceProvider.GetService<IWechatRefundOrderService>();
-
             var wechatRefundOrderRequest = new WechatRefundOrderRequest()
-
             {
-
-                OutRefundNo = "123456789",
-
                 OutTradeNo = orderId,
-
                 TotalFee = 0.01m,
-
                 RefundFee = 0.01m,
-
-
-
-                //NotifyUrl= "https://weixin.qq.com/notify/"
-
-
-
+                OutRefundNo = "123456789zzzzz"
             };
-
-            var result22 = wechatRefundOrderService.RefundAsync(wechatRefundOrderRequest).GetAwaiter().GetResult();
-
+            var result232 = wechatRefundOrderService.RefundAsync(wechatRefundOrderRequest).GetAwaiter().GetResult();
 
 
-            //꿴璂藁운땐데
 
+            //退款订单查询
             var wechatRefundQueryService = serviceProvider.GetService<IWechatRefundQueryService>();
-
             var wechatRefundQueryRequest = new WechatRefundQueryRequest()
-
             {
-
-                OrderId = orderId
-
+                OutTradeNo = orderId
             };
-
             var result2231 = wechatRefundQueryService.RefundQuery(wechatRefundQueryRequest).GetAwaiter().GetResult();
 
-
+            //查询订单23
+            var result22 = wechatOrderQueryService.QueryAsync(new WechatOrderQueryRequest()
+            {
+                OutTradeNo = orderId
+            }).GetAwaiter().GetResult();
 
         }
 

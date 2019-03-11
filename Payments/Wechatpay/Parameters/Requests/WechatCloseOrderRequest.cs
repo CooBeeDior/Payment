@@ -19,8 +19,8 @@ namespace Payments.Wechatpay.Parameters.Requests
         /// 商户订单号
         /// </summary>
         [Required]
-        [MaxLength(50, ErrorMessageResourceType = typeof(PayResource), ErrorMessageResourceName = "OutTradeNo32")]
-        public string OutTradeNo { get; set; }
+        [MaxLength(32)]
+        public virtual string OutTradeNo { get; set; }
 
 
 
