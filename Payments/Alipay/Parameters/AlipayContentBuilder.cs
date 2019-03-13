@@ -1,8 +1,5 @@
 ﻿using Payments.Alipay.Configs;
-using Payments.Core;
-using Util;
-using Util.Parameters;
-using Util.Parameters.Formats;
+using Payments.Util.ParameterBuilders.Impl;
 
 namespace Payments.Alipay.Parameters
 {
@@ -11,18 +8,7 @@ namespace Payments.Alipay.Parameters
     /// </summary>
     public class AlipayContentBuilder : ParameterBuilder
     {
-        /// <summary>
-        /// 初始化支付参数
-        /// </summary>
-        /// <param name="param">支付参数</param>
-        //public AlipayContentBuilder Init( PayParam param ) {
-        //    if( param == null )
-        //        return this;
-        //    return OutTradeNo( param.OrderId )
-        //        .Subject( param.Subject )
-        //        .TotalAmount( param.Money )
-        //        .TimeoutExpress( param.Timeout );
-        //}
+     
 
         /// <summary>
         /// 设置商户订单号

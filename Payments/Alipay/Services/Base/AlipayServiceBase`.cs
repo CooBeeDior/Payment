@@ -1,41 +1,37 @@
-﻿using System.Threading.Tasks;
+﻿using Microsoft.Extensions.Logging;
 using Payments.Alipay.Configs;
 using Payments.Alipay.Parameters;
+using Payments.Alipay.Parameters.Requests;
 using Payments.Alipay.Results;
-using Payments.Core;
-using Util;
-using Util.Helpers;
-using Util.Logs;
-using Util.Logs.Extensions;
-using Util.Validations;
+using Payments.Core.Response;
+using Payments.Extensions;
+using Payments.Util.Http;
+using Payments.Util.Logger;
+using Payments.Util.Validations;
+using System;
+using System.Threading.Tasks;
 
 namespace Payments.Alipay.Services.Base
 {
-    public abstract class AlipayServiceBase<TPayParam> where TPayParam : class, IValidation, new()
+    public abstract class AlipayServiceBase<TPayParam> where TPayParam : class, IAlipayRequest, IValidation, new()
     {
         /// <summary>
         /// 配置提供器
         /// </summary>
         protected readonly IAlipayConfigProvider ConfigProvider;
 
-        /// <summary>
-        /// 是否写日志
-        /// </summary>
-        protected bool IsWriteLog { get; set; } = true;
-
-        /// <summary>
-        /// 是否发送请求
-        /// </summary>
-        public bool IsSend { get; set; } = true;
+        protected ILogger<AlipayServiceBase> Logger { get; }
 
         /// <summary>
         /// 初始化支付宝支付服务
         /// </summary>
         /// <param name="provider">支付宝配置提供器</param>
-        protected AlipayServiceBase(IAlipayConfigProvider provider)
+        protected AlipayServiceBase(IAlipayConfigProvider provider, ILoggerFactory loggerFactory)
         {
             provider.CheckNull(nameof(provider));
             ConfigProvider = provider;
+            Logger = loggerFactory.CreateLogger<AlipayServiceBase>();
+
         }
 
         /// <summary>
@@ -102,7 +98,7 @@ namespace Payments.Alipay.Services.Base
         }
         protected virtual void InitContentBuilder(AlipayParameterBuilder builder, TPayParam param)
         {
-           
+
         }
 
         /// <summary>
@@ -120,10 +116,7 @@ namespace Payments.Alipay.Services.Base
         protected virtual async Task<PayResult> RequstResult(AlipayConfig config, AlipayParameterBuilder builder)
         {
             var result = new AlipayResult(await Request(config, builder));
-            if (IsWriteLog)
-            {
-                WriteLog(config, builder, result);
-            }
+            WriteLog(config, builder, result);
             return CreateResult(builder, result);
         }
 
@@ -132,12 +125,11 @@ namespace Payments.Alipay.Services.Base
         /// </summary>
         protected virtual async Task<string> Request(AlipayConfig config, AlipayParameterBuilder builder)
         {
-            if (IsSend == false)
-                return string.Empty;
-            return await Web.Client()
+            var resonse = await Web.Client()
                 .Post(config.GetGatewayUrl())
-                .Data(builder.GetDictionary())
+                .JsonData(builder.GetDictionary())
                 .ResultAsync();
+            return await resonse.Content.ReadAsStringAsync();
         }
 
 
@@ -147,64 +139,21 @@ namespace Payments.Alipay.Services.Base
         /// </summary>
         protected void WriteLog(AlipayConfig config, AlipayParameterBuilder builder, AlipayResult result)
         {
-            var log = GetLog();
-            if (log.IsTraceEnabled == false)
-                return;
-            log.Class(GetType().FullName)
-                .Caption("支付宝支付")
-                .Content($"支付方式 :  {GetType()}")
-                .Content($"支付网关 : {config.GetGatewayUrl()}")
-                .Content("请求参数:")
-                .Content(builder.GetDictionary())
-                .Content()
-                .Content("返回结果:")
-                .Content(result.GetDictionary())
-                .Content()
-                .Content("原始请求:")
-                .Content(builder.ToString())
-                .Content()
-                .Content("原始响应: ")
-                .Content(result.Raw)
-                .Trace();
+            var logContent = LogContentBuilder.CreateLogContentBuilder()
+                .SetEventId(Guid.NewGuid()).SetMoudle(GetType().FullName).SetTitle("支付宝支付")
+                .AddContent($"支付宝支付 : {GetType()}")
+                .AddContent($"支付网关 : {config?.GetGatewayUrl()}")
+                .AddContent($"请求参数:{builder?.GetDictionary()?.ToXml()}")
+                .AddContent($"返回结果:{result?.GetDictionary()}")
+                .AddContent($"原始响应:{result?.Raw}")
+                .Build();
+            Logger.LogInfo(logContent);
+
+
         }
 
-        /// <summary>
-        /// 写日志
-        /// </summary>
-        protected void WriteLog(AlipayConfig config, AlipayParameterBuilder builder, string content)
-        {
-            var log = GetLog();
-            if (log.IsTraceEnabled == false)
-                return;
-            log.Class(GetType().FullName)
-                .Caption("支付宝支付")
-                .Content($"支付方式 :  {GetType()}")
-                .Content($"支付网关 : {config.GetGatewayUrl()}")
-                .Content("请求参数:")
-                .Content(builder.GetDictionary())
-                .Content()
-                .Content("原始请求:")
-                .Content(builder.ToString())
-                .Content()
-                .Content("内容: ")
-                .Content(content)
-                .Trace();
-        }
 
-        /// <summary>
-        /// 获取日志操作
-        /// </summary>
-        private ILog GetLog()
-        {
-            try
-            {
-                return Log.GetLog(AlipayConst.TraceLogName);
-            }
-            catch
-            {
-                return Log.Null;
-            }
-        }
+
 
 
 

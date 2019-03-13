@@ -18,14 +18,14 @@ namespace Payments.Wechatpay.Parameters.Requests
         /// 商户订单号
         /// </summary>
         [MaxLength(32)]
-        public string OutTradeNo { get; set; }
+        public virtual string OutTradeNo { get; set; }
 
         /// <summary>
         /// 微信订单号
         /// </summary>
         [MaxLength(32)]
-        public string TransactionId { get; set; }
+        public virtual string TransactionId { get; set; }
 
-      
+
     }
 }

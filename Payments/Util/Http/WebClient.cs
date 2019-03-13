@@ -30,7 +30,7 @@ namespace Payments.Util.Http
         /// <summary>
         /// Headers
         /// </summary>
-        public IDictionary<string, string> Headers { get; private set; }
+        public IDictionary<string, object> Headers { get; private set; }
 
 
         /// <summary>
@@ -66,7 +66,7 @@ namespace Payments.Util.Http
         /// </summary>
         /// <param name="data"></param>
         /// <returns></returns>
-        public WebClient XmlData(IDictionary<string, string> data)
+        public WebClient XmlData(IDictionary<string, object> data)
         {
             var xmlData = data.ToXml();
             Content = new StringContent(xmlData, ContentEncoding, "text/xml");
@@ -88,11 +88,21 @@ namespace Payments.Util.Http
         /// </summary>
         /// <param name="data"></param>
         /// <returns></returns>
-        public WebClient JsonData<T>(T data) where T : class, new()
+        public WebClient JsonData<T>(T data)  
         {
             var jsonData = data.ToJson();
             Content = new StringContent(jsonData, ContentEncoding, "application/json");
             return this;
+        }
+
+        /// <summary>
+        /// Json数据
+        /// </summary>
+        /// <param name="data"></param>
+        /// <returns></returns>
+        public WebClient JsonData(IDictionary<string, object> data)
+        {
+            return this.JsonData<IDictionary<string, object>>(data);
         }
 
         /// <summary>
@@ -112,7 +122,7 @@ namespace Payments.Util.Http
         /// </summary>
         /// <param name="data"></param>
         /// <returns></returns>
-        public WebClient FormUrlEncodedContentData(IDictionary<string, string> data)
+        public WebClient FormUrlEncodedContentData(IDictionary<string, object> data)
         {
             Content = new FormUrlEncodedContent(data.ToDictionary(t => t.Key, t => t.Value.SafeString()));
             return this;
@@ -129,7 +139,7 @@ namespace Payments.Util.Http
             return this;
         }
 
-        public WebClient AddHeaders(IDictionary<string, string> headers)
+        public WebClient AddHeaders(IDictionary<string, object> headers)
         {
             this.Headers = headers;
             return this;
@@ -148,7 +158,7 @@ namespace Payments.Util.Http
                 {
                     foreach (var header in Headers)
                     {
-                        httpRequestMessage.Headers.Add(header.Key, header.Value);
+                        httpRequestMessage.Headers.Add(header.Key, header.Value?.ToString());
                     }
                 }
                 HttpResponseMessage response = await httpclient.SendAsync(httpRequestMessage);

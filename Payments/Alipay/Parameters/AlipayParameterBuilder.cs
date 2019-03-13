@@ -1,12 +1,8 @@
-﻿using System;
+﻿using Payments.Alipay.Configs;
+using Payments.Extensions;
+using Payments.Util.ParameterBuilders.Impl;
+using System;
 using System.Collections.Generic;
-using System.Linq;
-using Payments.Alipay.Configs;
-using Payments.Core;
-using Util;
-using Util.Helpers;
-using Util.Parameters;
-using Util.Signatures;
 
 namespace Payments.Alipay.Parameters
 {
@@ -113,7 +109,7 @@ namespace Payments.Alipay.Parameters
         /// </summary>
         private AlipayParameterBuilder Timestamp()
         {
-            _builder.Add(AlipayConst.Timestamp, Time.GetDateTime());
+            _builder.Add(AlipayConst.Timestamp, DateTime.Now);
             return this;
         }
 

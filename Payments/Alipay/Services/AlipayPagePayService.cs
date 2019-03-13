@@ -1,5 +1,6 @@
 ﻿using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.Logging;
 using Payments.Alipay.Abstractions;
 using Payments.Alipay.Configs;
 using Payments.Alipay.Parameters;
@@ -19,7 +20,7 @@ namespace Payments.Alipay.Services
         /// 初始化支付宝电脑网站支付服务
         /// </summary>
         /// <param name="provider">支付宝配置提供器</param>
-        public AlipayPagePayService(IAlipayConfigProvider provider) : base(provider)
+        public AlipayPagePayService(IAlipayConfigProvider provider, ILoggerFactory loggerFactory) : base(provider, loggerFactory)
         {
         }
 

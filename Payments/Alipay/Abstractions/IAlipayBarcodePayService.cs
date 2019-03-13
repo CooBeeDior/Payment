@@ -2,6 +2,7 @@
 using Payments.Alipay.Parameters.Requests;
 using Payments.Attributes;
 using Payments.Core;
+using Payments.Core.Response;
 
 namespace Payments.Alipay.Abstractions {
     /// <summary>

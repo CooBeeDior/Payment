@@ -49,7 +49,7 @@ namespace Payments.Wechatpay.Parameters.Requests
         /// 退款货币种类
         /// </summary>
         [MaxLength(8)]
-        public virtual FeeType RefundFeeType { get; set; }
+        public virtual FeeType? RefundFeeType { get; set; }
 
         /// <summary>
         /// 退款原因

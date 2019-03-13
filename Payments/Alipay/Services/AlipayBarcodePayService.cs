@@ -1,4 +1,5 @@
-﻿using Payments.Alipay.Abstractions;
+﻿using Microsoft.Extensions.Logging;
+using Payments.Alipay.Abstractions;
 using Payments.Alipay.Configs;
 using Payments.Alipay.Parameters;
 using Payments.Alipay.Parameters.Requests;
@@ -19,7 +20,7 @@ namespace Payments.Alipay.Services
         /// 初始化支付宝条码支付服务
         /// </summary>
         /// <param name="provider">支付宝配置提供器</param>
-        public AlipayBarcodePayService(IAlipayConfigProvider provider) : base(provider)
+        public AlipayBarcodePayService(IAlipayConfigProvider provider, ILoggerFactory loggerFactory) : base(provider, loggerFactory)
         {
         }
 

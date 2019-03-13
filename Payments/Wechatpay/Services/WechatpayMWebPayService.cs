@@ -11,22 +11,25 @@ using Payments.Wechatpay.Results;
 using Payments.Wechatpay.Services.Base;
 using System;
 using System.Threading.Tasks;
+
 namespace Payments.Wechatpay.Services
 {
+     
+
     /// <summary>
-    /// 微信JsApi支付服务
+    /// 微信NWeb支付服务
     /// </summary>
-    public class WechatpayJsApiPayService : WechatpayServiceBase, IWechatpayJsApiPayService
+    public class WechatpayMWebPayService : WechatpayServiceBase, IWechatpayMWebPayService
     {
         /// <summary>
         /// 初始化微信App支付服务
         /// </summary>
         /// <param name="provider">微信支付配置提供器</param>
-        public WechatpayJsApiPayService(IWechatpayConfigProvider provider, ILoggerFactory loggerFactory) : base(provider, loggerFactory)
+        public WechatpayMWebPayService(IWechatpayConfigProvider provider, ILoggerFactory loggerFactory) : base(provider, loggerFactory)
         {
         }
 
-        public Task<PayResult> PayAsync(WechatpayJsApiPayRequest t)
+        public Task<PayResult> PayAsync(WechatpayMWebPayRequest t)
         {
             return base.PayAsync(t);
         }
@@ -37,7 +40,7 @@ namespace Payments.Wechatpay.Services
         /// </summary>
         protected override string GetTradeType()
         {
-            return "JSAPI";
+            return "MWEB";
         }
         /// <summary>
         /// 验证参数
@@ -45,7 +48,7 @@ namespace Payments.Wechatpay.Services
         /// <param name="param">支付参数</param>
         protected override void ValidateParam(WechatpayPayRequestBase param)
         {
-            param.OpenId.CheckNull(nameof(param.OpenId));
+      
         }
 
         /// <summary>

@@ -2,6 +2,13 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp2.1</TargetFramework>
+    <Authors>CoobeeDior</Authors>
+    <Company>CoobeeDior</Company>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
+    <Description>netcore2.x版本的微信支付和支付宝支付</Description>
+    <PackageProjectUrl>https://github.com/CooBeeDior/Payment.git</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/CooBeeDior/Payment.git</RepositoryUrl>
   </PropertyGroup>
 
   <ItemGroup>

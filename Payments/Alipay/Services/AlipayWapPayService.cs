@@ -1,14 +1,15 @@
-﻿using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.Logging;
 using Payments.Alipay.Abstractions;
 using Payments.Alipay.Configs;
 using Payments.Alipay.Parameters;
 using Payments.Alipay.Parameters.Requests;
 using Payments.Alipay.Services.Base;
-using Payments.Core;
-using Util.Helpers;
+using Payments.Core.Response;
+using System.Threading.Tasks;
 
-namespace Payments.Alipay.Services {
+namespace Payments.Alipay.Services
+{
     /// <summary>
     /// 支付宝手机网站支付服务
     /// </summary>
@@ -17,7 +18,7 @@ namespace Payments.Alipay.Services {
         /// 初始化支付宝手机网站支付服务
         /// </summary>
         /// <param name="provider">支付宝配置提供器</param>
-        public AlipayWapPayService( IAlipayConfigProvider provider ) : base( provider ) {
+        public AlipayWapPayService( IAlipayConfigProvider provider, ILoggerFactory loggerFactory) : base( provider, loggerFactory) {
         }
 
         /// <summary>
