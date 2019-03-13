@@ -89,7 +89,7 @@ namespace PayTest
 
 
 
-            //밑균땐데
+            //查询
 
             var wechatCloseOrderService = serviceProvider.GetService<IWechatCloseOrderService>();
 
@@ -103,7 +103,7 @@ namespace PayTest
 
 
 
-            //꿴璂땐데
+            //查询
 
             var result4 = wechatOrderQueryService.QueryAsync(new WechatOrderQueryRequest()
 
@@ -117,7 +117,7 @@ namespace PayTest
 
 
 
-            //藁운땐데륩蛟
+            //退款
 
             var wechatRefundOrderService = serviceProvider.GetService<IWechatRefundOrderService>();
 
@@ -145,7 +145,7 @@ namespace PayTest
 
 
 
-            //꿴璂藁운땐데
+            //退款查询
 
             var wechatRefundQueryService = serviceProvider.GetService<IWechatRefundQueryService>();
 
@@ -153,7 +153,7 @@ namespace PayTest
 
             {
 
-                OrderId = orderId
+                OutTradeNo = orderId
 
             };
 
