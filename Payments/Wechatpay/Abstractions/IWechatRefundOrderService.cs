@@ -1,5 +1,6 @@
 ﻿using Payments.Attributes;
 using Payments.Core;
+using Payments.Core.Enum;
 using Payments.Core.Response;
 using Payments.Wechatpay.Parameters.Requests;
 using System;
@@ -11,7 +12,7 @@ namespace Payments.Wechatpay.Abstractions
 {   /// <summary>
     /// 关闭订单服务
     /// </summary>
-    [PayService("订单退款服务")]
+    [PayService("订单退款服务", PayOriginType.WechatPay)]
     public interface IWechatRefundOrderService
     { 
         /// <summary>

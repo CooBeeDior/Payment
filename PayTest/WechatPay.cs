@@ -28,7 +28,7 @@ namespace PayTest
                 w.PrivateKey = "XIAKEweixinpay2019shjGGYGHD54hlk";
                 w.NotifyUrl = "https://www.baidu.com";
             });
-            serviceDescriptors.AddPayService();
+       
             serviceProvider = serviceDescriptors.BuildServiceProvider();
         }
 
@@ -37,7 +37,7 @@ namespace PayTest
         {
             //Native 下单 
 
-            string orderId = "77785588585877856";
+            string orderId = "78787897jhjh";
 
             var wechatpayNativePayService = serviceProvider.GetService<IWechatpayJsApiPayService>();
             var wechatpayNativePayRequest = new WechatpayJsApiPayRequest()

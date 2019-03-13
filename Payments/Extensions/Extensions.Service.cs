@@ -1,10 +1,12 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Payments.Attributes;
+using Payments.Core.Enum;
 using Payments.Wechatpay.Abstractions;
 using Payments.Wechatpay.Configs;
 using Payments.Wechatpay.Services;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 
@@ -27,6 +29,7 @@ namespace Payments.Extensions
         //    services.TryAddSingleton<IAlipayConfigProvider>(new AlipayConfigProvider(alipayConfig));
         //    services.TryAddScoped<IAlipayNotifyService, AlipayNotifyService>();
         //    services.TryAddScoped<IAlipayReturnService, AlipayReturnService>();
+        //    services.AddPayService(PayOriginType.AliPay);
         //}
 
         /// <summary>
@@ -39,6 +42,7 @@ namespace Payments.Extensions
         //    services.TryAddSingleton<IAlipayConfigProvider, TAlipayConfigProvider>();
         //    services.TryAddScoped<IAlipayNotifyService, AlipayNotifyService>();
         //    services.TryAddScoped<IAlipayReturnService, AlipayReturnService>();
+        //    services.AddPayService(PayOriginType.AliPay);
         //}
         /// <summary>
         /// 注册微信支付
@@ -51,6 +55,7 @@ namespace Payments.Extensions
             setupAction?.Invoke(wechatpayConfig);
             services.TryAddSingleton<IWechatpayConfigProvider>(new WechatpayConfigProvider(wechatpayConfig));
             services.TryAddScoped<IWechatpayNotifyService, WechatpayNotifyService>();
+            services.AddPayService(PayOriginType.WechatPay);
         }
 
         /// <summary>
@@ -62,6 +67,7 @@ namespace Payments.Extensions
         {
             services.TryAddScoped<IWechatpayConfigProvider, TWechatpayConfigProvider>();
             services.TryAddScoped<IWechatpayNotifyService, WechatpayNotifyService>();
+            services.AddPayService(PayOriginType.WechatPay);
         }
         //public static void AddPay(this IServiceCollection services, Action<AlipayConfig> aliPaySetupAction = null, Action<WechatpayConfig> wechatPaySetupAction = null)
         //{
@@ -77,12 +83,21 @@ namespace Payments.Extensions
         //    services.AddPayService();
         //}
 
+        private static void AddPayService(this IServiceCollection services, PayOriginType payOriginType)
+        {
+            AddPayService(services, new List<PayOriginType>() { payOriginType });
+        }
 
-        public static void AddPayService(this IServiceCollection services)
+
+        private static void AddPayService(this IServiceCollection services, IList<PayOriginType> payOriginTypes = null)
         {
             var currentAssembly = Assembly.GetExecutingAssembly();
             var types = currentAssembly.GetTypes();
             var interfaceTypes = types.Where(o => o.IsInterface && o.GetCustomAttribute<PayServiceAttribute>(false) != null);
+            if (payOriginTypes != null && payOriginTypes.Count > 0)
+            {
+                interfaceTypes = interfaceTypes.Where(o => payOriginTypes.Contains(o.GetCustomAttribute<PayServiceAttribute>(false).PayOriginType));
+            }
             foreach (var interfaceType in interfaceTypes)
             {
                 var findTypes = types.Where(o => o.IsClass && interfaceType.IsAssignableFrom(o)).ToList();

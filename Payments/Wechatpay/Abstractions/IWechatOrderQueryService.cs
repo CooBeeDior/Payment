@@ -1,5 +1,6 @@
 ﻿using Payments.Attributes;
 using Payments.Core;
+using Payments.Core.Enum;
 using Payments.Core.Response;
 using Payments.Wechatpay.Parameters.Requests;
 using System;
@@ -12,7 +13,7 @@ namespace Payments.Wechatpay.Abstractions
     /// <summary>
     /// 订单查询服务
     /// </summary>
-    [PayService("订单查询服务")]
+    [PayService("订单查询服务", PayOriginType.WechatPay)]
     public interface IWechatOrderQueryService  
     { 
         /// <summary>
