@@ -57,7 +57,7 @@
 
 # 使用方法，注册支付服务到容器里面.
 ```c#
-       serviceDescriptors.AddPay(a =>
+       service.AddPay(a =>
        {
 
            a.GatewayUrl = "https://openapi.alipay.com/gateway.do";
