@@ -20,7 +20,9 @@ namespace Payments.Wechatpay.Results
         /// <summary>
         /// 配置提供器
         /// </summary>
-        private readonly IWechatpayConfigProvider _configProvider;
+        //private readonly IWechatpayConfigProvider _configProvider;
+
+        private readonly WechatpayConfig _wechatpayConfig;
         /// <summary>
         /// 响应结果
         /// </summary>
@@ -41,10 +43,10 @@ namespace Payments.Wechatpay.Results
         /// </summary>
         /// <param name="configProvider">配置提供器</param>
         /// <param name="response">xml响应消息</param>
-        public WechatpayResult(IWechatpayConfigProvider configProvider, string response, HttpRequest httpRequest = null)
+        public WechatpayResult(WechatpayConfig wechatpayConfig, string response, HttpRequest httpRequest = null)
         {
-            configProvider.CheckNull(nameof(configProvider));
-            _configProvider = configProvider;
+            wechatpayConfig.CheckNull(nameof(wechatpayConfig));
+            _wechatpayConfig = wechatpayConfig;
             Raw = response;
             _builder = new ParameterBuilder();
             Resolve(response);
@@ -213,7 +215,7 @@ namespace Payments.Wechatpay.Results
         {
             if (GetReturnCode() != WechatpayConst.Success || GetResultCode() != WechatpayConst.Success)
                 return new ValidationResultCollection(GetErrorCodeDescription());
-            var isValid = await VerifySign();
+            var isValid = VerifySign();
             if (isValid == false)
                 return new ValidationResultCollection("签名失败");
             return ValidationResultCollection.Success;
@@ -222,10 +224,9 @@ namespace Payments.Wechatpay.Results
         /// <summary>
         /// 验证签名
         /// </summary>
-        public async Task<bool> VerifySign()
+        public bool VerifySign()
         {
-            var config = await _configProvider.GetConfigAsync(_builder);
-            return SignManagerFactory.Create(config, Request, _builder).Verify(GetSign());
+            return SignManagerFactory.Create(_wechatpayConfig, Request, _builder).Verify(GetSign());
         }
     }
 }

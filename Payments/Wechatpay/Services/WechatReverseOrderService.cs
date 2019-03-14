@@ -49,6 +49,12 @@ namespace Payments.Wechatpay.Services
         {
             builder.TransactionId(param.TransactionId).OutTradeNo(param.OutTradeNo)
                    .Remove(WechatpayConst.SpbillCreateIp);
+
+        }
+        protected override WechatpayParameterBuilder CreateParameterBuilder()
+        {
+            var builder = new WechatpayCertParameterBuilder(Config);
+            return builder;
         }
     }
 }

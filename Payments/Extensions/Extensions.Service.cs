@@ -13,7 +13,7 @@ using System.Reflection;
 namespace Payments.Extensions
 {
     /// <summary>
-    /// 支付扩展
+    /// 支付扩展 注依赖ILoggerFactory  IHttpContextAccessor
     /// </summary>
     public static partial class Extensions
     {

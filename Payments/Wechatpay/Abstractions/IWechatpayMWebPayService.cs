@@ -8,7 +8,7 @@ namespace Payments.Wechatpay.Abstractions
 { /// <summary>
   /// 微信JsApi支付服务
   /// </summary>
-    [PayService("微信NWeb支付")]
+    [PayService("微信MWeb支付")]
     public interface IWechatpayMWebPayService : IWechatpayPayService<WechatpayMWebPayRequest>
     {
 

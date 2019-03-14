@@ -23,7 +23,7 @@ namespace Payments.Util.ParameterBuilders.Impl
         /// </summary>
         public ParameterBuilder()
         {
-            _params = new Dictionary<string, object>();
+            _params = new SortedDictionary<string, object>();
         }
 
         /// <summary>
@@ -40,7 +40,7 @@ namespace Payments.Util.ParameterBuilders.Impl
         /// <param name="dictionary">字典</param>
         public ParameterBuilder(IDictionary<string, object> dictionary)
         {
-            _params = dictionary == null ? new Dictionary<string, object>() : new Dictionary<string, object>(dictionary);
+            _params = dictionary == null ? new SortedDictionary<string, object>() : new SortedDictionary<string, object>(dictionary);
         }
 
         /// <summary>

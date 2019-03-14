@@ -22,7 +22,9 @@ namespace Payments.Wechatpay.Services.Base
         /// <summary>
         /// 配置提供器
         /// </summary>
-        protected readonly IWechatpayConfigProvider ConfigProvider;
+        protected readonly WechatpayConfig Config;
+
+        //protected readonly IWechatpayConfigProvider ConfigProvider;
 
         /// <summary>
         /// 初始化微信支付服务
@@ -31,7 +33,8 @@ namespace Payments.Wechatpay.Services.Base
         protected WechatpayServiceBase(IWechatpayConfigProvider configProvider, ILoggerFactory loggerFactory)
         {
             configProvider.CheckNull(nameof(configProvider));
-            ConfigProvider = configProvider;
+            //ConfigProvider = configProvider;
+            Config = configProvider.GetConfig();
             Logger = loggerFactory.CreateLogger<WechatpayServiceBase>();
         }
 
@@ -50,13 +53,19 @@ namespace Payments.Wechatpay.Services.Base
             ValidateParam(param);
         }
 
-        protected virtual async Task<PayResult> Request(TPayParam param)
+        protected async Task<PayResult> Request(TPayParam param)
         {
-            var config = await ConfigProvider.GetConfigAsync();
-            Validate(config, param);
-            var builder = new WechatpayParameterBuilder(config);
-            Config(builder, param);
-            return await RequstResult(config, builder);
+            //var config = await ConfigProvider.GetConfigAsync();
+            Validate(Config, param);
+            var builder = CreateParameterBuilder();
+            BuildConfig(builder, param);
+            return await RequstResult(Config, builder);
+        }
+
+        protected virtual WechatpayParameterBuilder CreateParameterBuilder()
+        {
+            var builder = new WechatpayParameterBuilder(Config);
+            return builder;
         }
 
         /// <summary>
@@ -72,7 +81,7 @@ namespace Payments.Wechatpay.Services.Base
         /// </summary>
         /// <param name="builder">参数生成器</param>
         /// <param name="param">支付参数</param>
-        protected void Config(WechatpayParameterBuilder builder, TPayParam param)
+        protected void BuildConfig(WechatpayParameterBuilder builder, TPayParam param)
         {
             builder.Init();
             InitBuilder(builder, param);
@@ -93,7 +102,7 @@ namespace Payments.Wechatpay.Services.Base
         /// </summary>
         protected async Task<PayResult> RequstResult(WechatpayConfig config, WechatpayParameterBuilder builder)
         {
-            var result = new WechatpayResult(ConfigProvider, await Request(config, builder));
+            var result = new WechatpayResult(Config, await Request(config, builder));
             WriteLog(config, builder, result);
             return await CreateResult(config, builder, result);
         }

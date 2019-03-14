@@ -31,6 +31,11 @@ namespace Payments.Wechatpay.Configs
             return Task.FromResult(_config);
         }
 
-        
+        public WechatpayConfig GetConfig(IParameterBuilder parameters = null)
+        {
+            return _config;
+        }
+
+
     }
 }

@@ -21,14 +21,14 @@ namespace PayTest
             ServiceCollection serviceDescriptors = new ServiceCollection();
             serviceDescriptors.AddLogging();
 
-            serviceDescriptors.AddWechatPay( w =>
-            {
-                w.AppId = "wx6e95a65ad4ee0135";
-                w.MerchantId = "1517630381";
-                w.PrivateKey = "XIAKEweixinpay2019shjGGYGHD54hlk";
-                w.NotifyUrl = "https://www.baidu.com";
-            });
-       
+            serviceDescriptors.AddWechatPay(w =>
+           {
+               w.AppId = "wx6e95a65ad4ee0135";
+               w.MerchantId = "1517630381";
+               w.PrivateKey = "XIAKEweixinpay2019shjGGYGHD54hlk";
+               w.NotifyUrl = "https://www.baidu.com";
+           });
+
             serviceProvider = serviceDescriptors.BuildServiceProvider();
         }
 
@@ -37,40 +37,46 @@ namespace PayTest
         {
             //Native 下单 
 
-            string orderId = "78787897jhjh";
+            string orderId = "dawdawd2122";
 
-            var wechatpayNativePayService = serviceProvider.GetService<IWechatpayJsApiPayService>();
-            var wechatpayNativePayRequest = new WechatpayJsApiPayRequest()
+            var wechatpayNativePayService = serviceProvider.GetService<IWechatpayNativePayService>();
+            var wechatpayNativePayRequest = new WechatpayNativePayRequest()
             {
                 Body = "sssss",
                 OutTradeNo = orderId,
                 TotalFee = 0.01m,
                 Attach = "dadadaaaa",
-                FeeType= FeeType.CNY,
+                FeeType = FeeType.CNY,
                 Detail = new WechatpayPayRequestBase.GoodsDetail()
                 {
-                    GoodsId= "GoodsId",
-                    WxpayGoodsId= "WxpayGoodsId",
-                    GoodsName= "GoodsName",
-                    Quantity=2,
-                    Price=1
+                    GoodsId = "GoodsId",
+                    WxpayGoodsId = "WxpayGoodsId",
+                    GoodsName = "GoodsName",
+                    Quantity = 2,
+                    Price = 1
 
                 },
-                Receipt="Y",
-                LimitPay= "no_credit",
+                Receipt = "Y",
+                LimitPay = "no_credit",
 
-                ProductId= "ProductId",
-                GoodsTag= "GoodsTag",
-                TimeExpire= DateTime.Now.AddHours(2),
-                TimeStart=DateTime.Now,
-                SceneInfo=new WechatpayPayRequestBase.SotreSceneInfo() {
-                    Id= "Id",
-                    Address= "Address",
-                    AreaCode= "AreaCode",
-                    Name= "Name"
-                },
-            OpenId="98980989080980"
-               
+                ProductId = "ProductId",
+                GoodsTag = "GoodsTag",
+                TimeExpire = DateTime.Now.AddHours(2),
+                TimeStart = DateTime.Now,
+                SceneInfo = new WechatpayPayRequestBase.StoreSceneInfo
+                {
+
+                    store_info = new WechatpayPayRequestBase.StoreSceneInfoObj()
+                    {
+                        id = "Id",
+                        address = "Address",
+                        area_code = "AreaCode",
+                        name = "Name"
+                    },
+                }.ToJson()
+
+                //OpenId="98980989080980"
+
             };
 
             var result1 = wechatpayNativePayService.PayAsync(wechatpayNativePayRequest).GetAwaiter().GetResult();

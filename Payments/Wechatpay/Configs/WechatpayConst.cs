@@ -230,7 +230,7 @@
         /// <summary>
         /// 商户订单号
         /// </summary>
-        public const string MchBillno = "mch_billno";
+        public const string MchBillNo = "mch_billno";
 
         /// <summary>
         /// 公众账号appid

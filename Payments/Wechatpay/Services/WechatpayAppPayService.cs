@@ -36,7 +36,12 @@ namespace Payments.Wechatpay.Services
         }
 
 
+        protected override void InitBuilder(WechatpayParameterBuilder builder, WechatpayPayRequestBase param)
+        {
+            base.InitBuilder(builder, param);
+            builder.Remove(WechatpayConst.SceneInfo);
 
+        }
         /// <summary>
         /// 获取交易类型
         /// </summary>

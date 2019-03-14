@@ -1,4 +1,5 @@
-﻿using Payments.Util.Validations.Attribbutes;
+﻿using Payments.Util.Validations;
+using Payments.Util.Validations.Attribbutes;
 using Payments.Wechatpay.Enums;
 using System;
 using System.Collections.Generic;
@@ -10,7 +11,7 @@ namespace Payments.Wechatpay.Parameters.Requests
     /// <summary>
     /// 发放裂变红包
     /// </summary>
-    public class WechatSendGroupRedPackRequest
+    public class WechatSendGroupRedPackRequest : Validation, IWechatpayRequest, IValidation
     {
         /// <summary>
         /// 商户订单号

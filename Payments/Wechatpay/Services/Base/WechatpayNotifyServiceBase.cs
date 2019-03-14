@@ -20,7 +20,9 @@ namespace Payments.Wechatpay.Services.Base
         /// <summary>
         /// 配置提供器
         /// </summary>
-        protected readonly IWechatpayConfigProvider ConfigProvider;
+        //protected readonly IWechatpayConfigProvider ConfigProvider;
+        protected readonly WechatpayConfig Config;
+
         /// <summary>
         /// 微信支付结果
         /// </summary>
@@ -37,7 +39,7 @@ namespace Payments.Wechatpay.Services.Base
         public WechatpayNotifyServiceBase(IWechatpayConfigProvider configProvider, IHttpContextAccessor httpContextAccessor)
         {
             configProvider.CheckNull(nameof(configProvider));
-            ConfigProvider = configProvider;
+            Config = configProvider.GetConfig();
             IsLoad = false;
             Request = httpContextAccessor?.HttpContext?.Request;
         }
@@ -88,7 +90,7 @@ namespace Payments.Wechatpay.Services.Base
         {
             Request?.EnableRewind();
             string body = Request?.Body?.ToString();
-            Result = new WechatpayResult(ConfigProvider, body, Request);
+            Result = new WechatpayResult(Config, body, Request);
         }
 
         /// <summary>

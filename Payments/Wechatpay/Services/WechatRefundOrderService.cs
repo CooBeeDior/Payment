@@ -60,5 +60,11 @@ namespace Payments.Wechatpay.Services
         {
             return config.GetRefundQueryUrl();
         }
+
+        protected override WechatpayParameterBuilder CreateParameterBuilder()
+        {
+            var builder = new WechatpayCertParameterBuilder(Config);
+            return builder;
+        }
     }
 }

@@ -94,9 +94,15 @@ namespace Payments.Wechatpay.Parameters.Requests
 
         /// <summary>
         /// 场景信息
+        /// {"store_info" : {
+        ///    "id": "SZTX001",
+        ///    "name": "腾大餐厅",
+        ///    "area_code": "440305",
+        ///    "address": "科技园中一路腾讯大厦" }
+        ///    }
         /// </summary>
-        [MaxLengthObjectToJson(256)]
-        public virtual SotreSceneInfo SceneInfo { get; set; }
+        [MaxLength(256)]
+        public virtual string SceneInfo { get; set; }
 
 
         /// <summary>
@@ -149,34 +155,47 @@ namespace Payments.Wechatpay.Parameters.Requests
         }
 
         /// <summary>
+        /// 场景信息对象
+        /// </summary>
+        public class StoreSceneInfo 
+        {
+            public StoreSceneInfoObj store_info { get; set; }
+        }
+        /// <summary>
         /// 场景信息
         /// </summary>
-        public class SotreSceneInfo
+        public class StoreSceneInfoObj
         {
             /// <summary>
             /// 门店编号
             /// </summary>
             [MaxLength(32)]
-            public string Id { get; set; }
+            public string id { get; set; }
 
             /// <summary>
             /// 门店名称 
             /// </summary>
             [MaxLength(64)]
-            public string Name { get; set; }
+            public string name { get; set; }
 
             /// <summary>
             /// 门店行政区划码
             /// </summary>
             [MaxLength(6)]
-            public string AreaCode { get; set; }
+            public string area_code { get; set; }
 
             /// <summary>
             /// 门店详细地址 
             /// </summary>
             [MaxLength(128)]
-            public string Address { get; set; }
+            public string address { get; set; }
         }
+
+
+
+    
+
+
 
     }
 }

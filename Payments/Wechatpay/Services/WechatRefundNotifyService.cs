@@ -46,7 +46,7 @@ namespace Payments.Wechatpay.Services
             //TODO解密 https://pay.weixin.qq.com/wiki/doc/api/jsapi.php?chapter=9_16&index=10
             Request?.EnableRewind();
             string body = Request?.Body?.ToString();
-            Result = new WechatpayResult(ConfigProvider, body, Request);
+            Result = new WechatpayResult(Config, body, Request);
         }
 
     }

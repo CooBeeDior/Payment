@@ -1,4 +1,5 @@
-﻿using Payments.Util.Validations.Attribbutes;
+﻿using Payments.Util.Validations;
+using Payments.Util.Validations.Attribbutes;
 using Payments.Wechatpay.Enums;
 using System;
 using System.Collections.Generic;
@@ -10,7 +11,7 @@ namespace Payments.Wechatpay.Parameters.Requests
     /// <summary>
     /// 发放普通红包
     /// </summary>
-    public class WechatSendRedPackRequest
+    public class WechatSendRedPackRequest : Validation, IWechatpayRequest, IValidation
     {
         /// <summary>
         /// 商户订单号
@@ -39,10 +40,20 @@ namespace Payments.Wechatpay.Parameters.Requests
         [Required]
         [MinValue(0)]
         public virtual decimal TotalAmount { get; set; }
-
+        /// <summary>
+        /// 红包发放总人数 
+        /// </summary>
         [Required]
         [MinValue(0)]
         public virtual int TotalNum { get; set; }
+
+        /// <summary>
+        /// 红包金额设置方式 红包金额设置方式 
+        /// ALL_RAND—全部随机,商户指定总金额和红包发放总人数
+        /// </summary>
+        [Required]
+        [MaxLength(32)]
+        public virtual string AmtType { get; set; } = "ALL_RAND";
 
         /// <summary>
         /// 红包祝福语

@@ -12,7 +12,7 @@
 #### [授权码查询openid](https://mp.weixin.qq.com/wiki?t=resource/res_main&id=mp1421140842)【】
 
 #### 查询支付订单【IWechatOrderQueryService】
-#### 撤销支付订单【IWechatReverseOrderService】测试接口报错
+#### 撤销支付订单【IWechatReverseOrderService】 
 #### 关闭支付订单【IWechatCloseOrderService】
 #### 申请退款订单【IWechatRefundOrderService】
 #### 退款订单查询【IWechatRefundQueryService】
