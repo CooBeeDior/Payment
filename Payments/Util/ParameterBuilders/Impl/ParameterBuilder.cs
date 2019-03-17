@@ -184,6 +184,20 @@ namespace Payments.Util.ParameterBuilders.Impl
             set => Add(name, value);
         }
 
+        public string ToUrl()
+        {
+            if (_params == null && _params.Count == 0)
+            {
+                return string.Empty;
+            }
+            StringBuilder sb = new StringBuilder();
+            foreach (var item in _params)
+            {
+                sb.Append($"{item.Key}={item.Value}&");
+            }
+            return sb.ToString().TrimEnd('&');
+        }
+
         /// <summary>
         /// 是否空参数
         /// </summary>

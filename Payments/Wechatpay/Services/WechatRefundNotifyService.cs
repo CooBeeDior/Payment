@@ -7,7 +7,7 @@ using Payments.Wechatpay.Configs;
 using Payments.Wechatpay.Results;
 using Payments.Wechatpay.Services.Base;
 using System;
-
+using System.IO;
 
 namespace Payments.Wechatpay.Services
 {
@@ -45,7 +45,8 @@ namespace Payments.Wechatpay.Services
             //建议使用 WechatRefundQueryService
             //TODO解密 https://pay.weixin.qq.com/wiki/doc/api/jsapi.php?chapter=9_16&index=10
             Request?.EnableRewind();
-            string body = Request?.Body?.ToString();
+            var sm = Request?.Body;
+            var body = sm?.ToContent();
             Result = new WechatpayResult(Config, body, Request);
         }
 

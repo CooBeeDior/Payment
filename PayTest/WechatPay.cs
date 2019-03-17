@@ -20,7 +20,7 @@ namespace PayTest
 
             ServiceCollection serviceDescriptors = new ServiceCollection();
             serviceDescriptors.AddLogging();
-
+            serviceDescriptors.AddHttpContextAccessor();
             serviceDescriptors.AddWechatPay(w =>
            {
                w.AppId = "wx6e95a65ad4ee0135";
@@ -37,7 +37,15 @@ namespace PayTest
         {
             //Native 下单 
 
-            string orderId = "dawdawd2122";
+            var wechatpayNativePayOneService = serviceProvider.GetService<IWechatpayNativePayOneService>();
+            WechatpayNativePayOneRequest wechatpayNativePayOneRequest = new WechatpayNativePayOneRequest()
+            {
+                ProductId = "1123dwadawwaddaw45"
+            };
+
+            var url = wechatpayNativePayOneService.BuildUrl(wechatpayNativePayOneRequest).GetAwaiter().GetResult();
+
+            string orderId = "dawdaooowd2122";
 
             var wechatpayNativePayService = serviceProvider.GetService<IWechatpayNativePayService>();
             var wechatpayNativePayRequest = new WechatpayNativePayRequest()

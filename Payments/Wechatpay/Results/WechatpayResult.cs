@@ -1,11 +1,15 @@
 ﻿using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.Logging;
 using Payments.Extensions;
 using Payments.Util;
 using Payments.Util.Http;
+using Payments.Util.Logger;
 using Payments.Util.ParameterBuilders.Impl;
 using Payments.Util.Validations;
 using Payments.Wechatpay.Configs;
+using Payments.Wechatpay.Services.Base;
 using Payments.Wechatpay.Signatures;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -17,6 +21,7 @@ namespace Payments.Wechatpay.Results
     /// </summary>
     public class WechatpayResult
     {
+        
         /// <summary>
         /// 配置提供器
         /// </summary>
@@ -78,17 +83,13 @@ namespace Payments.Wechatpay.Results
         /// </summary>
         protected void WriteLog()
         {
-            //var log = GetLog();
-            //if( log.IsTraceEnabled == false )
-            //    return;
-            //log.Class( GetType().FullName )
-            //    .Caption( "微信支付返回" )
-            //    .Content( "参数:" )
-            //    .Content( GetParams() )
-            //    .Content()
-            //    .Content( "原始响应:" )
-            //    .Content( Raw )
-            //    .Trace();
+            //var logContent = LogContentBuilder.CreateLogContentBuilder()
+            //    .SetEventId(Guid.NewGuid()).SetMoudle(GetType().FullName).SetTitle("微信支付")
+            //    .AddContent($"微信支付返回 : { GetParams()}")
+            //    .AddContent($"原始响应 : {Raw}")             
+            //    .Build();
+            //Logger.LogInfo(logContent);
+            
         }
 
 

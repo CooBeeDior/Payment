@@ -89,7 +89,8 @@ namespace Payments.Wechatpay.Services.Base
         protected virtual void InitResult()
         {
             Request?.EnableRewind();
-            string body = Request?.Body?.ToString();
+            var sm = Request?.Body; ;
+            var body = sm?.ToContent();
             Result = new WechatpayResult(Config, body, Request);
         }
 
@@ -98,9 +99,7 @@ namespace Payments.Wechatpay.Services.Base
         /// </summary>
         public virtual async Task<ValidationResultCollection> ValidateAsync()
         {
-            Init();
-            if (Money <= 0)
-                return new ValidationResultCollection(PayResource.InvalidMoney);
+            Init();         
             return await Result.ValidateAsync();
         }
 

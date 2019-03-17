@@ -232,7 +232,10 @@ namespace Payments.Wechatpay.Configs
             return Url.Combine(GatewayUrl, "mmpaymkttransfers/gettransferinfo");
         }
 
-
+        public string GetBizPayUrl()
+        {
+            return "weixin://wxpay/bizpayurl";
+        }
 
 
 

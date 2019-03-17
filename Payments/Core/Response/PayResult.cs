@@ -68,5 +68,19 @@ namespace Payments.Core.Response
         /// 请求参数
         /// </summary>
         public string Parameter { get; set; }
+
+        public string GetParam(string key)
+        {
+            string result = null;
+            if (RawDictionary.ContainsKey(key))
+            {
+                result = RawDictionary[key];
+            }
+            else
+            {
+                result = string.Empty;
+            }
+            return result;
+        }
     }
 }

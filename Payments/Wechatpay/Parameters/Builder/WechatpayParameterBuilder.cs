@@ -53,7 +53,7 @@ namespace Payments.Wechatpay.Parameters
         /// </summary>
         /// <param name="name">参数名</param>
         /// <param name="value">参数值</param>
-        public WechatpayParameterBuilder Add(string name, string value)
+        public WechatpayParameterBuilder Add(string name, object value)
         {
             Builder.Add(name, value);
             return this;
@@ -108,6 +108,26 @@ namespace Payments.Wechatpay.Parameters
         public WechatpayParameterBuilder PrepayId(string prepayId)
         {
             Builder.Add(WechatpayConst.PrepayId, prepayId);
+            return this;
+        }
+        /// <summary>
+        /// 返回码
+        /// </summary>
+        /// <param name="returnCode"></param>
+        /// <returns></returns>
+        public WechatpayParameterBuilder ReturnCode(string returnCode)
+        {
+            Builder.Add(WechatpayConst.ReturnCode, returnCode);
+            return this;
+        }
+        /// <summary>
+        /// 结果码
+        /// </summary>
+        /// <param name="resultCode"></param>
+        /// <returns></returns>
+        public WechatpayParameterBuilder ResultCode(string resultCode)
+        {
+            Builder.Add(WechatpayConst.ResultCode, resultCode);
             return this;
         }
 
@@ -471,6 +491,15 @@ namespace Payments.Wechatpay.Parameters
         public string ToJson()
         {
             return GetSignBuilder().ToJson();
+        }
+
+        /// <summary>
+        /// 转换成Url
+        /// </summary>
+        /// <returns></returns>
+        public string ToUrl()
+        {
+            return GetSignBuilder().ToUrl();
         }
 
         /// <summary>

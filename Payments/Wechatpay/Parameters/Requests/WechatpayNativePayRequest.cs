@@ -11,12 +11,7 @@ namespace Payments.Wechatpay.Parameters.Requests
     /// </summary>
     public class WechatpayNativePayRequest : WechatpayPayRequestBase
     {
-        /// <summary>
-        /// 商品ID
-        /// </summary>
-        //[Required]
-        [MaxLength(32)]
-        public override string ProductId { get; set; }
+       
     }
 
 }

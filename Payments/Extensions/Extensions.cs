@@ -16,6 +16,7 @@ using System.Threading.Tasks;
 using System.Xml;
 using System.Collections.ObjectModel;
 using Payments.Properties;
+using System.Net;
 
 namespace Payments.Extensions
 {
@@ -206,15 +207,22 @@ namespace Payments.Extensions
         public static IReadOnlyDictionary<string, string> ToDictionay(this string xmlContent)
         {
             IDictionary<string, string> dic = new Dictionary<string, string>();
-            XmlDocument xml = new XmlDocument();
-            xml.LoadXml(xmlContent);
-            var node = xml.SelectSingleNode("/xml");
-            if (node.HasChildNodes)
+            try
             {
-                for (int i = 0; i < node.ChildNodes.Count; i++)
+                XmlDocument xml = new XmlDocument();
+                xml.LoadXml(xmlContent);
+                var node = xml.SelectSingleNode("/xml");
+                if (node.HasChildNodes)
                 {
-                    dic.Add(node.ChildNodes[i].Name, node.ChildNodes[i].InnerText);
+                    for (int i = 0; i < node.ChildNodes.Count; i++)
+                    {
+                        dic.Add(node.ChildNodes[i].Name, node.ChildNodes[i].InnerText);
+                    }
                 }
+
+            }
+            catch
+            {
             }
             IReadOnlyDictionary<string, string> readonlyDic = new ReadOnlyDictionary<string, string>(dic);
             return readonlyDic;
@@ -729,6 +737,26 @@ namespace Payments.Extensions
             TimeSpan span = new TimeSpan(long.Parse(timestamp + "0000000"));
             return start.Add(span).Add(new TimeSpan(8, 0, 0));
         }
+
+
+        public static string ToContent(this Stream sm)
+        {
+            if (sm == null)
+            {
+                return string.Empty;
+            }
+            StreamReader reader = new StreamReader(sm);
+            return reader.ReadToEnd();
+        }
+        public static async Task<string> ToContentAsync(this Stream sm)
+        {
+            if (sm == null)
+            {
+                return string.Empty;
+            }
+            StreamReader reader = new StreamReader(sm);
+            return await reader.ReadToEndAsync();
+        }
         #endregion
 
         #region 字符串
@@ -746,9 +774,22 @@ namespace Payments.Extensions
 
         #endregion
 
-        #region
+        #region HttpResponseMessage
+        public static HttpResponseMessage XmlToHttpResponseMessage(this string xml)
+        {
+            HttpResponseMessage response = new HttpResponseMessage(HttpStatusCode.OK);
+            StringContent content = new StringContent(xml, Encoding.UTF8, "text/xml");
+            response.Content = content;
+            return response;
+        }
 
-
+        public static HttpResponseMessage JsonToHttpResponseMessage(this string json)
+        {
+            HttpResponseMessage response = new HttpResponseMessage(HttpStatusCode.OK);
+            StringContent content = new StringContent(json, Encoding.UTF8, "application/json");
+            response.Content = content;
+            return response;
+        }
         #endregion
     }
 }
