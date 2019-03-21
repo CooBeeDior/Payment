@@ -9,7 +9,7 @@
 #### [H5支付](https://pay.weixin.qq.com/wiki/doc/api/H5.php?chapter=15_1)【IWechatpayMWebPayService】
 #### [付款码支付](https://pay.weixin.qq.com/wiki/doc/api/micropay.php?chapter=5_1)【IWechatpayMicroPayService】
 
-#### [授权码查询openid](https://mp.weixin.qq.com/wiki?t=resource/res_main&id=mp1421140842)【】
+#### [授权码查询openid](https://mp.weixin.qq.com/wiki?t=resource/res_main&id=mp1421140842)【IWechatAuthorizeService,IWechatAccessTokenService】
 
 #### 查询支付订单【IWechatOrderQueryService】
 #### 撤销支付订单【IWechatReverseOrderService】 
@@ -28,12 +28,12 @@
 #### [查询代金券批次](https://pay.weixin.qq.com/wiki/doc/api/tools/sp_coupon.php?chapter=12_1)【】
 #### [查询代金券信息](https://pay.weixin.qq.com/wiki/doc/api/tools/sp_coupon.php?chapter=12_1)【】
 
-#### [发放普通红包](https://pay.weixin.qq.com/wiki/doc/api/tools/cash_coupon.php?chapter=13_1)【】
-#### [发放裂变红包](https://pay.weixin.qq.com/wiki/doc/api/tools/cash_coupon.php?chapter=13_1)【】
-#### [查询红包记录](https://pay.weixin.qq.com/wiki/doc/api/tools/cash_coupon.php?chapter=13_1)【】
+#### [发放普通红包](https://pay.weixin.qq.com/wiki/doc/api/tools/cash_coupon.php?chapter=13_1)【IWechatSendRedPackService】
+#### [发放裂变红包](https://pay.weixin.qq.com/wiki/doc/api/tools/cash_coupon.php?chapter=13_1)【IWechatSendGroupRedPackService】
+#### [查询红包记录](https://pay.weixin.qq.com/wiki/doc/api/tools/cash_coupon.php?chapter=13_1)【IWechatpayHbInfoService】
 
-#### [企业付款](https://pay.weixin.qq.com/wiki/doc/api/tools/mch_pay.php?chapter=14_1)【】
-#### [查询企业付款](https://pay.weixin.qq.com/wiki/doc/api/tools/mch_pay.php?chapter=14_1)【】
+#### [企业付款](https://pay.weixin.qq.com/wiki/doc/api/tools/mch_pay.php?chapter=14_1)【IWechatTransfersService】
+#### [查询企业付款](https://pay.weixin.qq.com/wiki/doc/api/tools/mch_pay.php?chapter=14_1)【IWechatGetTransferInfoService】
 
 #### [申请签约](https://pay.weixin.qq.com/wiki/doc/api/pap.php?chapter=18_1&index=1)【】
 #### [小程序纯签约](https://pay.weixin.qq.com/wiki/doc/api/pap.php?chapter=18_14&index=2)【】

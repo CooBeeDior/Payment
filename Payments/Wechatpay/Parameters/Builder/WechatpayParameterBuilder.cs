@@ -430,9 +430,9 @@ namespace Payments.Wechatpay.Parameters
         /// <summary>
         /// 获取Xml结果，包含签名
         /// </summary>
-        public string ToXml()
+        public string ToXml(bool isSign = true)
         {
-            return ToXmlDocument(GetSignBuilder()).OuterXml;
+            return ToXmlDocument(GetSignBuilder(isSign)).OuterXml;
         }
 
         /// <summary>
@@ -462,10 +462,13 @@ namespace Payments.Wechatpay.Parameters
         /// <summary>
         /// 获取签名的参数生成器
         /// </summary>
-        protected virtual ParameterBuilder GetSignBuilder()
+        protected virtual ParameterBuilder GetSignBuilder(bool isSign = true)
         {
             var builder = new ParameterBuilder(Builder);
-            Builder.Add(WechatpayConst.Sign, GetSign());
+            if (isSign)
+            {
+                Builder.Add(WechatpayConst.Sign, GetSign());
+            }           
             return Builder;
         }
 
@@ -488,18 +491,18 @@ namespace Payments.Wechatpay.Parameters
         /// <summary>
         /// 获取Json结果，包含签名
         /// </summary>
-        public string ToJson()
+        public string ToJson(bool isSign = true)
         {
-            return GetSignBuilder().ToJson();
+            return GetSignBuilder(isSign).ToJson();
         }
 
         /// <summary>
         /// 转换成Url
         /// </summary>
         /// <returns></returns>
-        public string ToUrl()
+        public string ToUrl(bool isSign = true)
         {
-            return GetSignBuilder().ToUrl();
+            return GetSignBuilder(isSign).ToUrl();
         }
 
         /// <summary>

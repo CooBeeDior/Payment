@@ -239,12 +239,31 @@ namespace Payments.Wechatpay.Configs
             return Url.Combine(GatewayUrl, "mmpaymkttransfers/gettransferinfo");
         }
 
+        /// <summary>
+        /// 付款码支付
+        /// </summary>
+        /// <returns></returns>
         public string GetBizPayUrl()
         {
             return "weixin://wxpay/bizpayurl";
         }
 
+        /// <summary>
+        /// 授权Url
+        /// </summary>
+        /// <returns></returns>
+        public string GetAuthorizeUrl()
+        {
+            return "https://open.weixin.qq.com/connect/oauth2/authorize";
+        }
 
-
+        /// <summary>
+        /// 授权access_token的Url
+        /// </summary>
+        /// <returns></returns>
+        public string GetAccessTokenUrl()
+        {
+            return "https://api.weixin.qq.com/sns/oauth2/access_token";
+        }
     }
 }

@@ -18,13 +18,20 @@ namespace Payments.Wechatpay.Parameters
 
         }
 
-        protected override ParameterBuilder GetSignBuilder()
-        {
-            //https://pay.weixin.qq.com/wiki/doc/api/micropay.php?chapter=4_3
+        /// <summary>
+        /// https://pay.weixin.qq.com/wiki/doc/api/micropay.php?chapter=4_3
+        /// </summary>
+        /// <param name="isSign"></param>
+        /// <returns></returns>
+        protected override ParameterBuilder GetSignBuilder(bool isSign = true)
+        { 
             Config.Key.CheckNull(nameof(Config.Key));
             var builder = new ParameterBuilder(Builder);
             string url = $"{ builder.ToUrl()}&key={Config.Key}";
-            builder.Add(WechatpayConst.Sign, GetSign().ToUpper());
+            if (isSign)
+            {
+                builder.Add(WechatpayConst.Sign, GetSign().ToUpper());
+            }         
             return builder;
         }
     }
