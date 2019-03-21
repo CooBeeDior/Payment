@@ -296,5 +296,40 @@
         /// MCHT:通过商户订单号获取红包信息。  
         /// </summary>
         public const string BillType = "bill_type ";
+
+        /// <summary>
+        /// 商户账号appid
+        /// </summary>
+        public const string MchAppId = "mch_appid";
+
+        /// <summary>
+        /// 商户号
+        /// </summary>
+        public const string MchId = "mchid";
+
+        /// <summary>
+        /// 商户订单号
+        /// </summary>
+        public const string PartnerTradeNo = "partner_trade_no";
+
+        /// <summary>
+        /// 校验用户姓名选项
+        /// </summary>
+        public const string CheckName = "check_name";
+
+        /// <summary>
+        /// 款用户姓名
+        /// </summary>
+        public const string ReUserName = "re_user_name";
+
+        /// <summary>
+        /// 金额
+        /// </summary>
+        public const string Amount = "amount";
+
+        /// <summary>
+        /// 企业付款备注
+        /// </summary>
+        public const string Desc = "desc";
     }
 }

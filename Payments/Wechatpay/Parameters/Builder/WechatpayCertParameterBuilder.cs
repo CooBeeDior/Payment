@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Http;
+using Payments.Extensions;
 using Payments.Util.ParameterBuilders.Impl;
 using Payments.Wechatpay.Configs;
 using System;
@@ -19,9 +20,11 @@ namespace Payments.Wechatpay.Parameters
 
         protected override ParameterBuilder GetSignBuilder()
         {
-            //TODO https://docs.open.alipay.com/203/107090/
+            //https://pay.weixin.qq.com/wiki/doc/api/micropay.php?chapter=4_3
+            Config.Key.CheckNull(nameof(Config.Key));
             var builder = new ParameterBuilder(Builder);
-            builder.Add(WechatpayConst.Sign, GetSign());
+            string url = $"{ builder.ToUrl()}&key={Config.Key}";
+            builder.Add(WechatpayConst.Sign, GetSign().ToUpper());
             return builder;
         }
     }

@@ -37,6 +37,13 @@ namespace Payments.Wechatpay.Configs
         public string PrivateKey { get; set; }
 
         /// <summary>
+        /// 证书密钥 退款，发红包等接口使用        
+        /// key设置路径：微信商户平台(pay.weixin.qq.com)-->账户设置-->API安全-->密钥设置
+        /// https://pay.weixin.qq.com/wiki/doc/api/micropay.php?chapter=4_3
+        /// </summary>
+        public string Key { get; set; }
+
+        /// <summary>
         /// 签名类型，默认Md5
         /// </summary>
         public WechatpaySignType SignType { get; set; } = WechatpaySignType.Md5;
