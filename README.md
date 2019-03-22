@@ -9,7 +9,7 @@
 #### [H5支付](https://pay.weixin.qq.com/wiki/doc/api/H5.php?chapter=15_1)【IWechatpayMWebPayService】
 #### [付款码支付](https://pay.weixin.qq.com/wiki/doc/api/micropay.php?chapter=5_1)【IWechatpayMicroPayService】
 
-#### [授权码查询openid](https://mp.weixin.qq.com/wiki?t=resource/res_main&id=mp1421140842)【IWechatAuthorizeService,IWechatAccessTokenService】
+#### [授权码查询openid](https://mp.weixin.qq.com/wiki?t=resource/res_main&id=mp1421140842)
 
 #### 查询支付订单【IWechatOrderQueryService】
 #### 撤销支付订单【IWechatReverseOrderService】 

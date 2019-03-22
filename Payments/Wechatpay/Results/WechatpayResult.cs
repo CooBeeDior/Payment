@@ -7,6 +7,7 @@ using Payments.Util.Logger;
 using Payments.Util.ParameterBuilders.Impl;
 using Payments.Util.Validations;
 using Payments.Wechatpay.Configs;
+using Payments.Wechatpay.Enums;
 using Payments.Wechatpay.Services.Base;
 using Payments.Wechatpay.Signatures;
 using System;
@@ -21,7 +22,7 @@ namespace Payments.Wechatpay.Results
     /// </summary>
     public class WechatpayResult
     {
-        
+
         /// <summary>
         /// 配置提供器
         /// </summary>
@@ -89,7 +90,7 @@ namespace Payments.Wechatpay.Results
             //    .AddContent($"原始响应 : {Raw}")             
             //    .Build();
             //Logger.LogInfo(logContent);
-            
+
         }
 
 
@@ -212,14 +213,14 @@ namespace Payments.Wechatpay.Results
         /// <summary>
         /// 验证
         /// </summary>
-        public async Task<ValidationResultCollection> ValidateAsync()
+        public Task<ValidationResultCollection> ValidateAsync()
         {
             if (GetReturnCode() != WechatpayConst.Success || GetResultCode() != WechatpayConst.Success)
-                return new ValidationResultCollection(GetErrorCodeDescription());
+                return Task.FromResult(new ValidationResultCollection(GetErrorCodeDescription()));
             var isValid = VerifySign();
             if (isValid == false)
-                return new ValidationResultCollection("签名失败");
-            return ValidationResultCollection.Success;
+                return Task.FromResult(new ValidationResultCollection("签名失败"));
+            return Task.FromResult(ValidationResultCollection.Success);
         }
 
         /// <summary>

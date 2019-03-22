@@ -5,6 +5,7 @@ using Payments.Util.Http;
 using Payments.Util.Logger;
 using Payments.Util.Validations;
 using Payments.Wechatpay.Configs;
+using Payments.Wechatpay.Enums;
 using Payments.Wechatpay.Parameters;
 using Payments.Wechatpay.Parameters.Requests;
 using Payments.Wechatpay.Results;

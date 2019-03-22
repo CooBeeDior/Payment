@@ -430,9 +430,9 @@ namespace Payments.Wechatpay.Parameters
         /// <summary>
         /// 获取Xml结果，包含签名
         /// </summary>
-        public string ToXml(bool isSign = true)
+        public string ToXml(bool isSign = true, WechatpaySignType? signType = null)
         {
-            return ToXmlDocument(GetSignBuilder(isSign)).OuterXml;
+            return ToXmlDocument(GetSignBuilder(isSign, signType)).OuterXml;
         }
 
         /// <summary>
@@ -462,22 +462,22 @@ namespace Payments.Wechatpay.Parameters
         /// <summary>
         /// 获取签名的参数生成器
         /// </summary>
-        protected virtual ParameterBuilder GetSignBuilder(bool isSign = true)
+        protected virtual ParameterBuilder GetSignBuilder(bool isSign = true, WechatpaySignType? signType = null)
         {
             var builder = new ParameterBuilder(Builder);
             if (isSign)
             {
-                Builder.Add(WechatpayConst.Sign, GetSign());
-            }           
+                Builder.Add(WechatpayConst.Sign, GetSign(signType));
+            }
             return Builder;
         }
 
         /// <summary>
         /// 获取签名
         /// </summary>
-        public string GetSign()
+        public string GetSign(WechatpaySignType? signType = null)
         {
-            return SignManagerFactory.Create(Config, Request, Builder).Sign();
+            return SignManagerFactory.Create(Config, Request, Builder, signType).Sign();
         }
 
         /// <summary>
@@ -491,18 +491,18 @@ namespace Payments.Wechatpay.Parameters
         /// <summary>
         /// 获取Json结果，包含签名
         /// </summary>
-        public string ToJson(bool isSign = true)
+        public string ToJson(bool isSign = true, WechatpaySignType? signType = null)
         {
-            return GetSignBuilder(isSign).ToJson();
+            return GetSignBuilder(isSign, signType).ToJson();
         }
 
         /// <summary>
         /// 转换成Url
         /// </summary>
         /// <returns></returns>
-        public string ToUrl(bool isSign = true)
+        public string ToUrl(bool isSign = true, WechatpaySignType? signType = null)
         {
-            return GetSignBuilder(isSign).ToUrl();
+            return GetSignBuilder(isSign, signType).ToUrl();
         }
 
         /// <summary>

@@ -265,5 +265,62 @@ namespace Payments.Wechatpay.Configs
         {
             return "https://api.weixin.qq.com/sns/oauth2/access_token";
         }
+
+        /// <summary>
+        /// 申请签约Url
+        /// </summary>
+        /// <returns></returns>
+        public string GetEntrustWebUrl()
+        {
+            return "https://api.mch.weixin.qq.com/papay/entrustweb";
+        }
+
+
+        /// <summary>
+        /// 申请签约Url
+        /// </summary>
+        /// <returns></returns>
+        public string GetH5EntrustWebUrl()
+        {
+            return "https://api.mch.weixin.qq.com/papay/h5entrustweb";
+        }
+
+        /// <summary>
+        /// 支付中签约api
+        /// </summary>
+        /// <returns></returns>
+        public string GetContractOrderUrl()
+        {
+            return "https://api.mch.weixin.qq.com/pay/contractorder";
+        }
+
+        /// <summary>
+        /// 查询签约关系
+        /// </summary>
+        /// <returns></returns>
+        public string GetQueryContractUrl()
+        {
+            return "https://api.mch.weixin.qq.com/papay/querycontract";
+        }
+
+        /// <summary>
+        /// 申请扣款
+        /// </summary>
+        /// <returns></returns>
+        public string GetPapPayApplyUrl()
+        {
+            return "https://api.mch.weixin.qq.com/pay/pappayapply";
+        }
+
+        /// <summary>
+        /// 申请解约
+        /// </summary>
+        /// <returns></returns>
+        public string GetDeleteContractUrl()
+        {
+            return "https://api.mch.weixin.qq.com/papay/deletecontract";
+        }
+
+
     }
 }

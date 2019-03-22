@@ -45,7 +45,7 @@ namespace PayTest
 
             var url = wechatpayNativePayOneService.BuildUrl(wechatpayNativePayOneRequest).GetAwaiter().GetResult();
 
-            string orderId = "dawdaooowd2122";
+            string orderId = "dawdao44o66owd2122";
 
             var wechatpayNativePayService = serviceProvider.GetService<IWechatpayNativePayService>();
             var wechatpayNativePayRequest = new WechatpayNativePayRequest()
