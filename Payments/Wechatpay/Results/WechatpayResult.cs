@@ -8,19 +8,21 @@ using Payments.Util.ParameterBuilders.Impl;
 using Payments.Util.Validations;
 using Payments.Wechatpay.Configs;
 using Payments.Wechatpay.Enums;
+using Payments.Wechatpay.Parameters.Response.Base;
 using Payments.Wechatpay.Services.Base;
 using Payments.Wechatpay.Signatures;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Xml.Serialization;
 
 namespace Payments.Wechatpay.Results
 {
     /// <summary>
     /// 微信支付结果
     /// </summary>
-    public class WechatpayResult
+    public class WechatpayResult<T> where T : WechatpayResponse
     {
 
         /// <summary>
@@ -44,6 +46,7 @@ namespace Payments.Wechatpay.Results
 
         public HttpRequest Request { get; }
 
+        public T Data { get; set; }
         /// <summary>
         /// 初始化微信支付结果
         /// </summary>
@@ -66,32 +69,24 @@ namespace Payments.Wechatpay.Results
         {
             if (response.IsEmpty())
                 return;
-            var elements = Xml.ToElements(response);
-            elements.ForEach(node =>
-            {
-                if (node.Name == WechatpayConst.Sign)
-                {
-                    _sign = node.Value;
-                    return;
-                }
-                _builder.Add(node.Name.LocalName, node.Value);
-            });
-            WriteLog();
-        }
+            XmlSerializer serializer = new XmlSerializer(typeof(T));
+            var reader = Xml.ToDocument(response).CreateReader();
+            Data = serializer.Deserialize(reader) as T;
 
-        /// <summary>
-        /// 写日志
-        /// </summary>
-        protected void WriteLog()
-        {
-            //var logContent = LogContentBuilder.CreateLogContentBuilder()
-            //    .SetEventId(Guid.NewGuid()).SetMoudle(GetType().FullName).SetTitle("微信支付")
-            //    .AddContent($"微信支付返回 : { GetParams()}")
-            //    .AddContent($"原始响应 : {Raw}")             
-            //    .Build();
-            //Logger.LogInfo(logContent);
+            //var elements = Xml.ToElements(response);
+            //elements.ForEach(node =>
+            //{
+            //    if (node.Name == WechatpayConst.Sign)
+            //    {
+            //        _sign = node.Value;
+            //        return;
+            //    }
+            //    _builder.Add(node.Name.LocalName, node.Value);
+            //});
 
         }
+
+
 
 
 

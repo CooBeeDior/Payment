@@ -1,12 +1,15 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Payments.Extensions;
+using Payments.Util;
 using Payments.Wechatpay.Abstractions;
 using Payments.Wechatpay.Enums;
 using Payments.Wechatpay.Parameters.Requests;
+using Payments.Wechatpay.Parameters.Response.Base;
 using System;
 using System.IO;
 using System.Text;
+using System.Xml.Serialization;
 
 namespace PayTest
 {
@@ -35,6 +38,20 @@ namespace PayTest
         [TestMethod]
         public void WechatPayTest()
         {
+            XmlSerializer serializer = new XmlSerializer(typeof(WechatpayResponse));
+
+            var ss = Xml.ToDocument(@" <xml><return_code><![CDATA[SUCCESS]]></return_code>
+<return_msg><![CDATA[OK]]></return_msg>
+<appid><![CDATA[wx6e95a65ad4ee0135]]></appid>
+<mch_id><![CDATA[1517630381]]></mch_id>
+<nonce_str><![CDATA[JA060YgGRC7PXUFG]]></nonce_str>
+<sign><![CDATA[BE5D131909A925EAF484D804D08D5612]]></sign>
+<result_code><![CDATA[SUCCESS]]></result_code>
+<prepay_id><![CDATA[wx251754348985658526e14e053272098244]]></prepay_id>
+<trade_type><![CDATA[NATIVE]]></trade_type>
+<code_url><![CDATA[weixin://wxpay/bizpayurl?pr=iBYY0x3]]></code_url>
+</xml>").CreateReader();
+            var adadd = serializer.Deserialize(ss);
             //Native 下单 
 
             var wechatpayNativePayOneService = serviceProvider.GetService<IWechatpayNativePayOneService>();
@@ -43,7 +60,7 @@ namespace PayTest
                 ProductId = "1123dwadawwaddaw45"
             };
 
-            var url = wechatpayNativePayOneService.BuildUrl(wechatpayNativePayOneRequest).GetAwaiter().GetResult();
+            //var url = wechatpayNativePayOneService.BuildUrl(wechatpayNativePayOneRequest).GetAwaiter().GetResult();
 
             string orderId = "dawdao44o66owd2122";
 
