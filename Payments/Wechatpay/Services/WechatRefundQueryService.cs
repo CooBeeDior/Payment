@@ -6,6 +6,8 @@ using Payments.Wechatpay.Abstractions;
 using Payments.Wechatpay.Configs;
 using Payments.Wechatpay.Parameters;
 using Payments.Wechatpay.Parameters.Requests;
+using Payments.Wechatpay.Parameters.Response;
+using Payments.Wechatpay.Results;
 using Payments.Wechatpay.Services.Base;
 using System;
 using System.Threading.Tasks;
@@ -25,9 +27,9 @@ namespace Payments.Wechatpay.Services
 
         }
 
-        public Task<PayResult> RefundQuery(WechatRefundQueryRequest param)
+        public Task<WechatpayResult<WechatRefundQueryResponse>> RefundQuery(WechatRefundQueryRequest param)
         {
-            return Request(param);
+            return Request<WechatRefundQueryResponse>(param);
         }
         protected override string GetRequestUrl(WechatpayConfig config)
         {

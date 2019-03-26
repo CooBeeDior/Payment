@@ -17,6 +17,7 @@ using System.Xml;
 using System.Collections.ObjectModel;
 using Payments.Properties;
 using System.Net;
+using Payments.Wechatpay.Enums;
 
 namespace Payments.Extensions
 {
@@ -789,6 +790,25 @@ namespace Payments.Extensions
             StringContent content = new StringContent(json, Encoding.UTF8, "application/json");
             response.Content = content;
             return response;
+        }
+        #endregion
+
+        #region WechatpaySignType
+        public static WechatpaySignType? ToWechatpaySignType(this object obj)
+        {
+            if (obj == null)
+            {
+                return null;
+            }
+            else if (string.Compare(WechatpaySignType.HmacSha256.Description(), obj?.ToString(), StringComparison.OrdinalIgnoreCase) == 0)
+            {
+                return WechatpaySignType.HmacSha256;
+            }
+            else if (string.Compare(WechatpaySignType.Md5.Description(), obj?.ToString(), StringComparison.OrdinalIgnoreCase) == 0)
+            {
+                return WechatpaySignType.Md5;
+            }
+            return null;
         }
         #endregion
     }

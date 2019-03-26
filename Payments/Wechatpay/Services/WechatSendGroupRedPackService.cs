@@ -6,6 +6,8 @@ using Payments.Wechatpay.Abstractions;
 using Payments.Wechatpay.Configs;
 using Payments.Wechatpay.Parameters;
 using Payments.Wechatpay.Parameters.Requests;
+using Payments.Wechatpay.Parameters.Response;
+using Payments.Wechatpay.Results;
 using Payments.Wechatpay.Services.Base;
 using System;
 using System.Collections.Generic;
@@ -24,9 +26,9 @@ namespace Payments.Wechatpay.Services
         {
 
         }
-        public Task<PayResult> SendGroupReadPack(WechatSendRedPackRequest param)
+        public Task<WechatpayResult<WechatSendRedPackResponse>> SendGroupReadPack(WechatSendRedPackRequest param)
         {
-            return Request(param);
+            return Request<WechatSendRedPackResponse>(param);
 
         }
 

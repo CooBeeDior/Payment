@@ -5,6 +5,7 @@ using Payments.Wechatpay.Abstractions;
 using Payments.Wechatpay.Configs;
 using Payments.Wechatpay.Parameters;
 using Payments.Wechatpay.Parameters.Requests;
+using Payments.Wechatpay.Parameters.Response;
 using Payments.Wechatpay.Results;
 using Payments.Wechatpay.Services.Base;
 using System;
@@ -30,9 +31,9 @@ namespace Payments.Wechatpay.Services
         /// </summary>
         /// <param name="t"></param>
         /// <returns></returns>
-        public Task<PayResult> PayAsync(WechatpayMicroPayRequest t)
+        public Task<WechatpayResult<WechatpayMicroPayResponse>> PayAsync(WechatpayMicroPayRequest t)
         {
-            return Request(t);
+            return Request<WechatpayMicroPayResponse>(t);
         }
 
 
@@ -47,28 +48,7 @@ namespace Payments.Wechatpay.Services
         }
 
 
-
-
-
-
-
-        /// <summary>
-        /// 获取结果
-        /// </summary>
-        /// <param name="config">支付配置</param>
-        /// <param name="builder">参数生成器</param>
-        /// <param name="result">支付结果</param>
-        protected override string GetResult(WechatpayConfig config, WechatpayParameterBuilder builder, WechatpayResult result)
-        {
-            return new WechatpayParameterBuilder(config)
-                .AppId(config.AppId)
-                .PartnerId(config.MerchantId)
-                .PrepayId(result.GetPrepayId())
-                .NonceStr(Id.GetId())
-                .Timestamp()
-                .Package()
-                .ToJson();
-        }
+ 
         /// <summary>
         /// 初始化参数生成器
         /// </summary>

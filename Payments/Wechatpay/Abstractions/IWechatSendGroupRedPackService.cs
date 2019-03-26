@@ -2,6 +2,8 @@
 using Payments.Core.Enum;
 using Payments.Core.Response;
 using Payments.Wechatpay.Parameters.Requests;
+using Payments.Wechatpay.Parameters.Response;
+using Payments.Wechatpay.Results;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -16,6 +18,6 @@ namespace Payments.Wechatpay.Abstractions
     [PayService("发放裂变红包服务", PayOriginType.WechatPay)]
     public interface IWechatSendGroupRedPackService
     {
-        Task<PayResult> SendGroupReadPack(WechatSendRedPackRequest param);
+        Task<WechatpayResult<WechatSendRedPackResponse>> SendGroupReadPack(WechatSendRedPackRequest param);
     }
 }

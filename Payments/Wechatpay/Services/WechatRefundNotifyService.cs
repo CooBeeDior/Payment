@@ -4,6 +4,7 @@ using Microsoft.Extensions.Logging;
 using Payments.Extensions;
 using Payments.Wechatpay.Abstractions;
 using Payments.Wechatpay.Configs;
+using Payments.Wechatpay.Parameters.Response;
 using Payments.Wechatpay.Results;
 using Payments.Wechatpay.Services.Base;
 using System;
@@ -11,34 +12,18 @@ using System.IO;
 
 namespace Payments.Wechatpay.Services
 {
-    public class WechatRefundNotifyService : WechatpayNotifyServiceBase, IWechatRefundNotifyService
+    /// <summary>
+    /// 退款通知
+    /// </summary>
+    public class WechatRefundNotifyService : WechatpayNotifyServiceBase<WechatRefundNotifyResponse>, IWechatRefundNotifyService
     {
 
         public WechatRefundNotifyService(IWechatpayConfigProvider configProvider, IHttpContextAccessor httpContextAccessor, ILoggerFactory loggerFactory) : base(configProvider, httpContextAccessor)
         {
 
         }
-        /// <summary>
-        /// 微信退款单号
-        /// </summary>
-        public string RefundId => GetParam(WechatpayConst.RefundId);
-        /// <summary>
-        /// 商户退款单号
-        /// </summary>
-        public string OutRefundNo => GetParam(WechatpayConst.OutRefundNo);
-        /// <summary>
-        /// 退款总金额
-        /// </summary>
-        public decimal RefundFee => GetParam(WechatpayConst.RefundFee).ToDecimal() / 100M;
-
-        /// <summary>
-        /// 退款金额=申请退款金额-非充值代金券退款金额，退款金额<=申请退款金额
-        /// </summary>
-        public decimal SettlementRefundFee => GetParam(WechatpayConst.SettlementRefundFee).ToDecimal() / 100M;
-        /// <summary>
-        /// 退款成功时间
-        /// </summary>
-        public DateTime SuccessTime => GetParam(WechatpayConst.SuccessTime).ToDate();
+      
+ 
 
         protected override void InitResult()
         {
@@ -47,7 +32,7 @@ namespace Payments.Wechatpay.Services
             Request?.EnableRewind();
             var sm = Request?.Body;
             var body = sm?.ToContent();
-            Result = new WechatpayResult(Config, body, Request);
+            Result = new WechatpayResult<WechatRefundNotifyResponse>(Config, body, Request);
         }
 
     }

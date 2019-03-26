@@ -25,15 +25,15 @@ namespace Payments.Wechatpay.Parameters
         /// <param name="isSign"></param>
         /// <returns></returns>
         protected override ParameterBuilder GetSignBuilder(bool isSign = true, WechatpaySignType? signType = null)
-        { 
-            Config.Key.CheckNull(nameof(Config.Key));
-            var builder = new ParameterBuilder(Builder);
-            string url = $"{ builder.ToUrl()}&key={Config.Key}";
-            if (isSign)
-            {
-                builder.Add(WechatpayConst.Sign, GetSign(signType).ToUpper());
-            }         
-            return builder;
+        {
+            return base.GetSignBuilder(isSign, signType);
+            //var builder = new ParameterBuilder(Builder);
+            ////string url = $"{ builder.ToUrl()}&key={Config.PrivateKey}";
+            //if (isSign)
+            //{
+            //    builder.Add(WechatpayConst.Sign, GetSign(signType).ToUpper());
+            //}         
+            //return builder;
         }
     }
 }

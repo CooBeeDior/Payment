@@ -427,6 +427,16 @@ namespace Payments.Wechatpay.Parameters
             return this;
         }
 
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="name"></param>
+        /// <returns></returns>
+        public object Get(string name)
+        {
+            return Builder.GetValue(name);
+        }
         /// <summary>
         /// 获取Xml结果，包含签名
         /// </summary>

@@ -7,6 +7,7 @@ using Payments.Wechatpay.Abstractions;
 using Payments.Wechatpay.Configs;
 using Payments.Wechatpay.Parameters;
 using Payments.Wechatpay.Parameters.Requests;
+using Payments.Wechatpay.Parameters.Response;
 using Payments.Wechatpay.Results;
 using Payments.Wechatpay.Services.Base;
 using System;
@@ -23,9 +24,9 @@ namespace Payments.Wechatpay.Services
         public WechatTransfersService(IWechatpayConfigProvider provider, ILoggerFactory loggerFactory) : base(provider, loggerFactory)
         {
         }
-        public Task<PayResult> Transfer(WechatTransfersRequest param)
+        public Task<WechatpayResult<WechatTransfersResponse>> Transfer(WechatTransfersRequest param)
         {
-            return Request(param);
+            return Request<WechatTransfersResponse>(param);
         }
 
         protected override string GetRequestUrl(WechatpayConfig config)

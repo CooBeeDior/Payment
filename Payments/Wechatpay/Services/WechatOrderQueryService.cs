@@ -7,6 +7,8 @@ using Payments.Wechatpay.Abstractions;
 using Payments.Wechatpay.Configs;
 using Payments.Wechatpay.Parameters;
 using Payments.Wechatpay.Parameters.Requests;
+using Payments.Wechatpay.Parameters.Response;
+using Payments.Wechatpay.Results;
 using Payments.Wechatpay.Services.Base;
 using System;
 using System.Threading.Tasks;
@@ -30,9 +32,9 @@ namespace Payments.Wechatpay.Services
 
 
 
-        public Task<PayResult> QueryAsync(WechatOrderQueryRequest param)
+        public Task<WechatpayResult<WechatOrderQueryResponse>> QueryAsync(WechatOrderQueryRequest param)
         {
-            return Request(param);
+            return Request<WechatOrderQueryResponse>(param);
         }
 
         protected override void InitBuilder(WechatpayParameterBuilder builder, WechatOrderQueryRequest param)

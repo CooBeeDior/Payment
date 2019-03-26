@@ -2,6 +2,8 @@
 using Payments.Core.Enum;
 using Payments.Core.Response;
 using Payments.Wechatpay.Parameters.Requests;
+using Payments.Wechatpay.Parameters.Response;
+using Payments.Wechatpay.Results;
 using System.Threading.Tasks;
 
 namespace Payments.Wechatpay.Abstractions
@@ -17,6 +19,6 @@ namespace Payments.Wechatpay.Abstractions
       /// </summary>
       /// <param name="param"></param>
       /// <returns></returns>
-        Task<PayResult> QueryAsync(WechatOrderQueryRequest param);
+        Task<WechatpayResult<WechatOrderQueryResponse>> QueryAsync(WechatOrderQueryRequest param);
     }
 }

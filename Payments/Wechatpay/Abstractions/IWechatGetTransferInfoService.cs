@@ -2,6 +2,8 @@
 using Payments.Core.Enum;
 using Payments.Core.Response;
 using Payments.Wechatpay.Parameters.Requests;
+using Payments.Wechatpay.Parameters.Response;
+using Payments.Wechatpay.Results;
 using System.Threading.Tasks;
 
 
@@ -13,7 +15,7 @@ namespace Payments.Wechatpay.Abstractions
     [PayService("查询企业付款服务", PayOriginType.WechatPay)]
     public interface IWechatGetTransferInfoService
     {
-        Task<PayResult> Query(WechatGetTransferInfoRequest param);
+        Task<WechatpayResult<WechatGetTransferInfoResponse>> Query(WechatGetTransferInfoRequest param);
         
     }
 }

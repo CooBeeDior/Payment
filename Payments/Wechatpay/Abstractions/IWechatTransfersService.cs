@@ -2,6 +2,8 @@
 using Payments.Core.Enum;
 using Payments.Core.Response;
 using Payments.Wechatpay.Parameters.Requests;
+using Payments.Wechatpay.Parameters.Response;
+using Payments.Wechatpay.Results;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -15,6 +17,6 @@ namespace Payments.Wechatpay.Abstractions
     [PayService("企业转账服务", PayOriginType.WechatPay)]
     public interface IWechatTransfersService
     {
-        Task<PayResult> Transfer(WechatTransfersRequest param);
+        Task<WechatpayResult<WechatTransfersResponse>> Transfer(WechatTransfersRequest param);
     }
 }

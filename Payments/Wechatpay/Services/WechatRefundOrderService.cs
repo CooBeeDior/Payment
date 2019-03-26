@@ -6,6 +6,8 @@ using Payments.Wechatpay.Abstractions;
 using Payments.Wechatpay.Configs;
 using Payments.Wechatpay.Parameters;
 using Payments.Wechatpay.Parameters.Requests;
+using Payments.Wechatpay.Parameters.Response;
+using Payments.Wechatpay.Results;
 using Payments.Wechatpay.Services.Base;
 using System;
 using System.Threading.Tasks;
@@ -31,9 +33,9 @@ namespace Payments.Wechatpay.Services
 
 
 
-        public Task<PayResult> RefundAsync(WechatRefundOrderRequest param)
+        public Task<WechatpayResult<WechatRefundOrderResponse>> RefundAsync(WechatRefundOrderRequest param)
         {
-            return Request(param);
+            return Request<WechatRefundOrderResponse>(param);
         }
 
         protected override void InitBuilder(WechatpayParameterBuilder builder, WechatRefundOrderRequest param)

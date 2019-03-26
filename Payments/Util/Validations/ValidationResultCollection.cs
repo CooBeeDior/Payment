@@ -97,7 +97,7 @@ namespace Payments.Util.Validations
         {
             if (IsValid)
                 return string.Empty;
-            return _results.First().ErrorMessage;
+            return _results.FirstOrDefault().ErrorMessage;
         }
     }
 }

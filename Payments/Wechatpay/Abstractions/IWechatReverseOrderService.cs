@@ -1,6 +1,8 @@
 ﻿using Payments.Attributes;
 using Payments.Core.Response;
 using Payments.Wechatpay.Parameters.Requests;
+using Payments.Wechatpay.Parameters.Response;
+using Payments.Wechatpay.Results;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -19,6 +21,6 @@ namespace Payments.Wechatpay.Abstractions
         /// </summary>
         /// <param name="param"></param>
         /// <returns></returns>
-        Task<PayResult> ReverseAsync(WechatReverseOrderRequest param);
+        Task<WechatpayResult<WechatReverseOrderResponse>> ReverseAsync(WechatReverseOrderRequest param);
     }
 }

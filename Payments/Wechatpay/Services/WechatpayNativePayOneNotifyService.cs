@@ -7,6 +7,7 @@ using Payments.Wechatpay.Abstractions;
 using Payments.Wechatpay.Configs;
 using Payments.Wechatpay.Parameters;
 using Payments.Wechatpay.Parameters.Requests;
+using Payments.Wechatpay.Parameters.Response;
 using Payments.Wechatpay.Services.Base;
 using System.Net.Http;
 using System.Threading.Tasks;
@@ -16,7 +17,7 @@ namespace Payments.Wechatpay.Services
     /// <summary>
     /// 微信扫码支付异步回调
     /// </summary>
-    public class WechatpayNativePayOneNotifyService : WechatpayNotifyServiceBase, IWechatpayNativePayOneNotifyService
+    public class WechatpayNativePayOneNotifyService : WechatpayNotifyServiceBase<WechatpayNativePayOneNotifyResponse>, IWechatpayNativePayOneNotifyService
     {
 
         protected IWechatpayNativePayService NativePayService { get; }
@@ -35,10 +36,10 @@ namespace Payments.Wechatpay.Services
 
                 WechatpayParameterBuilder paramBuilder = new WechatpayParameterBuilder(Config);
                 paramBuilder.Init();
-                paramBuilder.PrepayId(result.GetParam(WechatpayConst.PrepayId));
-                paramBuilder.ReturnCode(result.GetParam(WechatpayConst.ReturnCode));
-                paramBuilder.ResultCode(result.GetParam(WechatpayConst.ResultCode));
-                paramBuilder.Add(WechatpayConst.ErrorCodeDescription, result.GetParam(WechatpayConst.ReturnMessage));
+                paramBuilder.PrepayId(result.Data?.PrepayId);
+                paramBuilder.ReturnCode(result.Data?.ReturnCode);
+                paramBuilder.ResultCode(result.Data?.ResultCode);
+                paramBuilder.Add(WechatpayConst.ErrorCodeDescription, result.Data?.ReturnMsg);
                 string xmlContent = paramBuilder.ToXml();
                 response = xmlContent.XmlToHttpResponseMessage();
             }

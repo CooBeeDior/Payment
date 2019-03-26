@@ -3,6 +3,8 @@ using Payments.Core;
 using Payments.Core.Enum;
 using Payments.Core.Response;
 using Payments.Wechatpay.Parameters.Requests;
+using Payments.Wechatpay.Parameters.Response;
+using Payments.Wechatpay.Results;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -21,6 +23,6 @@ namespace Payments.Wechatpay.Abstractions
         /// </summary>
         /// <param name="param"></param>
         /// <returns></returns>
-        Task<PayResult> RefundQuery(WechatRefundQueryRequest param);
+        Task<WechatpayResult<WechatRefundQueryResponse>> RefundQuery(WechatRefundQueryRequest param);
     }
 }

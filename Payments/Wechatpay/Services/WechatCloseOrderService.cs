@@ -5,6 +5,8 @@ using Payments.Wechatpay.Abstractions;
 using Payments.Wechatpay.Configs;
 using Payments.Wechatpay.Parameters;
 using Payments.Wechatpay.Parameters.Requests;
+using Payments.Wechatpay.Parameters.Response;
+using Payments.Wechatpay.Results;
 using Payments.Wechatpay.Services.Base;
 using System;
 using System.Threading.Tasks;
@@ -26,9 +28,9 @@ namespace Payments.Wechatpay.Services
         }
 
 
-        public Task<PayResult> CloseAsync(WechatCloseOrderRequest param)
+        public Task<WechatpayResult<WechatCloseOrderResponse>> CloseAsync(WechatCloseOrderRequest param)
         {
-            return Request(param);
+            return Request<WechatCloseOrderResponse>(param);
         }
 
         protected override void InitBuilder(WechatpayParameterBuilder builder, WechatCloseOrderRequest param)

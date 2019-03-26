@@ -5,6 +5,7 @@ using Payments.Wechatpay.Abstractions;
 using Payments.Wechatpay.Configs;
 using Payments.Wechatpay.Parameters;
 using Payments.Wechatpay.Parameters.Requests;
+using Payments.Wechatpay.Parameters.Response;
 using Payments.Wechatpay.Results;
 using Payments.Wechatpay.Services.Base;
 using System;
@@ -21,9 +22,9 @@ namespace Payments.Wechatpay.Services
 
         }
 
-        public Task<PayResult> Query(WechatGetTransferInfoRequest param)
+        public Task<WechatpayResult<WechatGetTransferInfoResponse>> Query(WechatGetTransferInfoRequest param)
         {
-            return Request(param);
+            return Request<WechatGetTransferInfoResponse>(param);
         }
 
         protected override string GetRequestUrl(WechatpayConfig config)

@@ -4,6 +4,8 @@ using Payments.Core.Response;
 using Payments.Wechatpay.Configs;
 using Payments.Wechatpay.Parameters;
 using Payments.Wechatpay.Parameters.Requests;
+using Payments.Wechatpay.Parameters.Response.Base;
+using Payments.Wechatpay.Results;
 using System.Threading.Tasks;
 
 namespace Payments.Wechatpay.Services.Base
@@ -27,9 +29,9 @@ namespace Payments.Wechatpay.Services.Base
         /// 支付
         /// </summary>
         /// <param name="param">支付参数</param>
-        public Task<PayResult> PayAsync(WechatpayPayRequestBase param)
+        public Task<WechatpayResult<TResponse>> PayAsync<TResponse>(WechatpayPayRequestBase param) where TResponse : WechatpayResponse
         {
-            return Request(param);
+            return Request<TResponse>(param);
         }
 
         /// <summary>
