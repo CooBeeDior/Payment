@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Xml.Serialization;
 
-namespace Payments.Wechatpay.Parameters.Response.Base
+namespace Payments.Wechatpay.Parameters.Response
 {
     /// <summary>
     /// 支付基类

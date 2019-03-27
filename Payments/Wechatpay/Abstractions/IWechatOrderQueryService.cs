@@ -13,12 +13,12 @@ namespace Payments.Wechatpay.Abstractions
     /// </summary>
     [PayService("订单查询服务", PayOriginType.WechatPay)]
     public interface IWechatOrderQueryService  
-    { 
+    {
         /// <summary>
-      /// 订单查询
-      /// </summary>
-      /// <param name="param"></param>
-      /// <returns></returns>
-        Task<WechatpayResult<WechatOrderQueryResponse>> QueryAsync(WechatOrderQueryRequest param);
+        /// 订单查询
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returnsrequest
+        Task<WechatpayResult<WechatOrderQueryResponse>> QueryAsync(WechatOrderQueryRequest request);
     }
 }

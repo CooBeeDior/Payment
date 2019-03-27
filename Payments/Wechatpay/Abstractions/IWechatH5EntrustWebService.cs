@@ -12,6 +12,11 @@ namespace Payments.Wechatpay.Abstractions
     [PayService("H5纯签约", PayOriginType.WechatPay)]
     public interface IWechatH5EntrustWebService
     {
-        Task<string> GetUrl(WechatH5EntrustWebRequest param);
+        /// <summary>
+        /// 获取跳转url
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        Task<string> GetUrl(WechatH5EntrustWebRequest request);
     }
 }

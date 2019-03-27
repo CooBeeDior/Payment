@@ -24,9 +24,9 @@ namespace Payments.Wechatpay.Services
         public WechatTransfersService(IWechatpayConfigProvider provider, ILoggerFactory loggerFactory) : base(provider, loggerFactory)
         {
         }
-        public Task<WechatpayResult<WechatTransfersResponse>> Transfer(WechatTransfersRequest param)
+        public Task<WechatpayResult<WechatTransfersResponse>> Transfer(WechatTransfersRequest request)
         {
-            return Request<WechatTransfersResponse>(param);
+            return Request<WechatTransfersResponse>(request);
         }
 
         protected override string GetRequestUrl(WechatpayConfig config)

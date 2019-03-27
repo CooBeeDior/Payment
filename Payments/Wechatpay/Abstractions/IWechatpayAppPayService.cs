@@ -2,7 +2,6 @@
 using Payments.Core.Enum;
 using Payments.Wechatpay.Parameters.Requests;
 using Payments.Wechatpay.Parameters.Response;
-using Payments.Wechatpay.Parameters.Response.Base;
 
 namespace Payments.Wechatpay.Abstractions
 {

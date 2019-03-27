@@ -29,6 +29,8 @@
         /// 微信支付订单号
         /// </summary>
         public const string TransactionId = "transaction_id";
+ 
+        
         /// <summary>
         /// 预支付Id
         /// </summary>

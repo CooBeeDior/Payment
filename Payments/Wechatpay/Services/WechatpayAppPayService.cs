@@ -1,16 +1,11 @@
 ﻿using Microsoft.Extensions.Logging;
-using Payments.Core;
-using Payments.Core.Response;
-using Payments.Util;
 using Payments.Wechatpay.Abstractions;
 using Payments.Wechatpay.Configs;
 using Payments.Wechatpay.Parameters;
 using Payments.Wechatpay.Parameters.Requests;
 using Payments.Wechatpay.Parameters.Response;
-using Payments.Wechatpay.Parameters.Response.Base;
 using Payments.Wechatpay.Results;
 using Payments.Wechatpay.Services.Base;
-using System;
 using System.Threading.Tasks;
 
 namespace Payments.Wechatpay.Services

@@ -33,9 +33,9 @@ namespace Payments.Wechatpay.Services
 
 
 
-        public Task<WechatpayResult<WechatRefundOrderResponse>> RefundAsync(WechatRefundOrderRequest param)
+        public Task<WechatpayResult<WechatRefundOrderResponse>> RefundAsync(WechatRefundOrderRequest request)
         {
-            return Request<WechatRefundOrderResponse>(param);
+            return Request<WechatRefundOrderResponse>(request);
         }
 
         protected override void InitBuilder(WechatpayParameterBuilder builder, WechatRefundOrderRequest param)

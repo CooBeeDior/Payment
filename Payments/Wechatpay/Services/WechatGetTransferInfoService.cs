@@ -22,9 +22,9 @@ namespace Payments.Wechatpay.Services
 
         }
 
-        public Task<WechatpayResult<WechatGetTransferInfoResponse>> Query(WechatGetTransferInfoRequest param)
+        public Task<WechatpayResult<WechatGetTransferInfoResponse>> Query(WechatGetTransferInfoRequest request)
         {
-            return Request<WechatGetTransferInfoResponse>(param);
+            return Request<WechatGetTransferInfoResponse>(request);
         }
 
         protected override string GetRequestUrl(WechatpayConfig config)

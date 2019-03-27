@@ -27,9 +27,9 @@ namespace Payments.Wechatpay.Services
         {
         }
 
-        public Task<WechatpayResult<WechatpayJsApiPayResponse>> PayAsync(WechatpayJsApiPayRequest t)
+        public Task<WechatpayResult<WechatpayJsApiPayResponse>> PayAsync(WechatpayJsApiPayRequest request)
         {
-            return base.PayAsync<WechatpayJsApiPayResponse>(t);
+            return base.PayAsync<WechatpayJsApiPayResponse>(request);
         }
 
 

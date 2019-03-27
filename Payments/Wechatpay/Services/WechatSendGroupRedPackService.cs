@@ -26,9 +26,9 @@ namespace Payments.Wechatpay.Services
         {
 
         }
-        public Task<WechatpayResult<WechatSendRedPackResponse>> SendGroupReadPack(WechatSendRedPackRequest param)
+        public Task<WechatpayResult<WechatSendRedPackResponse>> SendGroupReadPack(WechatSendRedPackRequest request)
         {
-            return Request<WechatSendRedPackResponse>(param);
+            return Request<WechatSendRedPackResponse>(request);
 
         }
 
@@ -42,7 +42,7 @@ namespace Payments.Wechatpay.Services
             builder.Remove(WechatpayConst.AppId).Remove(WechatpayConst.SignType)
                .Remove(WechatpayConst.SpbillCreateIp)
                .Add(WechatpayConst.WxAppid, Config.AppId).Add(WechatpayConst.ClientIp, Server.GetLanIp())
-               .Add(WechatpayConst.MchBillNo, param.MchBillNo).Add(WechatpayConst.SendName, param.SendName).Add(WechatpayConst.ReOpenid, param.ReOpenid)
+               .Add(WechatpayConst.MchBillNo, param.MchBillNo).Add(WechatpayConst.SendName, param.SendName).Add(WechatpayConst.ReOpenid, param.ReOpenId)
                .Add(WechatpayConst.TotalAmount, (param.TotalAmount * 100).ToInt().ToString()).Add(WechatpayConst.TotalNum, param.TotalNum.ToString())
                .Add(WechatpayConst.AmtType, param.AmtType).Add(WechatpayConst.Wishing, param.Wishing)
                .Add(WechatpayConst.ActName, param.ActName).Add(WechatpayConst.Remark, param.Remark).Add(WechatpayConst.SceneId, param.SceneId?.ToString())

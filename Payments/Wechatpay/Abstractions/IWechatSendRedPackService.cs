@@ -17,6 +17,11 @@ namespace Payments.Wechatpay.Abstractions
     [PayService("发放普通红包服务", PayOriginType.WechatPay)]
     public interface IWechatSendRedPackService
     {
-        Task<WechatpayResult<WechatSendRedPackResponse>> SendReadPack(WechatSendRedPackRequest param);
+        /// <summary>
+        /// 发送普通红包
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        Task<WechatpayResult<WechatSendRedPackResponse>> SendReadPack(WechatSendRedPackRequest request);
     }
 }

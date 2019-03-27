@@ -28,9 +28,9 @@ namespace Payments.Wechatpay.Services
         }
 
 
-        public Task<WechatpayResult<WechatCloseOrderResponse>> CloseAsync(WechatCloseOrderRequest param)
+        public Task<WechatpayResult<WechatCloseOrderResponse>> CloseAsync(WechatCloseOrderRequest request)
         {
-            return Request<WechatCloseOrderResponse>(param);
+            return Request<WechatCloseOrderResponse>(request);
         }
 
         protected override void InitBuilder(WechatpayParameterBuilder builder, WechatCloseOrderRequest param)

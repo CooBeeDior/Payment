@@ -14,6 +14,11 @@ namespace Payments.Wechatpay.Abstractions
     [PayService("微信Native场景一支付", PayOriginType.WechatPay)]
     public interface IWechatpayNativePayOneService
     {
+        /// <summary>
+        /// 构造url
+        /// </summary>
+        /// <param name="param"></param>
+        /// <returns></returns>
         Task<string> BuildUrl(WechatpayNativePayOneRequest param);
     }
 }

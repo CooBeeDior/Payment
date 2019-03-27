@@ -26,9 +26,9 @@ namespace Payments.Wechatpay.Services
 
         }
 
-        public Task<WechatpayResult<WechatpayHbInfoResponse>> Query(WechatpayHbInfoRequest param)
+        public Task<WechatpayResult<WechatpayHbInfoResponse>> Query(WechatpayHbInfoRequest request)
         {
-            return Request<WechatpayHbInfoResponse>(param);
+            return Request<WechatpayHbInfoResponse>(request);
         }
 
         protected override string GetRequestUrl(WechatpayConfig config)

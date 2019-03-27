@@ -31,11 +31,11 @@ namespace Payments.Wechatpay.Parameters.Requests
         /// </summary>
         [Required]
         [MaxLength(32)]
-        public virtual string ReOpenid { get; set; }
+        public virtual string ReOpenId { get; set; }
 
 
         /// <summary>
-        /// 付款金额，单位：分
+        /// 付款金额
         /// </summary>
         [Required]
         [MinValue(0)]

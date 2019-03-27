@@ -15,6 +15,11 @@ namespace Payments.Wechatpay.Abstractions
     [PayService("微信扫码支付异步回调", PayOriginType.WechatPay)]
     public interface IWechatpayNativePayOneNotifyService
     {
-        Task<HttpResponseMessage> ReturnMessage(WechatpayNativePayRequest param);
+        /// <summary>
+        /// 返回信息
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        Task<HttpResponseMessage> ReturnMessage(WechatpayNativePayRequest request);
     }
 }

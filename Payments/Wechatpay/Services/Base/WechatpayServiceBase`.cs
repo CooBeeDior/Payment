@@ -8,7 +8,7 @@ using Payments.Wechatpay.Configs;
 using Payments.Wechatpay.Enums;
 using Payments.Wechatpay.Parameters;
 using Payments.Wechatpay.Parameters.Requests;
-using Payments.Wechatpay.Parameters.Response.Base;
+using Payments.Wechatpay.Parameters.Response;
 using Payments.Wechatpay.Results;
 using System;
 using System.Threading.Tasks;

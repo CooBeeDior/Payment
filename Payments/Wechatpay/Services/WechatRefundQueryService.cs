@@ -27,9 +27,9 @@ namespace Payments.Wechatpay.Services
 
         }
 
-        public Task<WechatpayResult<WechatRefundQueryResponse>> RefundQuery(WechatRefundQueryRequest param)
+        public Task<WechatpayResult<WechatRefundQueryResponse>> RefundQuery(WechatRefundQueryRequest request)
         {
-            return Request<WechatRefundQueryResponse>(param);
+            return Request<WechatRefundQueryResponse>(request);
         }
         protected override string GetRequestUrl(WechatpayConfig config)
         {

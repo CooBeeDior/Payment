@@ -25,11 +25,11 @@ namespace Payments.Wechatpay.Services
 
         }
 
-        public Task<string> GetUrl(WechatH5EntrustWebRequest param)
+        public Task<string> GetUrl(WechatH5EntrustWebRequest request)
         {
-            Validate(Config, param);
+            Validate(Config, request);
             var builder = CreateParameterBuilder();
-            BuildConfig(builder, param);
+            BuildConfig(builder, request);
             string url = builder.ToUrl(true, WechatpaySignType.HmacSha256);
             return Task.FromResult($"{GetRequestUrl(Config)}?{url}");
 
@@ -44,7 +44,7 @@ namespace Payments.Wechatpay.Services
         {
             builder.Add("plan_id", param.PlanId).Add("contract_code", param.ContractCode)
                  .Add("request_serial", param.RequestSerial).Add("contract_display_account", param.ContractDisplayAccount)
-                 .NotifyUrl(param.NotifyUrl).Add("version", "1.0").Timestamp().Add("clientip", Server.GetLanIp()).Add("return_appid", param.ReturnAppid)
+                 .NotifyUrl(param.NotifyUrl).Add("version", "1.0").Timestamp().Add("clientip", Server.GetLanIp()).Add("return_appid", param.ReturnAppId)
                  .Remove(WechatpayConst.SignType).Remove(WechatpayConst.NonceStr).Remove(WechatpayConst.SpbillCreateIp);
         }
     }

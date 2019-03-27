@@ -4,7 +4,7 @@ using Payments.Core.Response;
 using Payments.Wechatpay.Configs;
 using Payments.Wechatpay.Parameters;
 using Payments.Wechatpay.Parameters.Requests;
-using Payments.Wechatpay.Parameters.Response.Base;
+using Payments.Wechatpay.Parameters.Response;
 using Payments.Wechatpay.Results;
 using System.Threading.Tasks;
 
@@ -28,10 +28,10 @@ namespace Payments.Wechatpay.Services.Base
         /// <summary>
         /// 支付
         /// </summary>
-        /// <param name="param">支付参数</param>
-        public Task<WechatpayResult<TResponse>> PayAsync<TResponse>(WechatpayPayRequestBase param) where TResponse : WechatpayResponse
+        /// <param name="request">支付参数</param>
+        public Task<WechatpayResult<TResponse>> PayAsync<TResponse>(WechatpayPayRequestBase request) where TResponse : WechatpayResponse
         {
-            return Request<TResponse>(param);
+            return Request<TResponse>(request);
         }
 
         /// <summary>
@@ -41,7 +41,7 @@ namespace Payments.Wechatpay.Services.Base
         /// <param name="param">支付参数</param>
         protected override void InitBuilder(WechatpayParameterBuilder builder, WechatpayPayRequestBase param)
         {
-            builder.Body(param.Body).OutTradeNo(param.OutTradeNo).TradeType(GetTradeType())
+            builder.Body(param.Body).OutTradeNo(param.OutTradeNo).DeviceInfo(param.DeviceInfo).TradeType(GetTradeType())
                 .TotalFee(param.TotalFee).NotifyUrl(param.NotifyUrl).Attach(param.Attach)
                 .Detail(param.Detail).FeeType(param.FeeType).TimeStart(param.TimeStart)
                 .TimeExpire(param.TimeExpire).GoodsTag(param.GoodsTag).ProductId(param.ProductId)

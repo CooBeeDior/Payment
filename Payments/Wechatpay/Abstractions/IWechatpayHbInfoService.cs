@@ -16,8 +16,8 @@ namespace Payments.Wechatpay.Abstractions
         /// <summary>
         /// 查询订单
         /// </summary>
-        /// <param name="param"></param>
+        /// <param name="request"></param>
         /// <returns></returns>
-        Task<WechatpayResult<WechatpayHbInfoResponse>> Query(WechatpayHbInfoRequest param);
+        Task<WechatpayResult<WechatpayHbInfoResponse>> Query(WechatpayHbInfoRequest request);
     }
 }

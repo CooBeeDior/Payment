@@ -24,9 +24,9 @@ namespace Payments.Wechatpay.Services
 
         }
 
-        public Task<WechatpayResult<WechatReverseOrderResponse>> ReverseAsync(WechatReverseOrderRequest param)
+        public Task<WechatpayResult<WechatReverseOrderResponse>> ReverseAsync(WechatReverseOrderRequest request)
         {
-            return Request<WechatReverseOrderResponse>(param);
+            return Request<WechatReverseOrderResponse>(request);
         }
 
         protected override string GetRequestUrl(WechatpayConfig config)

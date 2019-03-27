@@ -1,16 +1,10 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Payments.Extensions;
-using Payments.Util;
 using Payments.Wechatpay.Abstractions;
 using Payments.Wechatpay.Enums;
 using Payments.Wechatpay.Parameters.Requests;
-using Payments.Wechatpay.Parameters.Response;
-using Payments.Wechatpay.Parameters.Response.Base;
 using System;
-using System.IO;
-using System.Text;
-using System.Xml.Serialization;
 
 namespace PayTest
 {

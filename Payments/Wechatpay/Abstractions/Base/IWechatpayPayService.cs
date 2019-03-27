@@ -6,7 +6,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
 using Payments.Core.Response;
-using Payments.Wechatpay.Parameters.Response.Base;
+using Payments.Wechatpay.Parameters.Response;
 
 namespace Payments.Wechatpay.Abstractions
 {
@@ -16,6 +16,11 @@ namespace Payments.Wechatpay.Abstractions
     /// <typeparam name="T"></typeparam>
     public interface IWechatpayPayService<TRequest, TResponse> where TRequest : WechatpayPayRequestBase where TResponse : WechatpayPayResponseBase
     {
+        /// <summary>
+        /// 支付
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
         Task<WechatpayResult<TResponse>> PayAsync(TRequest request);
     }
 }

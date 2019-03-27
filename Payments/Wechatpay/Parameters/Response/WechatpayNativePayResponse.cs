@@ -1,5 +1,5 @@
 ﻿using Newtonsoft.Json;
-using Payments.Wechatpay.Parameters.Response.Base;
+using Payments.Wechatpay.Parameters.Response;
 using System;
 using System.Collections.Generic;
 using System.Text;

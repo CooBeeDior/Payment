@@ -21,8 +21,8 @@ namespace Payments.Wechatpay.Abstractions
         /// <summary>
         /// 订单查询
         /// </summary>
-        /// <param name="param"></param>
+        /// <param name="request"></param>
         /// <returns></returns>
-        Task<WechatpayResult<WechatRefundOrderResponse>> RefundAsync(WechatRefundOrderRequest param);
+        Task<WechatpayResult<WechatRefundOrderResponse>> RefundAsync(WechatRefundOrderRequest request);
     }
 }

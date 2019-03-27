@@ -16,8 +16,8 @@ namespace Payments.Wechatpay.Abstractions
         /// <summary>
         /// 订单查询
         /// </summary>
-        /// <param name="param"></param>
+        /// <param name="request"></param>
         /// <returns></returns>
-        Task<WechatpayResult<WechatCloseOrderResponse>> CloseAsync(WechatCloseOrderRequest param);
+        Task<WechatpayResult<WechatCloseOrderResponse>> CloseAsync(WechatCloseOrderRequest request);
     }
 }

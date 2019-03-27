@@ -32,14 +32,14 @@ namespace Payments.Wechatpay.Parameters.Requests
         public virtual string OutRefundNo { get; set; }
 
         /// <summary>
-        /// 支付金额，单位：分
+        /// 支付金额
         /// </summary>
         [Required]
         [MinValue(0)]
         public virtual decimal TotalFee { get; set; }
 
         /// <summary>
-        /// 退款金额，单位：分
+        /// 退款金额 
         /// </summary>
         [Required]
         [MinValue(0)]

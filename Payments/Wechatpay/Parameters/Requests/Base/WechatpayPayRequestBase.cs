@@ -28,8 +28,17 @@ namespace Payments.Wechatpay.Parameters.Requests
         [Required]
         [MaxLength(32)]
         public virtual string OutTradeNo { get; set; }
+
         /// <summary>
-        /// 支付金额，单位：分
+        /// 设备号
+        /// 自定义参数，可以为终端设备号(门店号或收银设备ID)，PC网页或公众号内支付可以传"WEB"
+        /// </summary> 
+        [MaxLength(32)]
+        public virtual string DeviceInfo { get; set; }
+
+
+        /// <summary>
+        /// 支付金额
         /// </summary>
         [Required]
         [MinValue(0)]

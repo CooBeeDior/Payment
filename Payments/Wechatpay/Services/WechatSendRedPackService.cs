@@ -25,9 +25,9 @@ namespace Payments.Wechatpay.Services
         {
         }
 
-        public Task<WechatpayResult<WechatSendRedPackResponse>> SendReadPack(WechatSendRedPackRequest param)
+        public Task<WechatpayResult<WechatSendRedPackResponse>> SendReadPack(WechatSendRedPackRequest request)
         {
-            return Request<WechatSendRedPackResponse>(param);
+            return Request<WechatSendRedPackResponse>(request);
         }
 
         protected override string GetRequestUrl(WechatpayConfig config)
@@ -41,7 +41,7 @@ namespace Payments.Wechatpay.Services
             builder.Remove(WechatpayConst.AppId).Remove(WechatpayConst.SignType)
                 .Remove(WechatpayConst.SpbillCreateIp)
                 .Add(WechatpayConst.WxAppid, Config.AppId).Add(WechatpayConst.ClientIp, Server.GetLanIp())
-                .Add(WechatpayConst.MchBillNo, param.MchBillNo).Add(WechatpayConst.SendName, param.SendName).Add(WechatpayConst.ReOpenid, param.ReOpenid)
+                .Add(WechatpayConst.MchBillNo, param.MchBillNo).Add(WechatpayConst.SendName, param.SendName).Add(WechatpayConst.ReOpenid, param.ReOpenId)
                 .Add(WechatpayConst.TotalAmount, (param.TotalAmount * 100).ToInt().ToString()).Add(WechatpayConst.TotalNum, param.TotalNum.ToString())
                 .Add(WechatpayConst.Wishing, param.Wishing).Add(WechatpayConst.ActName, param.ActName).Add(WechatpayConst.Remark, param.Remark)
                 .Add(WechatpayConst.SceneId, param.SceneId?.ToString()).Add(WechatpayConst.RiskInfo, param.RiskInfo);

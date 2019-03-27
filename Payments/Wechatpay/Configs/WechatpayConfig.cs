@@ -307,6 +307,15 @@ namespace Payments.Wechatpay.Configs
         }
 
         /// <summary>
+        /// 查询扣款订单
+        /// </summary>
+        /// <returns></returns>
+        public string GetPapOrderQueryUrl()
+        {
+            return "https://api.mch.weixin.qq.com/pay/paporderquery";
+        }
+
+        /// <summary>
         /// 申请解约
         /// </summary>
         /// <returns></returns>

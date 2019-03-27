@@ -26,13 +26,13 @@ namespace Payments.Wechatpay.Services
             NativePayService = nativePayService;
         }
 
-        public async Task<HttpResponseMessage> ReturnMessage(WechatpayNativePayRequest param)
+        public async Task<HttpResponseMessage> ReturnMessage(WechatpayNativePayRequest request)
         {
             HttpResponseMessage response = null;
             var validationResultCollection = await ValidateAsync();
             if (validationResultCollection.IsValid)
             {
-                var result = await NativePayService.PayAsync(param);
+                var result = await NativePayService.PayAsync(request);
 
                 WechatpayParameterBuilder paramBuilder = new WechatpayParameterBuilder(Config);
                 paramBuilder.Init();

@@ -242,6 +242,16 @@ namespace Payments.Wechatpay.Parameters
             Builder.Add(WechatpayConst.Detail, detail?.ToJson());
             return this;
         }
+        /// <summary>
+        /// 商品详细描述
+        /// </summary>
+        /// <param name="detail"></param>
+        /// <returns></returns>
+        public WechatpayParameterBuilder Detail(string detail)
+        {
+            Builder.Add(WechatpayConst.Detail, detail);
+            return this;
+        }
         public WechatpayParameterBuilder SceneInfo(string sceneInfo)
         {
             Builder.Add(WechatpayConst.SceneInfo, sceneInfo);
@@ -335,7 +345,17 @@ namespace Payments.Wechatpay.Parameters
             Builder.Add(WechatpayConst.TradeType, type);
             return this;
         }
-
+        /// <summary>
+        /// 设备号
+        /// 自定义参数，可以为终端设备号(门店号或收银设备ID)，PC网页或公众号内支付可以传"WEB"
+        /// </summary>
+        /// <param name="deviceInfo"></param>
+        /// <returns></returns>
+        public WechatpayParameterBuilder DeviceInfo(string deviceInfo)
+        {
+            Builder.Add(WechatpayConst.DeviceInfo, deviceInfo);
+            return this;
+        }
         /// <summary>
         /// 设置签名类型
         /// </summary>

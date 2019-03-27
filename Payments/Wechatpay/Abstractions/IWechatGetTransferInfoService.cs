@@ -15,7 +15,12 @@ namespace Payments.Wechatpay.Abstractions
     [PayService("查询企业付款服务", PayOriginType.WechatPay)]
     public interface IWechatGetTransferInfoService
     {
-        Task<WechatpayResult<WechatGetTransferInfoResponse>> Query(WechatGetTransferInfoRequest param);
+        /// <summary>
+        /// 查询
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        Task<WechatpayResult<WechatGetTransferInfoResponse>> Query(WechatGetTransferInfoRequest request);
         
     }
 }

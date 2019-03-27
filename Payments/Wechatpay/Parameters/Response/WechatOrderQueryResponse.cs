@@ -1,5 +1,5 @@
 using Newtonsoft.Json;
-using Payments.Wechatpay.Parameters.Response.Base;
+using Payments.Wechatpay.Parameters.Response;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -22,7 +22,7 @@ namespace Payments.Wechatpay.Parameters.Response
         /// 用户在商户appid下的唯一标识
         /// </summary>
         [XmlElement("openid")]
-        public virtual string Openid { get; set; }
+        public virtual string OpenId { get; set; }
 
         /// <summary>
         /// 是否关注公众账号
@@ -90,18 +90,22 @@ namespace Payments.Wechatpay.Parameters.Response
         /// </summary>
         [XmlElement("cash_fee_type")]
         public virtual string CashFeeType { get; set; }
-        /// <summary>
-        /// 代金券金额	
-        /// “代金券”金额<=订单金额，订单金额-“代金券”金额=现金支付金额，详见支付金额
-        /// </summary>
-        [XmlElement("coupon_fee")]
-        public virtual int CouponFee { get; set; }
+    
 
         /// <summary>
         /// 代金券使用数量        
         /// </summary>
         [XmlElement("coupon_count")]
         public virtual int CouponCount { get; set; }
+
+        /// <summary>
+        /// 代金券类型
+        /// CASH--充值代金券 
+        /// NO_CASH---非充值优惠券
+        /// 开通免充值券功能，并且订单使用了优惠券后有返回（取值：CASH、NO_CASH）。n为下标,从0开始编号，举例：coupon_type_0
+        /// </summary>
+        [XmlElement("coupon_type")]
+        public virtual string CouponType { get; set; }
         /// <summary>
         /// 代金券类型
         /// CASH--充值代金券 
@@ -127,7 +131,12 @@ namespace Payments.Wechatpay.Parameters.Response
         [XmlElement("coupon_type_2")]
         public virtual string CouponType2 { get; set; }
 
-
+        /// <summary>
+        /// 代金券ID
+        /// 单个代金券支付金额, n为下标，从0开始编号
+        /// </summary>
+        [XmlElement("coupon_id")]
+        public virtual int CouponId { get; set; }
 
         /// <summary>
         /// 代金券ID
@@ -149,26 +158,29 @@ namespace Payments.Wechatpay.Parameters.Response
         /// </summary>
         [XmlElement("coupon_id_2")]
         public virtual int CouponId2 { get; set; }
-
+       
         /// <summary>
         /// 单个代金券支付金额
         /// 单个代金券支付金额, n为下标，从0开始编号
         /// </summary>
-
+        [XmlElement("coupon_fee")]
+        public virtual int CouponFee { get; set; }
+        /// <summary>
+        /// 单个代金券支付金额
+        /// 单个代金券支付金额, n为下标，从0开始编号
+        /// </summary>
         [XmlElement("coupon_fee_0")]
         public virtual int CouponFee0 { get; set; }
         /// <summary>
         /// 单个代金券支付金额
         /// 单个代金券支付金额, n为下标，从0开始编号
         /// </summary>
-
         [XmlElement("coupon_fee_1")]
         public virtual int CouponFee1 { get; set; }
         /// <summary>
         /// 单个代金券支付金额
         /// 单个代金券支付金额, n为下标，从0开始编号
         /// </summary>
-
         [XmlElement("coupon_fee_2")]
         public virtual int CouponFee2 { get; set; }
 

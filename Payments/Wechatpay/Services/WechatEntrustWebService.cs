@@ -22,11 +22,11 @@ namespace Payments.Wechatpay.Services
 
         }
 
-        public Task<string> GetUrl(WechatEntrustWebRequest param)
+        public Task<string> GetUrl(WechatEntrustWebRequest request)
         {
-            Validate(Config, param);
+            Validate(Config, request);
             var builder = CreateParameterBuilder();
-            BuildConfig(builder, param);
+            BuildConfig(builder, request);
             string url = builder.ToUrl(true);
             return Task.FromResult($"{GetRequestUrl(Config)}?{url}");
         }

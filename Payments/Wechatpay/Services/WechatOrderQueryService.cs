@@ -32,9 +32,9 @@ namespace Payments.Wechatpay.Services
 
 
 
-        public Task<WechatpayResult<WechatOrderQueryResponse>> QueryAsync(WechatOrderQueryRequest param)
+        public Task<WechatpayResult<WechatOrderQueryResponse>> QueryAsync(WechatOrderQueryRequest request)
         {
-            return Request<WechatOrderQueryResponse>(param);
+            return Request<WechatOrderQueryResponse>(request);
         }
 
         protected override void InitBuilder(WechatpayParameterBuilder builder, WechatOrderQueryRequest param)

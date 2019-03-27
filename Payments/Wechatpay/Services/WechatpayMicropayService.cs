@@ -31,9 +31,9 @@ namespace Payments.Wechatpay.Services
         /// </summary>
         /// <param name="t"></param>
         /// <returns></returns>
-        public Task<WechatpayResult<WechatpayMicroPayResponse>> PayAsync(WechatpayMicroPayRequest t)
+        public Task<WechatpayResult<WechatpayMicroPayResponse>> PayAsync(WechatpayMicroPayRequest request)
         {
-            return Request<WechatpayMicroPayResponse>(t);
+            return Request<WechatpayMicroPayResponse>(request);
         }
 
 

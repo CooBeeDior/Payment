@@ -1,13 +1,15 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Http.Internal;
+using Microsoft.Extensions.Logging;
 using Payments.Core;
 using Payments.Extensions;
 using Payments.Properties;
 using Payments.Util;
 using Payments.Util.Http;
 using Payments.Util.Validations;
+using Payments.Wechatpay.Abstractions.Base;
 using Payments.Wechatpay.Configs;
-using Payments.Wechatpay.Parameters.Response.Base;
+using Payments.Wechatpay.Parameters.Response;
 using Payments.Wechatpay.Results;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -19,7 +21,7 @@ namespace Payments.Wechatpay.Services.Base
     /// 异步回调通知
     /// </summary>
     /// <typeparam name="TResponse"></typeparam>
-    public abstract class WechatpayNotifyServiceBase<TResponse> : INotifyService<TResponse> where TResponse : WechatpayResponse
+    public abstract class WechatpayNotifyServiceBase<TResponse> : IWechatNotifyService<TResponse> where TResponse : WechatpayResponse
     {
         /// <summary>
         /// 请求

@@ -18,28 +18,24 @@ namespace Payments.Wechatpay.Parameters.Requests
         /// 协议模板id，设置路径见 https://pay.weixin.qq.com/wiki/doc/api/pap.php?chapter=17_3
         /// </summary>
         [Required]
-        [MaxLength(28)]
         public string PlanId { get; set; }
 
         /// <summary>
         /// 商户侧的签约协议号，由商户生成
         /// </summary>
-        [Required]
-        [MaxLength(32)]
+        [Required]   
         public string ContractCode { get; set; }
 
         /// <summary>
         /// 商户请求签约时的序列号，要求唯一性。序列号主要用于排序，不作为查询条件，纯数字,范围不能超过Int64的范围（9223372036854775807）。
         /// </summary>
-        [Required]
-        [MaxLength(32)]
+        [Required] 
         public Int64 RequestSerial { get; set; }
 
         /// <summary>
         /// 签约用户的名称，用于页面展示，，参数值不支持UTF8非3字节编码的字符，例如表情符号，所以请勿传微信昵称到该字段
         /// </summary>
         [Required]
-        [MaxLength(32)]
         public string ContractDisplayAccount { get; set; }
 
         /// <summary>

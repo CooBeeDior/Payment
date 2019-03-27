@@ -1,5 +1,5 @@
 using Newtonsoft.Json;
-using Payments.Wechatpay.Parameters.Response.Base;
+using Payments.Wechatpay.Parameters.Response;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -12,6 +12,7 @@ namespace Payments.Wechatpay.Parameters.Response
     [XmlRoot("xml")]
     public class WechatEntrustWebResponse : WechatpayResponse
     {
+
         /// <summary>
         /// 签约协议号
         /// </summary>
@@ -19,16 +20,17 @@ namespace Payments.Wechatpay.Parameters.Response
         public virtual string ContractCode { get; set; }
 
         /// <summary>
-        /// 用户标识
-        /// </summary>
-        [XmlElement("openid")]
-        public virtual string Openid { get; set; }
-
-        /// <summary>
         /// 模板id
         /// </summary>
         [XmlElement("plan_id")]
         public virtual string PlanId { get; set; }
+
+        /// <summary>
+        /// 用户标识
+        /// </summary>
+        [XmlElement("openid")]
+        public virtual string OpenId { get; set; }
+
 
         /// <summary>
         /// 有两个变更类型取值:
@@ -50,12 +52,6 @@ namespace Payments.Wechatpay.Parameters.Response
         public virtual string ContractId { get; set; }
 
         /// <summary>
-        /// 协议到期时间，当change_type为ADD时有返回
-        /// </summary>
-        [XmlElement("contract_expired_time")]
-        public virtual string ContractExpiredTime { get; set; }
-
-        /// <summary>
         /// 当change_type为DELETE时有返回 
         /// 0-未解约 
         /// 1-有效期过自动解约 
@@ -67,12 +63,15 @@ namespace Payments.Wechatpay.Parameters.Response
         [XmlElement("contract_termination_mode")]
         public virtual int ContractTerminationMode { get; set; }
 
+
         /// <summary>
         /// 商户请求签约时的序列号，商户侧须唯一。
         /// 序列号主要用于排序，不作为查询条件，纯数字,范围不能超过Int64的范围（9223372036854775807）。
         /// </summary>
         [XmlElement("request_serial")]
         public virtual Int64 RequestSerial { get; set; }
+
+
 
 
     }

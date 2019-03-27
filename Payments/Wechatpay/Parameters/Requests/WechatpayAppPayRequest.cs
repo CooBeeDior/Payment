@@ -6,6 +6,6 @@ namespace Payments.Wechatpay.Parameters.Requests {
     /// </summary>
     public class WechatpayAppPayRequest : WechatpayPayRequestBase
     {
-       
+     
     }
 }

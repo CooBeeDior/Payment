@@ -34,11 +34,11 @@ namespace Payments.Wechatpay.Services
         }
 
 
-        public Task<string> BuildUrl(WechatpayNativePayOneRequest param)
+        public Task<string> BuildUrl(WechatpayNativePayOneRequest request)
         {
             string url = GetRequestUrl(Config);
             var builder = new WechatpayParameterBuilder(Config);
-            InitBuilder(builder, param);
+            InitBuilder(builder, request);
             url = $"{url}?{builder.ToUrl()}";
             return Task.FromResult<string>(url);
 
