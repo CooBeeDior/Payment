@@ -37,10 +37,10 @@ namespace Payments.Wechatpay.Services
         protected override void InitBuilder(WechatpayParameterBuilder builder, WechatTransfersRequest param)
         {
             builder.Add(WechatpayConst.MchAppId, Config.AppId).Add(WechatpayConst.MchId, Config.MerchantId).Add(WechatpayConst.DeviceInfo, param.DeviceInfo)
-                .NonceStr(Id.GetId()).Add(WechatpayConst.PartnerTradeNo, param.PartnerTradeNo).OpenId(param.OpenId)
+               .Add(WechatpayConst.PartnerTradeNo, param.PartnerTradeNo).OpenId(param.OpenId)
                 .Add(WechatpayConst.CheckName, param.CheckName?.ToString()).Add(WechatpayConst.ReUserName, param.ReUserName)
-                .Add(WechatpayConst.Amount, (param.Amount * 100).ToInt()).Add(WechatpayConst.Desc, param.Desc)
-                .Add(WechatpayConst.SpbillCreateIp, Server.GetLanIp());
+                .Add(WechatpayConst.Amount, (param.Amount * 100).ToInt()).Add(WechatpayConst.Desc, param.Desc);
+
         }
 
         protected override WechatpayParameterBuilder CreateParameterBuilder()
