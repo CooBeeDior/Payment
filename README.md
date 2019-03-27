@@ -9,7 +9,7 @@
 #### [H5支付](https://pay.weixin.qq.com/wiki/doc/api/H5.php?chapter=15_1)【IWechatpayMWebPayService】
 #### [付款码支付](https://pay.weixin.qq.com/wiki/doc/api/micropay.php?chapter=5_1)【IWechatpayMicroPayService】
 
-#### [授权码查询openid](https://mp.weixin.qq.com/wiki?t=resource/res_main&id=mp1421140842)
+#### [授权码查询openid](https://mp.weixin.qq.com/wiki?t=resource/res_main&id=mp1421140842)【IWechatAuthorizeService,IWechatAccessTokenService】
 
 #### 查询支付订单【IWechatOrderQueryService】
 #### 撤销支付订单【IWechatReverseOrderService】 
@@ -35,15 +35,17 @@
 #### [企业付款](https://pay.weixin.qq.com/wiki/doc/api/tools/mch_pay.php?chapter=14_1)【IWechatTransfersService】
 #### [查询企业付款](https://pay.weixin.qq.com/wiki/doc/api/tools/mch_pay.php?chapter=14_1)【IWechatGetTransferInfoService】
 
-#### [申请签约](https://pay.weixin.qq.com/wiki/doc/api/pap.php?chapter=18_1&index=1)【】
-#### [小程序纯签约](https://pay.weixin.qq.com/wiki/doc/api/pap.php?chapter=18_14&index=2)【】
-#### [H5纯签约](https://pay.weixin.qq.com/wiki/doc/api/pap.php?chapter=18_16&index=3)【】
-#### [支付中签约api](https://pay.weixin.qq.com/wiki/doc/api/pap.php?chapter=18_13&index=4)【】
-#### [签约、解约结果通知](https://pay.weixin.qq.com/wiki/doc/api/pap.php?chapter=18_17&index=5)【】
-#### [查询签约关系](https://pay.weixin.qq.com/wiki/doc/api/pap.php?chapter=18_2&index=6)【】
-#### [申请扣款](https://pay.weixin.qq.com/wiki/doc/api/pap.php?chapter=18_3&index=7)【】
-#### [申请解约](https://pay.weixin.qq.com/wiki/doc/api/pap.php?chapter=18_4&index=8)【】
-#### [扣款结果通知](https://pay.weixin.qq.com/wiki/doc/api/pap.php?chapter=18_7&index=10)【】
+#### [申请签约](https://pay.weixin.qq.com/wiki/doc/api/pap.php?chapter=18_1&index=1)【IWechatEntrustWebService】
+#### [小程序纯签约](https://pay.weixin.qq.com/wiki/doc/api/pap.php?chapter=18_14&index=2) 
+#### [H5纯签约](https://pay.weixin.qq.com/wiki/doc/api/pap.php?chapter=18_16&index=3)【IWechatH5EntrustWebService】
+#### [支付中签约api](https://pay.weixin.qq.com/wiki/doc/api/pap.php?chapter=18_13&index=4)【IWechatContractOrderService】
+#### [签约、解约结果通知](https://pay.weixin.qq.com/wiki/doc/api/pap.php?chapter=18_17&index=5)【IWechatSignNotifyService】
+#### [查询签约关系](https://pay.weixin.qq.com/wiki/doc/api/pap.php?chapter=18_2&index=6)【IWechatQueryContractService】
+#### [申请扣款](https://pay.weixin.qq.com/wiki/doc/api/pap.php?chapter=18_3&index=7)【IWechatPapPayApplyService】
+#### [申请解约](https://pay.weixin.qq.com/wiki/doc/api/pap.php?chapter=18_4&index=8)【IWechatDeleteContractService】
+#### [扣款结果通知](https://pay.weixin.qq.com/wiki/doc/api/pap.php?chapter=18_7&index=10)【IWechatContractNotifyService】
+#### [查询扣款通知](https://pay.weixin.qq.com/wiki/doc/api/pap.php?chapter=18_10&index=13)IWechatPapOrderQueryService
+
 
 # 支付宝支付
 #### Page支付【IAlipayPagePayService】
