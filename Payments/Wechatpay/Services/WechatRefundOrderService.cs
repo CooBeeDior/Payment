@@ -60,7 +60,7 @@ namespace Payments.Wechatpay.Services
         /// <returns></returns>
         protected override string GetRequestUrl(WechatpayConfig config)
         {
-            return config.GetRefundQueryUrl();
+            return config.GetOrderRefundUrl();
         }
 
         protected override WechatpayParameterBuilder CreateParameterBuilder()

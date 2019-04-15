@@ -25,49 +25,22 @@ namespace PayTest
                w.MerchantId = "1517630381";
                w.PrivateKey = "XIAKEweixinpay2019shjGGYGHD54hlk";
                w.NotifyUrl = "https://www.baidu.com";
-             
+
            });
 
             serviceProvider = serviceDescriptors.BuildServiceProvider();
         }
 
+
+
+        /// <summary>
+        /// Native下单
+        /// </summary>
         [TestMethod]
-        public void WechatPayTest()
+        public void WechatNativePayTest()
         {
-
-            //Native 下单 
-            var wechatpayNativePayOneService = serviceProvider.GetService<IWechatpayNativePayOneService>();
-            WechatpayNativePayOneRequest wechatpayNativePayOneRequest = new WechatpayNativePayOneRequest()
-            {
-                ProductId = "1123dwadawwaddaw45"
-            };
-
-            var url = wechatpayNativePayOneService.BuildUrl(wechatpayNativePayOneRequest).GetAwaiter().GetResult();
-
-            string orderId = "dawd4ao44o66owd2122";
-            var wechatRefundOrderService1 = serviceProvider.GetService<IWechatRefundOrderService>();
-
-            var wechatRefundOrderRequest1 = new WechatRefundOrderRequest()
-
-            {
-
-                OutRefundNo = "123456789",
-
-                OutTradeNo = orderId,
-
-                TotalFee = 0.01m,
-
-                RefundFee = 0.01m,
-
-
-
-                //NotifyUrl= "https://weixin.qq.com/notify/"
-
-
-
-            };
-
-            var result221 = wechatRefundOrderService1.RefundAsync(wechatRefundOrderRequest1).GetAwaiter().GetResult();
+            //1.生成订单
+            string orderId = "123123123123";
             var wechatpayNativePayService = serviceProvider.GetService<IWechatpayNativePayService>();
             var wechatpayNativePayRequest = new WechatpayNativePayRequest()
             {
@@ -107,92 +80,122 @@ namespace PayTest
                 //OpenId = "98980989080980"
 
             };
+            var result = wechatpayNativePayService.PayAsync(wechatpayNativePayRequest).GetAwaiter().GetResult();
 
-            var result1 = wechatpayNativePayService.PayAsync(wechatpayNativePayRequest).GetAwaiter().GetResult();
-
+            //2。查询订单
             var wechatOrderQueryService = serviceProvider.GetService<IWechatOrderQueryService>();
-
             var result2 = wechatOrderQueryService.QueryAsync(new WechatOrderQueryRequest()
-
             {
-
                 OutTradeNo = orderId
 
             }).GetAwaiter().GetResult();
 
-
-
-
-
-            //关闭
-
+            //3.关闭订单
             var wechatCloseOrderService = serviceProvider.GetService<IWechatCloseOrderService>();
-
             var result3 = wechatCloseOrderService.CloseAsync(new WechatCloseOrderRequest()
-
             {
-
                 OutTradeNo = orderId
 
             }).GetAwaiter().GetResult();
 
-
-
-            //查询
-
+            //4.查询订单
             var result4 = wechatOrderQueryService.QueryAsync(new WechatOrderQueryRequest()
-
             {
-
                 OutTradeNo = orderId
 
             }).GetAwaiter().GetResult();
 
 
+        }
 
 
+        /// <summary>
+        /// Native退款
+        /// </summary>
+        [TestMethod]
+        public void WechatNativePayRefundTest()
+        {
+            //1.生成订单
+            string orderId = "xxsss1111111";
+            //var wechatpayNativePayService = serviceProvider.GetService<IWechatpayNativePayService>();
+            //var wechatpayNativePayRequest = new WechatpayNativePayRequest()
+            //{
+            //    Body = "sssss",
+            //    OutTradeNo = orderId,
+            //    TotalFee = 0.01m,
+            //    Attach = "dadadaaaa",
+            //    FeeType = FeeType.CNY,
+            //    Detail = new WechatpayPayRequestBase.GoodsDetail()
+            //    {
+            //        GoodsId = "GoodsId",
+            //        WxpayGoodsId = "WxpayGoodsId",
+            //        GoodsName = "GoodsName",
+            //        Quantity = 2,
+            //        Price = 1
 
-            //退款
+            //    },
+            //    Receipt = "Y",
+            //    LimitPay = "no_credit",
 
+            //    ProductId = "ProductId",
+            //    GoodsTag = "GoodsTag",
+            //    TimeExpire = DateTime.Now.AddHours(2),
+            //    TimeStart = DateTime.Now,
+            //    SceneInfo = new WechatpayPayRequestBase.StoreSceneInfo
+            //    {
+
+            //        store_info = new WechatpayPayRequestBase.StoreSceneInfoObj()
+            //        {
+            //            id = "Id",
+            //            address = "Address",
+            //            area_code = "AreaCode",
+            //            name = "Name"
+            //        },
+            //    }.ToJson(),
+
+            //    //OpenId = "98980989080980"
+
+            //};
+            //var result = wechatpayNativePayService.PayAsync(wechatpayNativePayRequest).GetAwaiter().GetResult();
+            //string url = result?.Data?.CodeUrl;
+            //去支付
+
+            //2。查询订单
+            var wechatOrderQueryService = serviceProvider.GetService<IWechatOrderQueryService>();
+            var result2 = wechatOrderQueryService.QueryAsync(new WechatOrderQueryRequest()
+            {
+                OutTradeNo = orderId
+
+            }).GetAwaiter().GetResult();
+
+            //3.1退款订单
             var wechatRefundOrderService = serviceProvider.GetService<IWechatRefundOrderService>();
-
             var wechatRefundOrderRequest = new WechatRefundOrderRequest()
             {
-
-                OutRefundNo = "123456789",
-
+                OutRefundNo = orderId,
                 OutTradeNo = orderId,
-
                 TotalFee = 0.01m,
-
                 RefundFee = 0.01m,
-
-
-
                 //NotifyUrl= "https://weixin.qq.com/notify/"
-
-
-
             };
-
-            var result22 = wechatRefundOrderService.RefundAsync(wechatRefundOrderRequest).GetAwaiter().GetResult();
-
+            var result31 = wechatRefundOrderService.RefundAsync(wechatRefundOrderRequest).GetAwaiter().GetResult();
 
 
-            //退款查询
 
+            //3.2退款查询
             var wechatRefundQueryService = serviceProvider.GetService<IWechatRefundQueryService>();
-
             var wechatRefundQueryRequest = new WechatRefundQueryRequest()
-
             {
+                OutTradeNo = orderId
+            };
+            var result32 = wechatRefundQueryService.RefundQuery(wechatRefundQueryRequest).GetAwaiter().GetResult();
 
+            //4.查询订单
+            var result4 = wechatOrderQueryService.QueryAsync(new WechatOrderQueryRequest()
+            {
                 OutTradeNo = orderId
 
-            };
-
-            var result2231 = wechatRefundQueryService.RefundQuery(wechatRefundQueryRequest).GetAwaiter().GetResult();
-
+            }).GetAwaiter().GetResult();
 
 
         }
@@ -201,51 +204,8 @@ namespace PayTest
 
 
 
-        //[TestMethod]
-
-        //public void AliPayTest()
-
-        //{
-
-        //    string orderId = "2015032001010100";
 
 
-
-        //    var alipayPagePayService = serviceProvider.GetService<IAlipayPagePayService>();
-
-
-
-        //    AlipayPagePayRequest alipayPagePayRequest = new AlipayPagePayRequest()
-
-        //    {
-
-        //        Subject = "iphone",
-
-        //        OrderId = orderId,
-
-        //        Money = 22,
-
-        //        ////Attach = "123",
-
-        //        //ReturnUrl="http://www.alibaba.com",
-
-        //        //NotifyUrl= "http://www.alibaba.com",
-
-        //        Body = "cccc",
-
-
-
-        //    };
-
-        //    var result = alipayPagePayService.PayAsync(alipayPagePayRequest).GetAwaiter().GetResult();
-
-        //    File.WriteAllText(@"D:\hhh\\a.html", result.Result, Encoding.UTF8);
-
-        //    alipayPagePayService.RedirectAsync(alipayPagePayRequest).GetAwaiter().GetResult();
-
-
-
-        //}
 
 
 
