@@ -38,6 +38,15 @@ namespace Payments.Util.Http
         /// </summary>
         public HttpContent Content { get; private set; }
 
+        public HttpClientHandler ClientHandler { get; private set; }
+
+
+
+        public void SetClientHandler(HttpClientHandler httpClientHandler)
+        {
+            ClientHandler = httpClientHandler;
+        }
+
         /// <summary>
         /// post请求
         /// </summary>
@@ -88,7 +97,7 @@ namespace Payments.Util.Http
         /// </summary>
         /// <param name="data"></param>
         /// <returns></returns>
-        public WebClient JsonData<T>(T data)  
+        public WebClient JsonData<T>(T data)
         {
             var jsonData = data.ToJson();
             Content = new StringContent(jsonData, ContentEncoding, "application/json");
@@ -149,8 +158,9 @@ namespace Payments.Util.Http
         /// </summary>
         /// <returns></returns>
         public Task<HttpResponseMessage> ResultAsync()
-        {
-            return ObjectPoolManager<HttpClient>.HandleAsync<HttpResponseMessage>(async httpclient =>
+        {        
+            HttpClientPoolManager httpClientPoolManager = new HttpClientPoolManager(ClientHandler);
+            return httpClientPoolManager.HandleAsync<HttpResponseMessage>(async httpclient =>
             {
                 HttpRequestMessage httpRequestMessage = new HttpRequestMessage(this.Method, Url);
                 httpRequestMessage.Content = Content;

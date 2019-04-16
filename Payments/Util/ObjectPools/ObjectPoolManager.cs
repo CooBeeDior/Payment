@@ -1,6 +1,7 @@
 ﻿using Microsoft.Extensions.ObjectPool;
 using System;
 using System.Collections.Generic;
+using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -12,17 +13,35 @@ namespace Payments.Util.ObjectPools
     /// <typeparam name="T"></typeparam>
     public class ObjectPoolManager<T> where T : class, new()
     {
-        private static DefaultObjectPool<T> _defaultObjectPool;
-        static ObjectPoolManager()
+        protected DefaultObjectPool<T> DefaultObjectPool;
+
+        private object objPoolLock = new object();
+
+        public ObjectPoolManager(int maximumRetained = 20)
+        {
+            if (DefaultObjectPool == null)
+            {
+                lock (objPoolLock)
+                {
+                    if (DefaultObjectPool == null)
+                    {
+                        var defaultPooledObjectPolicy = CreatePooledObjectPolicy();
+                        DefaultObjectPool = new DefaultObjectPool<T>(defaultPooledObjectPolicy, maximumRetained);
+                    }
+                }
+            }
+        }
+
+        protected virtual IPooledObjectPolicy<T> CreatePooledObjectPolicy()
         {
             var defaultPooledObjectPolicy = new DefaultPooledObjectPolicy<T>();
-            _defaultObjectPool = new DefaultObjectPool<T>(defaultPooledObjectPolicy, 20);
+            return defaultPooledObjectPolicy;
         }
 
 
-        public static void Handle(Action<T> action)
+        public void Handle(Action<T> action)
         {
-            var t = _defaultObjectPool.Get();
+            var t = DefaultObjectPool.Get();
             try
             {
                 action.Invoke(t);
@@ -33,16 +52,16 @@ namespace Payments.Util.ObjectPools
             }
             finally
             {
-                _defaultObjectPool.Return(t);
+                DefaultObjectPool.Return(t);
             }
 
 
         }
 
-        public static TResult Handle<TResult>(Func<T, TResult> func) where TResult : class, new()
+        public TResult Handle<TResult>(Func<T, TResult> func) where TResult : class, new()
         {
             TResult result = null;
-            var t = _defaultObjectPool.Get();
+            var t = DefaultObjectPool.Get();
             try
             {
                 result = func.Invoke(t);
@@ -53,15 +72,15 @@ namespace Payments.Util.ObjectPools
             }
             finally
             {
-                _defaultObjectPool.Return(t);
+                DefaultObjectPool.Return(t);
             }
             return result;
         }
 
 
-        public static Task HandleAsync(Action<T> action)
+        public Task HandleAsync(Action<T> action)
         {
-            var t = _defaultObjectPool.Get();
+            var t = DefaultObjectPool.Get();
             try
             {
                 action.Invoke(t);
@@ -72,16 +91,16 @@ namespace Payments.Util.ObjectPools
             }
             finally
             {
-                _defaultObjectPool.Return(t);
+                DefaultObjectPool.Return(t);
             }
             return Task.CompletedTask;
 
         }
 
-        public static Task<TResult> HandleAsync<TResult>(Func<T, Task<TResult>> func) where TResult : class, new()
+        public Task<TResult> HandleAsync<TResult>(Func<T, Task<TResult>> func) where TResult : class, new()
         {
             Task<TResult> result = null;
-            var t = _defaultObjectPool.Get();
+            var t = DefaultObjectPool.Get();
             try
             {
                 result = func.Invoke(t);
@@ -92,11 +111,59 @@ namespace Payments.Util.ObjectPools
             }
             finally
             {
-                _defaultObjectPool.Return(t);
+                DefaultObjectPool.Return(t);
             }
             return result;
         }
 
 
     }
+
+
+
+    #region HttpClient
+    public class HttpClientPooledObjectPolicy : PooledObjectPolicy<HttpClient>
+    {
+        private HttpClientHandler _handler;
+        public HttpClientPooledObjectPolicy(HttpClientHandler handler)
+        {
+            _handler = handler;
+        }
+
+        public override HttpClient Create()
+        {
+            HttpClient client = null;
+            if (_handler == null)
+            {
+                client = new HttpClient();
+            }
+            else
+            {
+                client = new HttpClient(_handler);
+            }
+            return client;
+        }
+
+        public override bool Return(HttpClient obj)
+        {
+            return true;
+        }
+    }
+
+
+    public class HttpClientPoolManager : ObjectPoolManager<HttpClient>
+    {
+        protected HttpClientHandler ClientHandler;
+        public HttpClientPoolManager(HttpClientHandler clientHandler)
+        {
+            ClientHandler = clientHandler;
+        }
+        protected override IPooledObjectPolicy<HttpClient> CreatePooledObjectPolicy()
+        {
+            var defaultPooledObjectPolicy = new HttpClientPooledObjectPolicy(ClientHandler);
+            return defaultPooledObjectPolicy;
+        }
+    }
+
+    #endregion
 }

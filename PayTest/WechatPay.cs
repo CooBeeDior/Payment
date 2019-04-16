@@ -5,6 +5,7 @@ using Payments.Wechatpay.Abstractions;
 using Payments.Wechatpay.Enums;
 using Payments.Wechatpay.Parameters.Requests;
 using System;
+using System.Net.Http;
 
 namespace PayTest
 {
@@ -15,7 +16,6 @@ namespace PayTest
         ServiceProvider serviceProvider = null;
         public Tests()
         {
-
             ServiceCollection serviceDescriptors = new ServiceCollection();
             serviceDescriptors.AddLogging();
             serviceDescriptors.AddHttpContextAccessor();

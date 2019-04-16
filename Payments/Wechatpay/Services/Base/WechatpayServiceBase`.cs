@@ -11,6 +11,8 @@ using Payments.Wechatpay.Parameters.Requests;
 using Payments.Wechatpay.Parameters.Response;
 using Payments.Wechatpay.Results;
 using System;
+using System.Net.Http;
+using System.Security.Cryptography.X509Certificates;
 using System.Threading.Tasks;
 namespace Payments.Wechatpay.Services.Base
 {
@@ -113,11 +115,23 @@ namespace Payments.Wechatpay.Services.Base
         /// </summary>
         protected async Task<string> Request(WechatpayConfig config, WechatpayParameterBuilder builder)
         {
-            var resonse = await Web.Client()
+            var webClient = Web.Client();
+            webClient.SetClientHandler(await SetCertificate());
+            var resonse = await webClient
                 .Post(GetRequestUrl(config))
                 .XmlData(builder.ToXml(true, builder.Get(WechatpayConst.SignType).ToWechatpaySignType()))
                 .ResultAsync();
             return await resonse.Content.ReadAsStringAsync();
+        }
+
+        /// <summary>
+        /// 设置证书
+        /// </summary>
+        /// <returns></returns>
+        protected virtual Task<HttpClientHandler> SetCertificate()
+        {
+            HttpClientHandler handler = new HttpClientHandler();
+            return Task.FromResult(handler);
         }
 
         /// <summary>

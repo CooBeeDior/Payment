@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Net.Http;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
 using Payments.Core.Response;
@@ -53,10 +54,11 @@ namespace Payments.Wechatpay.Services
                    .Remove(WechatpayConst.SpbillCreateIp);
 
         }
-        protected override WechatpayParameterBuilder CreateParameterBuilder()
+        protected override Task<HttpClientHandler> SetCertificate()
         {
-            var builder = new WechatpayCertParameterBuilder(Config);
-            return builder;
+            HttpClientHandler handler = new HttpClientHandler();
+            handler.SetCertificate(Config.CertificateData, Config.CertificatePwd);
+            return Task.FromResult(handler);
         }
     }
 }

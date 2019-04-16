@@ -35,7 +35,17 @@ namespace Payments.Wechatpay.Configs
         /// </summary>
         [Required(ErrorMessage = "应用私钥[PrivateKey]不能为空")]
         public string PrivateKey { get; set; }
-     
+
+        /// <summary>
+        /// 证书数据
+        /// </summary>
+        public byte[] CertificateData { get; set; }
+
+        /// <summary>
+        /// 证书密码
+        /// </summary>
+        public string CertificatePwd { get; set; }
+
 
         /// <summary>
         /// 签名类型，默认Md5

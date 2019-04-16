@@ -11,6 +11,7 @@ using Payments.Wechatpay.Results;
 using Payments.Wechatpay.Services.Base;
 using System;
 using System.Collections.Generic;
+using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -48,10 +49,11 @@ namespace Payments.Wechatpay.Services
                .Add(WechatpayConst.ActName, param.ActName).Add(WechatpayConst.Remark, param.Remark).Add(WechatpayConst.SceneId, param.SceneId?.ToString())
                .Add(WechatpayConst.RiskInfo, param.RiskInfo);
         }
-        protected override WechatpayParameterBuilder CreateParameterBuilder()
+        protected override Task<HttpClientHandler> SetCertificate()
         {
-            var builder = new WechatpayCertParameterBuilder(Config);
-            return builder;
+            HttpClientHandler handler = new HttpClientHandler();
+            handler.SetCertificate(Config.CertificateData, Config.CertificatePwd);
+            return Task.FromResult(handler);
         }
     }
 }

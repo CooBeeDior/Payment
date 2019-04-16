@@ -1,5 +1,6 @@
 ﻿using Microsoft.Extensions.Logging;
 using Payments.Core.Response;
+using Payments.Extensions;
 using Payments.Util;
 using Payments.Wechatpay.Abstractions;
 using Payments.Wechatpay.Configs;
@@ -9,6 +10,8 @@ using Payments.Wechatpay.Parameters.Response;
 using Payments.Wechatpay.Results;
 using Payments.Wechatpay.Services.Base;
 using System;
+using System.Net.Http;
+using System.Security.Cryptography.X509Certificates;
 using System.Threading.Tasks;
 namespace Payments.Wechatpay.Services
 {
@@ -37,10 +40,11 @@ namespace Payments.Wechatpay.Services
             builder.AppId(Config.AppId).Add("mch_id", Config.MerchantId).NonceStr(Id.GetId()).Add(WechatpayConst.PartnerTradeNo, param.PartnerTradeNo);
         }
 
-        protected override WechatpayParameterBuilder CreateParameterBuilder()
+        protected override Task<HttpClientHandler> SetCertificate()
         {
-            var builder = new WechatpayCertParameterBuilder(Config);
-            return builder;
+            HttpClientHandler handler = new HttpClientHandler(); 
+            handler.SetCertificate(Config.CertificateData, Config.CertificatePwd);
+            return Task.FromResult(handler);
         }
     }
 }

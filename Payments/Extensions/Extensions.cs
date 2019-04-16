@@ -18,6 +18,7 @@ using System.Collections.ObjectModel;
 using Payments.Properties;
 using System.Net;
 using Payments.Wechatpay.Enums;
+using System.Security.Cryptography.X509Certificates;
 
 namespace Payments.Extensions
 {
@@ -809,6 +810,27 @@ namespace Payments.Extensions
                 return WechatpaySignType.Md5;
             }
             return null;
+        }
+        #endregion
+
+
+        #region HttpClientHandler
+        /// <summary>
+        /// 添加证书
+        /// </summary>
+        /// <param name="httpClientHandler"></param>
+        /// <param name="RowData"></param>
+        /// <param name="Password"></param>
+        /// <returns></returns>
+        public static HttpClientHandler SetCertificate(this HttpClientHandler httpClientHandler, byte[] RowData, string Password, X509KeyStorageFlags StorageFlags = X509KeyStorageFlags.MachineKeySet)
+        {
+            if (RowData == null)
+            {
+                throw new Exception("证书不能为空");
+            }
+            var certificate = new X509Certificate2(RowData, Password, StorageFlags);
+            httpClientHandler.ClientCertificates.Add(certificate);
+            return httpClientHandler;
         }
         #endregion
     }
