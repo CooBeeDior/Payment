@@ -12,7 +12,7 @@ using Payments.Wechatpay.Results;
 using Payments.Wechatpay.Services.Base;
 using System;
 using System.Threading.Tasks;
-
+using System.Net.Http;
 namespace Payments.Wechatpay.Services
 {
     /// <summary>
@@ -24,7 +24,7 @@ namespace Payments.Wechatpay.Services
         /// 初始化微信小程序支付服务
         /// </summary>
         /// <param name="provider">微信支付配置提供器</param>
-        public WechatPapOrderQueryService(IWechatpayConfigProvider provider, ILoggerFactory loggerFactory) : base(provider, loggerFactory)
+        public WechatPapOrderQueryService(IWechatpayConfigProvider configProvider, IHttpClientFactory httpClientFactory, ILoggerFactory loggerFactory) : base(configProvider, httpClientFactory, loggerFactory)
         {
         }
 

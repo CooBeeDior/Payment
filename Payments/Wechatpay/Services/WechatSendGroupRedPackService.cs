@@ -23,7 +23,7 @@ namespace Payments.Wechatpay.Services
     public class WechatSendGroupRedPackService : WechatpayServiceBase<WechatSendRedPackRequest>, IWechatSendGroupRedPackService
     {
 
-        public WechatSendGroupRedPackService(IWechatpayConfigProvider provider, ILoggerFactory loggerFactory) : base(provider, loggerFactory)
+        public WechatSendGroupRedPackService(IWechatpayConfigProvider configProvider, IHttpClientFactory httpClientFactory, ILoggerFactory loggerFactory) : base(configProvider, httpClientFactory, loggerFactory)
         {
 
         }
@@ -49,11 +49,6 @@ namespace Payments.Wechatpay.Services
                .Add(WechatpayConst.ActName, param.ActName).Add(WechatpayConst.Remark, param.Remark).Add(WechatpayConst.SceneId, param.SceneId?.ToString())
                .Add(WechatpayConst.RiskInfo, param.RiskInfo);
         }
-        protected override Task<HttpClientHandler> SetCertificate()
-        {
-            HttpClientHandler handler = new HttpClientHandler();
-            handler.SetCertificate(Config.CertificateData, Config.CertificatePwd);
-            return Task.FromResult(handler);
-        }
+    
     }
 }

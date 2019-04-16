@@ -9,6 +9,7 @@ using Payments.Wechatpay.Parameters.Response;
 using Payments.Wechatpay.Results;
 using Payments.Wechatpay.Services.Base;
 using System;
+using System.Net.Http;
 using System.Threading.Tasks;
 
 namespace Payments.Wechatpay.Services
@@ -20,7 +21,7 @@ namespace Payments.Wechatpay.Services
     {
 
 
-        public WechatContractOrderService(IWechatpayConfigProvider configProvider, ILoggerFactory loggerFactory) : base(configProvider, loggerFactory)
+        public WechatContractOrderService(IWechatpayConfigProvider configProvider, IHttpClientFactory httpClientFactory, ILoggerFactory loggerFactory) : base(configProvider, httpClientFactory, loggerFactory)
         {
 
         }

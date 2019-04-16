@@ -22,7 +22,7 @@ namespace Payments.Wechatpay.Services
     /// </summary>
     public class WechatTransfersService : WechatpayServiceBase<WechatTransfersRequest>, IWechatTransfersService
     {
-        public WechatTransfersService(IWechatpayConfigProvider provider, ILoggerFactory loggerFactory) : base(provider, loggerFactory)
+        public WechatTransfersService(IWechatpayConfigProvider configProvider, IHttpClientFactory httpClientFactory, ILoggerFactory loggerFactory) : base(configProvider, httpClientFactory, loggerFactory)
         {
         }
         public Task<WechatpayResult<WechatTransfersResponse>> Transfer(WechatTransfersRequest request)
@@ -44,11 +44,6 @@ namespace Payments.Wechatpay.Services
 
         }
 
-        protected override Task<HttpClientHandler> SetCertificate()
-        {
-            HttpClientHandler handler = new HttpClientHandler();
-            handler.SetCertificate(Config.CertificateData, Config.CertificatePwd);
-            return Task.FromResult(handler);
-        }
+     
     }
 }

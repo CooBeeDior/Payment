@@ -11,6 +11,12 @@ namespace Payments.Util.Http
 {
     public class WebClient
     {
+        public WebClient(HttpClient client)
+        {
+            HttpClient = client;
+        }
+
+        public HttpClient HttpClient { get; }
         /// <summary>
         /// 请求路径
         /// </summary>
@@ -39,13 +45,6 @@ namespace Payments.Util.Http
         public HttpContent Content { get; private set; }
 
         public HttpClientHandler ClientHandler { get; private set; }
-
-
-
-        public void SetClientHandler(HttpClientHandler httpClientHandler)
-        {
-            ClientHandler = httpClientHandler;
-        }
 
         /// <summary>
         /// post请求
@@ -157,24 +156,26 @@ namespace Payments.Util.Http
         /// 请求
         /// </summary>
         /// <returns></returns>
-        public Task<HttpResponseMessage> ResultAsync()
-        {        
-            HttpClientPoolManager httpClientPoolManager = new HttpClientPoolManager(ClientHandler);
-            return httpClientPoolManager.HandleAsync<HttpResponseMessage>(async httpclient =>
-            {
-                HttpRequestMessage httpRequestMessage = new HttpRequestMessage(this.Method, Url);
-                httpRequestMessage.Content = Content;
-                if (Headers != null)
-                {
-                    foreach (var header in Headers)
-                    {
-                        httpRequestMessage.Headers.Add(header.Key, header.Value?.ToString());
-                    }
-                }
-                HttpResponseMessage response = await httpclient.SendAsync(httpRequestMessage);
-                return response;
+        public async Task<HttpResponseMessage> ResultAsync()
+        {
 
-            });
+            //HttpClientPoolManager httpClientPoolManager = new HttpClientPoolManager(ClientHandler);
+            //     return httpClientPoolManager.HandleAsync<HttpResponseMessage>(async httpclient =>
+            //     {
+
+            HttpRequestMessage httpRequestMessage = new HttpRequestMessage(this.Method, Url);
+            httpRequestMessage.Content = Content;
+            if (Headers != null)
+            {
+                foreach (var header in Headers)
+                {
+                    httpRequestMessage.Headers.Add(header.Key, header.Value?.ToString());
+                }
+            }
+            HttpResponseMessage response = await HttpClient.SendAsync(httpRequestMessage);
+            return response;
+
+            //});
         }
 
 

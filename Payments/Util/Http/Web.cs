@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Net.Http;
 using System.Text;
 
 namespace Payments.Util.Http
@@ -10,9 +11,9 @@ namespace Payments.Util.Http
         /// 创建WebClient
         /// </summary>
         /// <returns></returns>
-        public static WebClient Client()
+        public static WebClient Client(HttpClient client)
         {
-            return new WebClient();
+            return new WebClient(client);
         }
     }
 }

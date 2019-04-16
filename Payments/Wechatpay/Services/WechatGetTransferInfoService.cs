@@ -20,7 +20,7 @@ namespace Payments.Wechatpay.Services
     /// </summary>
     public class WechatGetTransferInfoService : WechatpayServiceBase<WechatGetTransferInfoRequest>, IWechatGetTransferInfoService
     {
-        public WechatGetTransferInfoService(IWechatpayConfigProvider configProvider, ILoggerFactory loggerFactory) : base(configProvider, loggerFactory)
+        public WechatGetTransferInfoService(IWechatpayConfigProvider configProvider, IHttpClientFactory httpClientFactory, ILoggerFactory loggerFactory) : base(configProvider, httpClientFactory, loggerFactory)
         {
 
         }
@@ -40,11 +40,6 @@ namespace Payments.Wechatpay.Services
             builder.AppId(Config.AppId).Add("mch_id", Config.MerchantId).NonceStr(Id.GetId()).Add(WechatpayConst.PartnerTradeNo, param.PartnerTradeNo);
         }
 
-        protected override Task<HttpClientHandler> SetCertificate()
-        {
-            HttpClientHandler handler = new HttpClientHandler(); 
-            handler.SetCertificate(Config.CertificateData, Config.CertificatePwd);
-            return Task.FromResult(handler);
-        }
+   
     }
 }

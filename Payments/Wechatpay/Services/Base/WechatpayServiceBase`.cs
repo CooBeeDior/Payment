@@ -28,16 +28,16 @@ namespace Payments.Wechatpay.Services.Base
         /// </summary>
         protected readonly WechatpayConfig Config;
 
-        //protected readonly IWechatpayConfigProvider ConfigProvider;
+        protected IHttpClientFactory HttpClientFactory;
 
         /// <summary>
         /// 初始化微信支付服务
         /// </summary>
         /// <param name="configProvider">微信支付配置提供器</param>
-        protected WechatpayServiceBase(IWechatpayConfigProvider configProvider, ILoggerFactory loggerFactory)
+        protected WechatpayServiceBase(IWechatpayConfigProvider configProvider, IHttpClientFactory httpClientFactory, ILoggerFactory loggerFactory)
         {
             configProvider.CheckNull(nameof(configProvider));
-            //ConfigProvider = configProvider;
+            HttpClientFactory = httpClientFactory;
             Config = configProvider.GetConfig();
             Logger = loggerFactory.CreateLogger<WechatpayServiceBase>();
         }
@@ -115,24 +115,13 @@ namespace Payments.Wechatpay.Services.Base
         /// </summary>
         protected async Task<string> Request(WechatpayConfig config, WechatpayParameterBuilder builder)
         {
-            var webClient = Web.Client();
-            webClient.SetClientHandler(await SetCertificate());
-            var resonse = await webClient
+            var client = HttpClientFactory.CreateClient("wechat");        
+            var resonse = await Web.Client(client)
                 .Post(GetRequestUrl(config))
                 .XmlData(builder.ToXml(true, builder.Get(WechatpayConst.SignType).ToWechatpaySignType()))
                 .ResultAsync();
             return await resonse.Content.ReadAsStringAsync();
-        }
-
-        /// <summary>
-        /// 设置证书
-        /// </summary>
-        /// <returns></returns>
-        protected virtual Task<HttpClientHandler> SetCertificate()
-        {
-            HttpClientHandler handler = new HttpClientHandler();
-            return Task.FromResult(handler);
-        }
+        } 
 
         /// <summary>
         /// 请求结果

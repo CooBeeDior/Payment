@@ -8,7 +8,9 @@ using Payments.Wechatpay.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
 using System.Reflection;
+using System.Security.Cryptography.X509Certificates;
 
 namespace Payments.Extensions
 {
@@ -49,26 +51,18 @@ namespace Payments.Extensions
         /// </summary>
         /// <param name="services"></param>
         /// <param name="setupAction"></param>
-        public static void AddWechatPay(this IServiceCollection services, Action<WechatpayConfig> setupAction = null)
+        public static IServiceCollection AddWechatPay(this IServiceCollection services, Action<WechatpayConfig> setupAction = null)
         {
             var wechatpayConfig = new WechatpayConfig();
             setupAction?.Invoke(wechatpayConfig);
+            services.AddHttpClient("wechat", wechatpayConfig);
             services.TryAddSingleton<IWechatpayConfigProvider>(new WechatpayConfigProvider(wechatpayConfig));
             services.TryAddScoped<IWechatpayNotifyService, WechatpayNotifyService>();
             services.AddPayService(PayOriginType.WechatPay);
+            return services;
         }
 
-        /// <summary>
-        /// 注册微信支付
-        /// </summary>
-        /// <typeparam name="TWechatpayConfigProvider"></typeparam>
-        /// <param name="services"></param>
-        public static void AddWechatPay<TWechatpayConfigProvider>(this IServiceCollection services) where TWechatpayConfigProvider : class, IWechatpayConfigProvider
-        {
-            services.TryAddScoped<IWechatpayConfigProvider, TWechatpayConfigProvider>();
-            services.TryAddScoped<IWechatpayNotifyService, WechatpayNotifyService>();
-            services.AddPayService(PayOriginType.WechatPay);
-        }
+
         //public static void AddPay(this IServiceCollection services, Action<AlipayConfig> aliPaySetupAction = null, Action<WechatpayConfig> wechatPaySetupAction = null)
         //{
         //    services.AddAliPay(aliPaySetupAction);
@@ -88,6 +82,21 @@ namespace Payments.Extensions
             AddPayService(services, new List<PayOriginType>() { payOriginType });
         }
 
+
+        private static void AddHttpClient(this IServiceCollection services, string name, WechatpayConfig wechatpayConfig)
+        {
+            if (wechatpayConfig.CertificateData != null)
+            {
+                services.AddHttpClient(name).ConfigurePrimaryHttpMessageHandler(() =>
+                {
+                    var certificate = new X509Certificate2(wechatpayConfig.CertificateData, wechatpayConfig.CertificatePwd, X509KeyStorageFlags.MachineKeySet);
+                    var handler = new HttpClientHandler();
+                    handler.ClientCertificates.Add(certificate);
+                    return handler;
+                });
+            }
+
+        }
 
         private static void AddPayService(this IServiceCollection services, IList<PayOriginType> payOriginTypes = null)
         {

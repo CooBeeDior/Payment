@@ -27,7 +27,7 @@ namespace Payments.Wechatpay.Services
         /// 初始化微信App支付服务
         /// </summary>
         /// <param name="provider">微信支付配置提供器</param>
-        public WechatRefundOrderService(IWechatpayConfigProvider configProvider, ILoggerFactory loggerFactory) : base(configProvider, loggerFactory)
+        public WechatRefundOrderService(IWechatpayConfigProvider configProvider, IHttpClientFactory httpClientFactory, ILoggerFactory loggerFactory) : base(configProvider, httpClientFactory, loggerFactory)
         {
 
         }
@@ -64,11 +64,6 @@ namespace Payments.Wechatpay.Services
             return config.GetOrderRefundUrl();
         }
 
-        protected override Task<HttpClientHandler> SetCertificate()
-        {
-            HttpClientHandler handler = new HttpClientHandler();
-            handler.SetCertificate(Config.CertificateData, Config.CertificatePwd);
-            return Task.FromResult(handler);
-        }
+      
     }
 }

@@ -9,6 +9,7 @@ using Payments.Wechatpay.Parameters;
 using Payments.Wechatpay.Parameters.Requests;
 using Payments.Wechatpay.Services.Base;
 using System;
+using System.Net.Http;
 using System.Threading.Tasks;
 
 namespace Payments.Wechatpay.Services
@@ -20,7 +21,7 @@ namespace Payments.Wechatpay.Services
     {
 
 
-        public WechatH5EntrustWebService(IWechatpayConfigProvider configProvider, ILoggerFactory loggerFactory) : base(configProvider, loggerFactory)
+        public WechatH5EntrustWebService(IWechatpayConfigProvider configProvider, IHttpClientFactory httpClientFactory, ILoggerFactory loggerFactory) : base(configProvider, httpClientFactory, loggerFactory)
         {
 
         }
