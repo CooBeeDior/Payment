@@ -1,11 +1,6 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.DependencyInjection.Extensions;
 using Payments.Attributes;
 using Payments.Core.Enum;
-using Payments.WechatPay.Abstractions;
-using Payments.WechatPay.Configs;
-using Payments.WechatPay.Services;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
@@ -88,30 +83,19 @@ namespace Payments.Extensions
         //    services.AddPayService();
         //}
 
-        public static void AddPayService(this IServiceCollection services, PayOriginType payOriginType)
+
+
+
+        public static IServiceCollection AddPayService(this IServiceCollection services, Assembly assembly, PayOriginType payOriginType)
         {
-            AddPayService(services, new List<PayOriginType>() { payOriginType });
+            return AddPayService(services, assembly, new List<PayOriginType>() { payOriginType });
         }
 
 
-        public static void AddHttpClient(this IServiceCollection services, string name, WechatPayConfig WechatPayConfig)
-        {
-            if (WechatPayConfig.CertificateData != null)
-            {
-                services.AddHttpClient(name).ConfigurePrimaryHttpMessageHandler(() =>
-                {
-                    var certificate = new X509Certificate2(WechatPayConfig.CertificateData, WechatPayConfig.CertificatePwd, X509KeyStorageFlags.MachineKeySet);
-                    var handler = new HttpClientHandler();
-                    handler.ClientCertificates.Add(certificate);
-                    return handler;
-                });
-            }
 
-        }
-
-        public static void AddPayService(this IServiceCollection services, IList<PayOriginType> payOriginTypes = null)
+        public static IServiceCollection AddPayService(this IServiceCollection services, Assembly assembly, IList<PayOriginType> payOriginTypes = null)
         {
-            var currentAssembly = Assembly.GetExecutingAssembly();
+            var currentAssembly = assembly;
             var types = currentAssembly.GetTypes();
             var interfaceTypes = types.Where(o => o.IsInterface && o.GetCustomAttribute<PayServiceAttribute>(false) != null);
             if (payOriginTypes != null && payOriginTypes.Count > 0)
@@ -127,6 +111,7 @@ namespace Payments.Extensions
                 }
 
             }
+            return services;
         }
 
     }

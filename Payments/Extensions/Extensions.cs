@@ -1,24 +1,22 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Linq;
-using Payments.Util.Logger;
-using Microsoft.Extensions.Logging;
+﻿using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
-using System.Net.Http;
-using System.Net.Http.Headers;
-using System.Reflection;
-using System.ComponentModel;
-using Payments.Util;
-using System.Web;
-using System.IO;
-using System.Threading.Tasks;
-using System.Xml;
-using System.Collections.ObjectModel;
 using Payments.Properties;
+using Payments.Util;
+using Payments.Util.Logger;
+using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.ComponentModel;
+using System.IO;
+using System.Linq;
 using System.Net;
-using Payments.WechatPay.Enums;
+using System.Net.Http;
+using System.Reflection;
 using System.Security.Cryptography.X509Certificates;
+using System.Text;
+using System.Threading.Tasks;
+using System.Web;
+using System.Xml;
 
 namespace Payments.Extensions
 {
@@ -794,24 +792,7 @@ namespace Payments.Extensions
         }
         #endregion
 
-        #region WechatPaySignType
-        public static WechatPaySignType? ToWechatPaySignType(this object obj)
-        {
-            if (obj == null)
-            {
-                return null;
-            }
-            else if (string.Compare(WechatPaySignType.HmacSha256.Description(), obj?.ToString(), StringComparison.OrdinalIgnoreCase) == 0)
-            {
-                return WechatPaySignType.HmacSha256;
-            }
-            else if (string.Compare(WechatPaySignType.Md5.Description(), obj?.ToString(), StringComparison.OrdinalIgnoreCase) == 0)
-            {
-                return WechatPaySignType.Md5;
-            }
-            return null;
-        }
-        #endregion
+
 
 
         #region HttpClientHandler
