@@ -24,7 +24,7 @@ namespace WechatPay.Services.Base
     /// 支付基类
     /// </summary>
     /// <typeparam name="TPayParam"></typeparam>
-    public abstract class WechatPayServiceBase<TPayParam> : IWechatConfigSetter where TPayParam : class, IWechatPayRequest, IValidation, new()
+    public abstract class WechatPayServiceBase<TPayParam> : IWechatConfigSetter, IWechatPayExtendParam where TPayParam : class, IWechatPayRequest, IValidation, new()
     {
         protected ILogger Logger { get; }
         /// <summary>
@@ -139,7 +139,7 @@ namespace WechatPay.Services.Base
         }
 
         private IDictionary<string, object> _extParam = null;
-        public void ExtensionParameter(IDictionary<string, object> extParam)
+        public void SetExtensionParameter(IDictionary<string, object> extParam)
         {
             _extParam = extParam;
         }

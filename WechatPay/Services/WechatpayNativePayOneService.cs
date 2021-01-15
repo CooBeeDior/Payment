@@ -57,7 +57,7 @@ namespace WechatPay.Services
 
         }
         private IDictionary<string, object> _extParam = null;
-        public void ExtensionParameter(IDictionary<string, object> extParam)
+        public void SetExtensionParameter(IDictionary<string, object> extParam)
         {
             _extParam = extParam;
         }

@@ -2,12 +2,14 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Payments.Extensions;
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using WechatPay;
 using WechatPay.Abstractions;
 using WechatPay.Configs;
 using WechatPay.Enums;
 using WechatPay.Parameters.Requests;
+using WechatPay.Services;
 
 namespace PayTest
 {
@@ -58,6 +60,16 @@ namespace PayTest
         [TestMethod]
         public void WechatNativePayTest()
         {
+            var dic = new Dictionary<string, object>();
+            dic.Add(WechatPayConst.OutTradeNo, "1212");
+            var sss = serviceProvider.GetService<ICustomeWehcatPayService>();
+            sss.SetUrl("pay/orderquery").SetExtensionParameter(dic);
+         
+            var resu31lt = sss.Request().GetAwaiter().GetResult();
+
+
+
+
             //1.生成订单
             string orderId = "789793535345";
             var WechatPayNativePayService = serviceProvider.GetService<IWechatPayNativePayService>();

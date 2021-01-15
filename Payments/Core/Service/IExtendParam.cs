@@ -6,6 +6,6 @@ namespace Payments.Core.Service
 {
     public interface IExtendParam
     {
-        void ExtensionParameter(IDictionary<string, object> extParam);
+        void SetExtensionParameter(IDictionary<string, object> extParam);
     }
 }
