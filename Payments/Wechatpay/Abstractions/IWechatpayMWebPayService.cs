@@ -1,16 +1,16 @@
 ﻿using Payments.Attributes;
-using Payments.Wechatpay.Parameters.Requests;
-using Payments.Wechatpay.Parameters.Response;
+using Payments.WechatPay.Parameters.Requests;
+using Payments.WechatPay.Parameters.Response;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace Payments.Wechatpay.Abstractions
+namespace Payments.WechatPay.Abstractions
 { /// <summary>
   /// 微信MWeb支付
   /// </summary>
     [PayService("微信MWeb支付")]
-    public interface IWechatpayMWebPayService : IWechatpayPayService<WechatpayMWebPayRequest, WechatpayMWebPayResponse>
+    public interface IWechatPayMWebPayService : IWechatConfigSetter, IWechatPayExtParam, IWechatPayPayService<WechatPayMWebPayRequest, WechatPayMWebPayResponse>
     {
 
     }

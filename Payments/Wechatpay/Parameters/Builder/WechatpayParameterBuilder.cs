@@ -3,19 +3,19 @@ using Payments.Extensions;
 using Payments.Util;
 using Payments.Util.Http;
 using Payments.Util.ParameterBuilders.Impl;
-using Payments.Wechatpay.Configs;
-using Payments.Wechatpay.Enums;
-using Payments.Wechatpay.Signatures;
+using Payments.WechatPay.Configs;
+using Payments.WechatPay.Enums;
+using Payments.WechatPay.Signatures;
 using System;
 using System.Xml;
-using static Payments.Wechatpay.Parameters.Requests.WechatpayPayRequestBase;
+using static Payments.WechatPay.Parameters.Requests.WechatPayPayRequestBase;
 
-namespace Payments.Wechatpay.Parameters
+namespace Payments.WechatPay.Parameters
 {
     /// <summary>
     /// 微信支付参数生成器
     /// </summary>
-    public class WechatpayParameterBuilder
+    public class WechatPayParameterBuilder
     {
         /// <summary>
         /// 参数生成器
@@ -25,13 +25,13 @@ namespace Payments.Wechatpay.Parameters
         /// <summary>
         /// 配置
         /// </summary>
-        public WechatpayConfig Config { get; }
+        public WechatPayConfig Config { get; }
         public HttpRequest Request { get; }
         /// <summary>
         /// 初始化微信支付参数生成器
         /// </summary>
         /// <param name="config">配置</param>
-        public WechatpayParameterBuilder(WechatpayConfig config, HttpRequest httpRequest = null)
+        public WechatPayParameterBuilder(WechatPayConfig config, HttpRequest httpRequest = null)
         {
             config.CheckNull(nameof(config));
             Config = config;
@@ -53,7 +53,7 @@ namespace Payments.Wechatpay.Parameters
         /// </summary>
         /// <param name="name">参数名</param>
         /// <param name="value">参数值</param>
-        public WechatpayParameterBuilder Add(string name, object value)
+        public WechatPayParameterBuilder Add(string name, object value)
         {
             Builder.Add(name, value);
             return this;
@@ -63,7 +63,7 @@ namespace Payments.Wechatpay.Parameters
         /// </summary>
         /// <param name="name">参数名</param>
         /// <returns></returns>
-        public WechatpayParameterBuilder Remove(string name)
+        public WechatPayParameterBuilder Remove(string name)
         {
             Builder.Remove(name);
             return this;
@@ -73,9 +73,9 @@ namespace Payments.Wechatpay.Parameters
         /// 设置应用标识
         /// </summary>
         /// <param name="appId">应用标识</param>
-        public WechatpayParameterBuilder AppId(string appId)
+        public WechatPayParameterBuilder AppId(string appId)
         {
-            Builder.Add(WechatpayConst.AppId, appId);
+            Builder.Add(WechatPayConst.AppId, appId);
             return this;
         }
 
@@ -83,9 +83,9 @@ namespace Payments.Wechatpay.Parameters
         /// 设置商户号
         /// </summary>
         /// <param name="merchantId">商户号</param>
-        public WechatpayParameterBuilder MerchantId(string merchantId)
+        public WechatPayParameterBuilder MerchantId(string merchantId)
         {
-            Builder.Add(WechatpayConst.MerchantId, merchantId);
+            Builder.Add(WechatPayConst.MerchantId, merchantId);
             return this;
         }
 
@@ -94,9 +94,9 @@ namespace Payments.Wechatpay.Parameters
         /// </summary>
         /// <param name="nonceStr"></param>
         /// <returns></returns>
-        public WechatpayParameterBuilder NonceStr(string nonceStr)
+        public WechatPayParameterBuilder NonceStr(string nonceStr)
         {
-            Builder.Add(WechatpayConst.NonceStr, nonceStr);
+            Builder.Add(WechatPayConst.NonceStr, nonceStr);
             return this;
         }
 
@@ -105,9 +105,9 @@ namespace Payments.Wechatpay.Parameters
         /// </summary>
         /// <param name="prepayId"></param>
         /// <returns></returns>
-        public WechatpayParameterBuilder PrepayId(string prepayId)
+        public WechatPayParameterBuilder PrepayId(string prepayId)
         {
-            Builder.Add(WechatpayConst.PrepayId, prepayId);
+            Builder.Add(WechatPayConst.PrepayId, prepayId);
             return this;
         }
         /// <summary>
@@ -115,9 +115,9 @@ namespace Payments.Wechatpay.Parameters
         /// </summary>
         /// <param name="returnCode"></param>
         /// <returns></returns>
-        public WechatpayParameterBuilder ReturnCode(string returnCode)
+        public WechatPayParameterBuilder ReturnCode(string returnCode)
         {
-            Builder.Add(WechatpayConst.ReturnCode, returnCode);
+            Builder.Add(WechatPayConst.ReturnCode, returnCode);
             return this;
         }
         /// <summary>
@@ -125,9 +125,9 @@ namespace Payments.Wechatpay.Parameters
         /// </summary>
         /// <param name="resultCode"></param>
         /// <returns></returns>
-        public WechatpayParameterBuilder ResultCode(string resultCode)
+        public WechatPayParameterBuilder ResultCode(string resultCode)
         {
-            Builder.Add(WechatpayConst.ResultCode, resultCode);
+            Builder.Add(WechatPayConst.ResultCode, resultCode);
             return this;
         }
 
@@ -135,9 +135,9 @@ namespace Payments.Wechatpay.Parameters
         /// 设置标题
         /// </summary>
         /// <param name="body">标题</param>
-        public WechatpayParameterBuilder Body(string body)
+        public WechatPayParameterBuilder Body(string body)
         {
-            Builder.Add(WechatpayConst.Body, body);
+            Builder.Add(WechatPayConst.Body, body);
             return this;
         }
 
@@ -145,9 +145,9 @@ namespace Payments.Wechatpay.Parameters
         /// 设置商户订单号
         /// </summary>
         /// <param name="outTradeNo">商户订单号</param>
-        public WechatpayParameterBuilder OutTradeNo(string outTradeNo)
+        public WechatPayParameterBuilder OutTradeNo(string outTradeNo)
         {
-            Builder.Add(WechatpayConst.OutTradeNo, outTradeNo);
+            Builder.Add(WechatPayConst.OutTradeNo, outTradeNo);
             return this;
         }
         /// <summary>
@@ -155,9 +155,9 @@ namespace Payments.Wechatpay.Parameters
         /// </summary>
         /// <param name="refundId"></param>
         /// <returns></returns>
-        public WechatpayParameterBuilder RefundId(string refundId)
+        public WechatPayParameterBuilder RefundId(string refundId)
         {
-            Builder.Add(WechatpayConst.RefundId, refundId);
+            Builder.Add(WechatPayConst.RefundId, refundId);
             return this;
         }
         /// <summary>
@@ -165,9 +165,9 @@ namespace Payments.Wechatpay.Parameters
         /// </summary>
         /// <param name="outRefundNo"></param>
         /// <returns></returns>
-        public WechatpayParameterBuilder OutRefundNo(string outRefundNo)
+        public WechatPayParameterBuilder OutRefundNo(string outRefundNo)
         {
-            Builder.Add(WechatpayConst.OutRefundNo, outRefundNo);
+            Builder.Add(WechatPayConst.OutRefundNo, outRefundNo);
             return this;
         }
         /// <summary>
@@ -175,9 +175,9 @@ namespace Payments.Wechatpay.Parameters
         /// </summary>
         /// <param name="transactionId"></param>
         /// <returns></returns>
-        public WechatpayParameterBuilder TransactionId(string transactionId)
+        public WechatPayParameterBuilder TransactionId(string transactionId)
         {
-            Builder.Add(WechatpayConst.TransactionId, transactionId);
+            Builder.Add(WechatPayConst.TransactionId, transactionId);
             return this;
         }
 
@@ -185,9 +185,9 @@ namespace Payments.Wechatpay.Parameters
         /// 订单优惠标记
         /// </summary>
         /// <param name="goodsTag"> </param>
-        public WechatpayParameterBuilder GoodsTag(string goodsTag)
+        public WechatPayParameterBuilder GoodsTag(string goodsTag)
         {
-            Builder.Add(WechatpayConst.GoodsTag, goodsTag);
+            Builder.Add(WechatPayConst.GoodsTag, goodsTag);
             return this;
         }
         /// <summary>
@@ -195,9 +195,9 @@ namespace Payments.Wechatpay.Parameters
         /// </summary>
         /// <param name="limitPay"></param>
         /// <returns></returns>
-        public WechatpayParameterBuilder LimitPay(string limitPay)
+        public WechatPayParameterBuilder LimitPay(string limitPay)
         {
-            Builder.Add(WechatpayConst.LimitPay, limitPay);
+            Builder.Add(WechatPayConst.LimitPay, limitPay);
             return this;
         }
 
@@ -207,9 +207,9 @@ namespace Payments.Wechatpay.Parameters
         /// </summary>
         /// <param name="productId"></param>
         /// <returns></returns>
-        public WechatpayParameterBuilder ProductId(string productId)
+        public WechatPayParameterBuilder ProductId(string productId)
         {
-            Builder.Add(WechatpayConst.ProductId, productId);
+            Builder.Add(WechatPayConst.ProductId, productId);
             return this;
         }
 
@@ -218,18 +218,18 @@ namespace Payments.Wechatpay.Parameters
         /// </summary>
         /// <param name="refundFeeType"></param>
         /// <returns></returns>
-        public WechatpayParameterBuilder RefundFeeType(FeeType? refundFeeType)
+        public WechatPayParameterBuilder RefundFeeType(FeeType? refundFeeType)
         {
-            Builder.Add(WechatpayConst.RefundFeeType, refundFeeType?.ToString());
+            Builder.Add(WechatPayConst.RefundFeeType, refundFeeType?.ToString());
             return this;
         }
         /// <summary>
         /// 设置总金额
         /// </summary>
         /// <param name="totalFee">总金额，单位：分</param>
-        public WechatpayParameterBuilder TotalFee(decimal totalFee)
+        public WechatPayParameterBuilder TotalFee(decimal totalFee)
         {
-            Builder.Add(WechatpayConst.TotalFee, (totalFee * 100).ToInt());
+            Builder.Add(WechatPayConst.TotalFee, (totalFee * 100).ToInt());
             return this;
         }
         /// <summary>
@@ -237,9 +237,9 @@ namespace Payments.Wechatpay.Parameters
         /// </summary>
         /// <param name="detail"></param>
         /// <returns></returns>
-        public WechatpayParameterBuilder Detail(GoodsDetail detail)
+        public WechatPayParameterBuilder Detail(GoodsDetail detail)
         {
-            Builder.Add(WechatpayConst.Detail, detail?.ToJson());
+            Builder.Add(WechatPayConst.Detail, detail?.ToJson());
             return this;
         }
         /// <summary>
@@ -247,14 +247,14 @@ namespace Payments.Wechatpay.Parameters
         /// </summary>
         /// <param name="detail"></param>
         /// <returns></returns>
-        public WechatpayParameterBuilder Detail(string detail)
+        public WechatPayParameterBuilder Detail(string detail)
         {
-            Builder.Add(WechatpayConst.Detail, detail);
+            Builder.Add(WechatPayConst.Detail, detail);
             return this;
         }
-        public WechatpayParameterBuilder SceneInfo(string sceneInfo)
+        public WechatPayParameterBuilder SceneInfo(string sceneInfo)
         {
-            Builder.Add(WechatpayConst.SceneInfo, sceneInfo);
+            Builder.Add(WechatPayConst.SceneInfo, sceneInfo);
             return this;
         }
         /// <summary>
@@ -262,9 +262,9 @@ namespace Payments.Wechatpay.Parameters
         /// </summary>
         /// <param name="feeType"></param>
         /// <returns></returns>
-        public WechatpayParameterBuilder FeeType(FeeType? feeType)
+        public WechatPayParameterBuilder FeeType(FeeType? feeType)
         {
-            Builder.Add(WechatpayConst.FeeType, feeType?.ToString());
+            Builder.Add(WechatPayConst.FeeType, feeType?.ToString());
             return this;
         }
         /// <summary>
@@ -272,9 +272,9 @@ namespace Payments.Wechatpay.Parameters
         /// </summary>
         /// <param name="timeStart"></param>
         /// <returns></returns>
-        public WechatpayParameterBuilder TimeStart(DateTime? timeStart)
+        public WechatPayParameterBuilder TimeStart(DateTime? timeStart)
         {
-            Builder.Add(WechatpayConst.TimeStart, timeStart.HasValue ? timeStart.Value.ToString("yyyyMMddHHmmss") : null);
+            Builder.Add(WechatPayConst.TimeStart, timeStart.HasValue ? timeStart.Value.ToString("yyyyMMddHHmmss") : null);
             return this;
         }
         /// <summary>
@@ -282,15 +282,15 @@ namespace Payments.Wechatpay.Parameters
         /// </summary>
         /// <param name="timeExpire"></param>
         /// <returns></returns>
-        public WechatpayParameterBuilder TimeExpire(DateTime? timeExpire)
+        public WechatPayParameterBuilder TimeExpire(DateTime? timeExpire)
         {
-            Builder.Add(WechatpayConst.TimeExpire, timeExpire.HasValue ? timeExpire.Value.ToString("yyyyMMddHHmmss") : null);
+            Builder.Add(WechatPayConst.TimeExpire, timeExpire.HasValue ? timeExpire.Value.ToString("yyyyMMddHHmmss") : null);
             return this;
         }
 
-        public WechatpayParameterBuilder RefundFee(decimal totalFee)
+        public WechatPayParameterBuilder RefundFee(decimal totalFee)
         {
-            Builder.Add(WechatpayConst.RefundFee, (totalFee * 100).ToInt());
+            Builder.Add(WechatPayConst.RefundFee, (totalFee * 100).ToInt());
             return this;
         }
 
@@ -298,9 +298,9 @@ namespace Payments.Wechatpay.Parameters
         /// 设置回调通知地址
         /// </summary>
         /// <param name="notifyUrl">回调通知地址</param>
-        public WechatpayParameterBuilder NotifyUrl(string notifyUrl)
+        public WechatPayParameterBuilder NotifyUrl(string notifyUrl)
         {
-            Builder.Add(WechatpayConst.NotifyUrl, GetNotifyUrl(notifyUrl));
+            Builder.Add(WechatPayConst.NotifyUrl, GetNotifyUrl(notifyUrl));
             return this;
         }
 
@@ -309,9 +309,9 @@ namespace Payments.Wechatpay.Parameters
         /// </summary>
         /// <param name="refundAccount"></param>
         /// <returns></returns>
-        public WechatpayParameterBuilder RefundAccount(string refundAccount)
+        public WechatPayParameterBuilder RefundAccount(string refundAccount)
         {
-            Builder.Add(WechatpayConst.RefundAccount, refundAccount);
+            Builder.Add(WechatPayConst.RefundAccount, refundAccount);
             return this;
         }
 
@@ -330,9 +330,9 @@ namespace Payments.Wechatpay.Parameters
         /// 设置终端IP
         /// </summary>
         /// <param name="ip">终端IP</param>
-        public WechatpayParameterBuilder SpbillCreateIp(string ip)
+        public WechatPayParameterBuilder SpbillCreateIp(string ip)
         {
-            Builder.Add(WechatpayConst.SpbillCreateIp, ip);
+            Builder.Add(WechatPayConst.SpbillCreateIp, ip);
             return this;
         }
 
@@ -340,9 +340,9 @@ namespace Payments.Wechatpay.Parameters
         /// 设置交易类型
         /// </summary>
         /// <param name="type">交易类型</param>
-        public WechatpayParameterBuilder TradeType(string type)
+        public WechatPayParameterBuilder TradeType(string type)
         {
-            Builder.Add(WechatpayConst.TradeType, type);
+            Builder.Add(WechatPayConst.TradeType, type);
             return this;
         }
         /// <summary>
@@ -351,18 +351,18 @@ namespace Payments.Wechatpay.Parameters
         /// </summary>
         /// <param name="deviceInfo"></param>
         /// <returns></returns>
-        public WechatpayParameterBuilder DeviceInfo(string deviceInfo)
+        public WechatPayParameterBuilder DeviceInfo(string deviceInfo)
         {
-            Builder.Add(WechatpayConst.DeviceInfo, deviceInfo);
+            Builder.Add(WechatPayConst.DeviceInfo, deviceInfo);
             return this;
         }
         /// <summary>
         /// 设置签名类型
         /// </summary>
         /// <param name="type">签名类型</param>
-        public WechatpayParameterBuilder SignType(string type)
+        public WechatPayParameterBuilder SignType(string type)
         {
-            Builder.Add(WechatpayConst.SignType, type);
+            Builder.Add(WechatPayConst.SignType, type);
             return this;
         }
 
@@ -370,9 +370,9 @@ namespace Payments.Wechatpay.Parameters
         /// 设置伙伴标识
         /// </summary>
         /// <param name="partnerId">伙伴标识</param>
-        public WechatpayParameterBuilder PartnerId(string partnerId)
+        public WechatPayParameterBuilder PartnerId(string partnerId)
         {
-            Builder.Add(WechatpayConst.PartnerId, partnerId);
+            Builder.Add(WechatPayConst.PartnerId, partnerId);
             return this;
         }
 
@@ -380,9 +380,9 @@ namespace Payments.Wechatpay.Parameters
         /// 设置时间戳
         /// </summary>
         /// <param name="timestamp">时间戳</param>
-        public WechatpayParameterBuilder Timestamp(long timestamp = 0)
+        public WechatPayParameterBuilder Timestamp(long timestamp = 0)
         {
-            Builder.Add(WechatpayConst.Timestamp, timestamp == 0 ? DateTime.Now.GetUnixTimestamp() : timestamp);
+            Builder.Add(WechatPayConst.Timestamp, timestamp == 0 ? DateTime.Now.GetUnixTimestamp() : timestamp);
             return this;
         }
 
@@ -390,9 +390,9 @@ namespace Payments.Wechatpay.Parameters
         /// 设置包
         /// </summary>
         /// <param name="package">包，默认值: "Sign=WXPay"</param>
-        public WechatpayParameterBuilder Package(string package = "Sign=WXPay")
+        public WechatPayParameterBuilder Package(string package = "Sign=WXPay")
         {
-            Builder.Add(WechatpayConst.Package, package);
+            Builder.Add(WechatPayConst.Package, package);
             return this;
         }
 
@@ -400,9 +400,9 @@ namespace Payments.Wechatpay.Parameters
         /// 设置附加数据
         /// </summary>
         /// <param name="attach">附加数据</param>
-        public WechatpayParameterBuilder Attach(string attach)
+        public WechatPayParameterBuilder Attach(string attach)
         {
-            Builder.Add(WechatpayConst.Attach, attach);
+            Builder.Add(WechatPayConst.Attach, attach);
             return this;
         }
 
@@ -410,9 +410,9 @@ namespace Payments.Wechatpay.Parameters
         /// 设置用户标识
         /// </summary>
         /// <param name="openId">用户标识</param>
-        public WechatpayParameterBuilder OpenId(string openId)
+        public WechatPayParameterBuilder OpenId(string openId)
         {
-            Builder.Add(WechatpayConst.OpenId, openId);
+            Builder.Add(WechatPayConst.OpenId, openId);
             return this;
         }
 
@@ -421,9 +421,9 @@ namespace Payments.Wechatpay.Parameters
         /// </summary>
         /// <param name="authCode"></param>
         /// <returns></returns>
-        public WechatpayParameterBuilder AuthCode(string authCode)
+        public WechatPayParameterBuilder AuthCode(string authCode)
         {
-            Builder.Add(WechatpayConst.AuthCode, authCode);
+            Builder.Add(WechatPayConst.AuthCode, authCode);
             return this;
         }
         /// <summary>
@@ -431,9 +431,9 @@ namespace Payments.Wechatpay.Parameters
         /// </summary>
         /// <param name="offset"></param>
         /// <returns></returns>
-        public WechatpayParameterBuilder Offset(int? offset)
+        public WechatPayParameterBuilder Offset(int? offset)
         {
-            Builder.Add(WechatpayConst.Offset, offset);
+            Builder.Add(WechatPayConst.Offset, offset);
             return this;
         }
         /// <summary>
@@ -441,9 +441,9 @@ namespace Payments.Wechatpay.Parameters
         /// </summary>
         /// <param name="receipt"></param>
         /// <returns></returns>
-        public WechatpayParameterBuilder Receipt(string receipt)
+        public WechatPayParameterBuilder Receipt(string receipt)
         {
-            Builder.Add(WechatpayConst.Receipt, receipt);
+            Builder.Add(WechatPayConst.Receipt, receipt);
             return this;
         }
 
@@ -460,7 +460,7 @@ namespace Payments.Wechatpay.Parameters
         /// <summary>
         /// 获取Xml结果，包含签名
         /// </summary>
-        public string ToXml(bool isSign = true, WechatpaySignType? signType = null)
+        public string ToXml(bool isSign = true, WechatPaySignType? signType = null)
         {
             return ToXmlDocument(GetSignBuilder(isSign, signType)).OuterXml;
         }
@@ -481,7 +481,7 @@ namespace Payments.Wechatpay.Parameters
         /// </summary>
         private void AddNode(Xml xml, string key, object value)
         {
-            if (key.SafeString().ToLower() == WechatpayConst.TotalFee)
+            if (key.SafeString().ToLower() == WechatPayConst.TotalFee)
             {
                 xml.AddNode(key, value);
                 return;
@@ -492,12 +492,12 @@ namespace Payments.Wechatpay.Parameters
         /// <summary>
         /// 获取签名的参数生成器
         /// </summary>
-        protected virtual ParameterBuilder GetSignBuilder(bool isSign = true, WechatpaySignType? signType = null)
+        protected virtual ParameterBuilder GetSignBuilder(bool isSign = true, WechatPaySignType? signType = null)
         {
             var builder = new ParameterBuilder(Builder);
             if (isSign)
             {
-                Builder.Add(WechatpayConst.Sign, GetSign(signType));
+                Builder.Add(WechatPayConst.Sign, GetSign(signType));
             }
             return Builder;
         }
@@ -505,7 +505,7 @@ namespace Payments.Wechatpay.Parameters
         /// <summary>
         /// 获取签名
         /// </summary>
-        public string GetSign(WechatpaySignType? signType = null)
+        public string GetSign(WechatPaySignType? signType = null)
         {
             return SignManagerFactory.Create(Config, Request, Builder, signType).Sign();
         }
@@ -521,7 +521,7 @@ namespace Payments.Wechatpay.Parameters
         /// <summary>
         /// 获取Json结果，包含签名
         /// </summary>
-        public string ToJson(bool isSign = true, WechatpaySignType? signType = null)
+        public string ToJson(bool isSign = true, WechatPaySignType? signType = null)
         {
             return GetSignBuilder(isSign, signType).ToJson();
         }
@@ -530,7 +530,7 @@ namespace Payments.Wechatpay.Parameters
         /// 转换成Url
         /// </summary>
         /// <returns></returns>
-        public string ToUrl(bool isSign = true, WechatpaySignType? signType = null)
+        public string ToUrl(bool isSign = true, WechatPaySignType? signType = null)
         {
             return GetSignBuilder(isSign, signType).ToUrl();
         }

@@ -1,26 +1,18 @@
 ﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Http.Internal;
 using Microsoft.Extensions.Logging;
-using Payments.Extensions;
-using Payments.Wechatpay.Abstractions;
-using Payments.Wechatpay.Abstractions.Base;
-using Payments.Wechatpay.Configs;
-using Payments.Wechatpay.Parameters.Response;
-using Payments.Wechatpay.Results;
-using Payments.Wechatpay.Services.Base;
-using System;
-using System.IO;
+using Payments.WechatPay.Abstractions;
+using Payments.WechatPay.Parameters.Response;
+using Payments.WechatPay.Services.Base;
 
-namespace Payments.Wechatpay.Services
+namespace Payments.WechatPay.Services
 {
-
     /// <summary>
     /// 签约、解约结果通知
     /// </summary>
-    public class WechatSignNotifyService : WechatpayNotifyServiceBase<WechatSignNotifyResponse>, IWechatSignNotifyService
+    public class WechatSignNotifyService : WechatPayNotifyServiceBase<WechatSignNotifyResponse>, IWechatSignNotifyService
     {
 
-        public WechatSignNotifyService(IWechatpayConfigProvider configProvider, ILoggerFactory loggerFactory, IHttpContextAccessor httpContextAccessor) : base(configProvider, httpContextAccessor)
+        public WechatSignNotifyService( ILoggerFactory loggerFactory, IHttpContextAccessor httpContextAccessor) : base( httpContextAccessor)
         {
 
         }

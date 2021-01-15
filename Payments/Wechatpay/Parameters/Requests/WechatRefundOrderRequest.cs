@@ -1,18 +1,18 @@
 ﻿using Payments.Core;
 using Payments.Util.Validations;
 using Payments.Util.Validations.Attribbutes;
-using Payments.Wechatpay.Enums;
+using Payments.WechatPay.Enums;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Text;
 
-namespace Payments.Wechatpay.Parameters.Requests
+namespace Payments.WechatPay.Parameters.Requests
 {
     /// <summary>
     /// 退款订单
     /// </summary>
-    public class WechatRefundOrderRequest : Validation, IWechatpayRequest,IValidation
+    public class WechatRefundOrderRequest : Validation, IWechatPayRequest,IValidation
     {
         /// <summary>
         /// 微信订单号

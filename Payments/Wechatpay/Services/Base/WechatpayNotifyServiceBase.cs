@@ -1,59 +1,56 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Http.Internal;
-using Microsoft.Extensions.Logging;
-using Payments.Core;
 using Payments.Extensions;
-using Payments.Properties;
 using Payments.Util;
-using Payments.Util.Http;
 using Payments.Util.Validations;
-using Payments.Wechatpay.Abstractions.Base;
-using Payments.Wechatpay.Configs;
-using Payments.Wechatpay.Parameters.Response;
-using Payments.Wechatpay.Results;
-using System.Collections.Generic;
+using Payments.WechatPay.Abstractions;
+using Payments.WechatPay.Configs;
+using Payments.WechatPay.Parameters.Response;
+using Payments.WechatPay.Results;
 using System.Threading.Tasks;
 
 
-namespace Payments.Wechatpay.Services.Base
+namespace Payments.WechatPay.Services.Base
 {
     /// <summary>
     /// 异步回调通知
     /// </summary>
     /// <typeparam name="TResponse"></typeparam>
-    public abstract class WechatpayNotifyServiceBase<TResponse> : IWechatNotifyService<TResponse> where TResponse : WechatpayResponse
+    public abstract class WechatPayNotifyServiceBase<TResponse> : IWechatConfigSetter, IWechatNotifyService<TResponse> where TResponse : WechatPayResponse
     {
+      
         /// <summary>
         /// 请求
         /// </summary>
         protected HttpRequest Request { get; }
         /// <summary>
-        /// 配置提供器
-        /// </summary>
-        //protected readonly IWechatpayConfigProvider ConfigProvider;
-        protected WechatpayConfig Config { get; }
+        /// 配置
+        /// </summary>   
+        protected WechatPayConfig Config { get; private set; }
 
         /// <summary>
         /// 微信支付结果
         /// </summary>
-        public WechatpayResult<TResponse> Result { get; protected set; }
+        public WechatPayResult<TResponse> Result { get; protected set; }
 
 
         /// <summary>
         /// 初始化微信支付通知服务
         /// </summary>
         /// <param name="configProvider">配置提供器</param>
-        public WechatpayNotifyServiceBase(IWechatpayConfigProvider configProvider, IHttpContextAccessor httpContextAccessor)
+        public WechatPayNotifyServiceBase( IHttpContextAccessor httpContextAccessor)
         {
-            configProvider.CheckNull(nameof(configProvider));
-            Config = configProvider.GetConfig();
+            
+            
             Request = httpContextAccessor?.HttpContext?.Request;
             InitResult();
         }
 
-
-
-
+ 
+        public void SetConfig(WechatPayConfig config)
+        {
+            Config = config;
+        }
         /// <summary>
         /// 初始化结果
         /// </summary>
@@ -62,7 +59,7 @@ namespace Payments.Wechatpay.Services.Base
             Request?.EnableRewind();
             var sm = Request?.Body; ;
             var response = sm?.ToContent();
-            Result = new WechatpayResult<TResponse>(Config, response, Request);
+            Result = new WechatPayResult<TResponse>(Config, response, Request);
 
         }
 
@@ -83,7 +80,7 @@ namespace Payments.Wechatpay.Services.Base
         /// </summary>
         public virtual string Success()
         {
-            return Return(WechatpayConst.Success, WechatpayConst.Ok);
+            return Return(WechatPayConst.Success, WechatPayConst.Ok);
         }
 
         /// <summary>
@@ -91,7 +88,7 @@ namespace Payments.Wechatpay.Services.Base
         /// </summary>
         public virtual string Fail()
         {
-            return Return(WechatpayConst.Fail, WechatpayConst.Fail);
+            return Return(WechatPayConst.Fail, WechatPayConst.Fail);
         }
 
         /// <summary>
@@ -100,8 +97,8 @@ namespace Payments.Wechatpay.Services.Base
         private string Return(string code, string message)
         {
             var xml = new Xml();
-            xml.AddCDataNode(code, WechatpayConst.ReturnCode);
-            xml.AddCDataNode(message, WechatpayConst.ReturnMessage);
+            xml.AddCDataNode(code, WechatPayConst.ReturnCode);
+            xml.AddCDataNode(message, WechatPayConst.ReturnMessage);
             return xml.ToString();
         }
 

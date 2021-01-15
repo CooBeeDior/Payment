@@ -4,12 +4,12 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Text;
 
-namespace Payments.Wechatpay.Parameters.Requests
+namespace Payments.WechatPay.Parameters.Requests
 {
     /// <summary>
     /// 微信JsApi支付参数
     /// </summary>
-    public class WechatpayJsApiPayRequest : WechatpayPayRequestBase
+    public class WechatPayJsApiPayRequest : WechatPayPayRequestBase
     {
         /// <summary>
         /// 用户标识

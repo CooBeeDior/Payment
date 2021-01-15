@@ -7,12 +7,12 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
-namespace Payments.Wechatpay.Parameters.Requests
+namespace Payments.WechatPay.Parameters.Requests
 {
     /// <summary>
     /// 公众号APP申请签约
     /// </summary>
-    public class WechatEntrustWebRequest : Validation, IWechatpayRequest, IValidation
+    public class WechatEntrustWebRequest : Validation, IWechatPayRequest, IValidation
     {
         /// <summary>
         /// 协议模板id，设置路径见 https://pay.weixin.qq.com/wiki/doc/api/pap.php?chapter=17_3

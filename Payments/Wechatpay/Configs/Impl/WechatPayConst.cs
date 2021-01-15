@@ -1,14 +1,14 @@
-﻿namespace Payments.Wechatpay.Configs
+﻿namespace Payments.WechatPay.Configs
 {
     /// <summary>
     /// 微信支付常量
     /// </summary>
-    public static class WechatpayConst
+    public static class WechatPayConst
     {
         /// <summary>
         /// 微信支付跟踪日志名
         /// </summary>
-        public const string TraceLogName = "WechatpayTraceLog";
+        public const string TraceLogName = "WechatPayTraceLog";
         /// <summary>
         /// 应用标识
         /// </summary>

@@ -2,44 +2,45 @@
 using Payments.Core.Response;
 using Payments.Extensions;
 using Payments.Util;
-using Payments.Wechatpay.Abstractions;
-using Payments.Wechatpay.Configs;
-using Payments.Wechatpay.Parameters;
-using Payments.Wechatpay.Parameters.Requests;
-using Payments.Wechatpay.Parameters.Response;
-using Payments.Wechatpay.Results;
-using Payments.Wechatpay.Services.Base;
+using Payments.WechatPay;
+using Payments.WechatPay.Abstractions;
+using Payments.WechatPay.Configs;
+using Payments.WechatPay.Parameters;
+using Payments.WechatPay.Parameters.Requests;
+using Payments.WechatPay.Parameters.Response;
+using Payments.WechatPay.Results;
+using Payments.WechatPay.Services.Base;
 using System;
 using System.Net.Http;
 using System.Security.Cryptography.X509Certificates;
 using System.Threading.Tasks;
-namespace Payments.Wechatpay.Services
+namespace Payments.WechatPay.Services
 {
     /// <summary>
     /// 查询企业付款
     /// </summary>
-    public class WechatGetTransferInfoService : WechatpayServiceBase<WechatGetTransferInfoRequest>, IWechatGetTransferInfoService
+    public class WechatGetTransferInfoService : WechatPayServiceBase<WechatGetTransferInfoRequest>, IWechatGetTransferInfoService
     {
-        public WechatGetTransferInfoService(IWechatpayConfigProvider configProvider, IHttpClientFactory httpClientFactory, ILoggerFactory loggerFactory) : base(configProvider, httpClientFactory, loggerFactory)
+        public WechatGetTransferInfoService(IHttpClientFactory httpClientFactory, ILoggerFactory loggerFactory) : base(httpClientFactory, loggerFactory)
         {
 
         }
 
-        public Task<WechatpayResult<WechatGetTransferInfoResponse>> Query(WechatGetTransferInfoRequest request)
+        public Task<WechatPayResult<WechatGetTransferInfoResponse>> Query(WechatGetTransferInfoRequest request)
         {
             return Request<WechatGetTransferInfoResponse>(request);
         }
 
-        protected override string GetRequestUrl(WechatpayConfig config)
+        protected override string GetRequestUrl(WechatPayConfig config)
         {
             return config.GetTransferInfoUrl();
         }
 
-        protected override void InitBuilder(WechatpayParameterBuilder builder, WechatGetTransferInfoRequest param)
+        protected override void InitBuilder(WechatPayParameterBuilder builder, WechatGetTransferInfoRequest param)
         {
-            builder.AppId(Config.AppId).Add("mch_id", Config.MerchantId).NonceStr(Id.GetId()).Add(WechatpayConst.PartnerTradeNo, param.PartnerTradeNo);
+            builder.AppId(Config.AppId).Add("mch_id", Config.MerchantId).NonceStr(Id.GetId()).Add(WechatPayConst.PartnerTradeNo, param.PartnerTradeNo);
         }
 
-   
+
     }
 }

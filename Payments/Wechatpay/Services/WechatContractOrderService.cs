@@ -1,43 +1,44 @@
 ﻿using Microsoft.Extensions.Logging;
 using Payments.Core;
 using Payments.Core.Response;
-using Payments.Wechatpay.Abstractions;
-using Payments.Wechatpay.Configs;
-using Payments.Wechatpay.Parameters;
-using Payments.Wechatpay.Parameters.Requests;
-using Payments.Wechatpay.Parameters.Response;
-using Payments.Wechatpay.Results;
-using Payments.Wechatpay.Services.Base;
+using Payments.WechatPay;
+using Payments.WechatPay.Abstractions;
+using Payments.WechatPay.Configs;
+using Payments.WechatPay.Parameters;
+using Payments.WechatPay.Parameters.Requests;
+using Payments.WechatPay.Parameters.Response;
+using Payments.WechatPay.Results;
+using Payments.WechatPay.Services.Base;
 using System;
 using System.Net.Http;
 using System.Threading.Tasks;
 
-namespace Payments.Wechatpay.Services
+namespace Payments.WechatPay.Services
 {  
     /// <summary>
      /// 公众号APP申请签约
      /// </summary>
-    public class WechatContractOrderService : WechatpayServiceBase<WechatContractOrderRequest>, IWechatContractOrderService
+    public class WechatContractOrderService : WechatPayServiceBase<WechatContractOrderRequest>, IWechatContractOrderService
     {
 
 
-        public WechatContractOrderService(IWechatpayConfigProvider configProvider, IHttpClientFactory httpClientFactory, ILoggerFactory loggerFactory) : base(configProvider, httpClientFactory, loggerFactory)
+        public WechatContractOrderService( IHttpClientFactory httpClientFactory, ILoggerFactory loggerFactory) : base( httpClientFactory, loggerFactory)
         {
 
         }
 
-        public Task<WechatpayResult<WechatContractOrderResponse>> Sign(WechatContractOrderRequest request)
+        public Task<WechatPayResult<WechatContractOrderResponse>> Sign(WechatContractOrderRequest request)
         {
             return Request<WechatContractOrderResponse>(request);
 
         }
 
-        protected override string GetRequestUrl(WechatpayConfig config)
+        protected override string GetRequestUrl(WechatPayConfig config)
         {
             return config.GetContractOrderUrl();
         }
 
-        protected override void InitBuilder(WechatpayParameterBuilder builder, WechatContractOrderRequest param)
+        protected override void InitBuilder(WechatPayParameterBuilder builder, WechatContractOrderRequest param)
         {
             builder.Add("contract_mchid", Config.MerchantId).Add("contract_appid", Config.AppId).OutTradeNo(param.OutTradeNo)
                  .DeviceInfo(param.DeviceInfo).Body(param.Body).Detail(param.Detail).Attach(param.Attach).NotifyUrl(param.NotifyUrl)

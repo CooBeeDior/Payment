@@ -1,16 +1,16 @@
 ﻿using Payments.Exceptions;
 using Payments.Util.Validations;
 using Payments.Util.Validations.Attribbutes;
-using Payments.Wechatpay.Enums;
+using Payments.WechatPay.Enums;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 
-namespace Payments.Wechatpay.Parameters.Requests
+namespace Payments.WechatPay.Parameters.Requests
 {
     /// <summary>
     /// 企业转账
     /// </summary>
-    public class WechatTransfersRequest : Validation, IWechatpayRequest, IValidation
+    public class WechatTransfersRequest : Validation, IWechatPayRequest, IValidation
     {
         /// <summary>
         /// 商户订单号

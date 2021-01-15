@@ -4,12 +4,12 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Text;
 
-namespace Payments.Wechatpay.Parameters.Requests
+namespace Payments.WechatPay.Parameters.Requests
 {
     /// <summary>
     /// 查询签约关系服务
     /// </summary>
-    public class WechatQueryContractRequest : Validation, IWechatpayRequest, IValidation
+    public class WechatQueryContractRequest : Validation, IWechatPayRequest, IValidation
     {
         /// <summary>
         /// 委托代扣协议id

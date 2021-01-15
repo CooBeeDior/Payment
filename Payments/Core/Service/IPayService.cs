@@ -1,5 +1,5 @@
 ﻿using Payments.Core.Response;
-using Payments.Wechatpay.Parameters.Requests;
+using Payments.WechatPay.Parameters.Requests;
 using System.Threading.Tasks;
 
 namespace Payments.Core {

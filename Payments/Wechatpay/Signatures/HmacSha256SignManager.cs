@@ -3,7 +3,7 @@
 //using Util.Parameters;
 //using Util.Signatures;
 
-//namespace Payments.Wechatpay.Signatures {
+//namespace Payments.WechatPay.Signatures {
 //    /// <summary>
 //    /// 微信支付HMACSha256签名服务
 //    /// </summary>

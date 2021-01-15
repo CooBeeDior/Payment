@@ -3,30 +3,30 @@ using Microsoft.Extensions.Logging;
 using Payments.Exceptions;
 using Payments.Extensions;
 using Payments.Util.Validations;
-using Payments.Wechatpay.Abstractions;
-using Payments.Wechatpay.Configs;
-using Payments.Wechatpay.Parameters;
-using Payments.Wechatpay.Parameters.Requests;
-using Payments.Wechatpay.Parameters.Response;
-using Payments.Wechatpay.Services.Base;
+using Payments.WechatPay.Abstractions;
+using Payments.WechatPay.Configs;
+using Payments.WechatPay.Parameters;
+using Payments.WechatPay.Parameters.Requests;
+using Payments.WechatPay.Parameters.Response;
+using Payments.WechatPay.Services.Base;
 using System.Net.Http;
 using System.Threading.Tasks;
 
-namespace Payments.Wechatpay.Services
+namespace Payments.WechatPay.Services
 {
     /// <summary>
     /// 微信扫码支付异步回调
     /// </summary>
-    public class WechatpayNativePayOneNotifyService : WechatpayNotifyServiceBase<WechatpayNativePayOneNotifyResponse>, IWechatpayNativePayOneNotifyService
+    public class WechatPayNativePayOneNotifyService : WechatPayNotifyServiceBase<WechatPayNativePayOneNotifyResponse>, IWechatPayNativePayOneNotifyService
     {
 
-        protected IWechatpayNativePayService NativePayService { get; }
-        public WechatpayNativePayOneNotifyService(IWechatpayConfigProvider configProvider, IWechatpayNativePayService nativePayService, ILoggerFactory loggerFactory, IHttpContextAccessor httpContextAccessor) : base(configProvider, httpContextAccessor)
+        protected IWechatPayNativePayService NativePayService { get; }
+        public WechatPayNativePayOneNotifyService( IWechatPayNativePayService nativePayService, ILoggerFactory loggerFactory, IHttpContextAccessor httpContextAccessor) : base( httpContextAccessor)
         {
             NativePayService = nativePayService;
         }
 
-        public async Task<HttpResponseMessage> ReturnMessage(WechatpayNativePayRequest request)
+        public async Task<HttpResponseMessage> ReturnMessage(WechatPayNativePayRequest request)
         {
             HttpResponseMessage response = null;
             var validationResultCollection = await ValidateAsync();
@@ -34,12 +34,12 @@ namespace Payments.Wechatpay.Services
             {
                 var result = await NativePayService.PayAsync(request);
 
-                WechatpayParameterBuilder paramBuilder = new WechatpayParameterBuilder(Config);
+                WechatPayParameterBuilder paramBuilder = new WechatPayParameterBuilder(Config);
                 paramBuilder.Init();
                 paramBuilder.PrepayId(result.Data?.PrepayId);
                 paramBuilder.ReturnCode(result.Data?.ReturnCode);
                 paramBuilder.ResultCode(result.Data?.ResultCode);
-                paramBuilder.Add(WechatpayConst.ErrorCodeDescription, result.Data?.ReturnMsg);
+                paramBuilder.Add(WechatPayConst.ErrorCodeDescription, result.Data?.ReturnMsg);
                 string xmlContent = paramBuilder.ToXml();
                 response = xmlContent.XmlToHttpResponseMessage();
             }

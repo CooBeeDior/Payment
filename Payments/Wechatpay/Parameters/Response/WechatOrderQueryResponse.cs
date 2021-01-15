@@ -1,16 +1,16 @@
 using Newtonsoft.Json;
-using Payments.Wechatpay.Parameters.Response;
+using Payments.WechatPay.Parameters.Response;
 using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Xml.Serialization;
-namespace Payments.Wechatpay.Parameters.Response
+namespace Payments.WechatPay.Parameters.Response
 {
     /// <summary>
     /// 订单查询服务
     /// </summary>
     [XmlRoot("xml")]
-    public class WechatOrderQueryResponse : WechatpayResponse
+    public class WechatOrderQueryResponse : WechatPayResponse
     {
         /// <summary>
         /// 微信支付分配的终端设备号

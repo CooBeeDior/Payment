@@ -1,16 +1,16 @@
-﻿using Payments.Wechatpay.Parameters.Response;
+﻿using Payments.WechatPay.Parameters.Response;
 using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Xml.Serialization;
 
-namespace Payments.Wechatpay.Parameters.Response
+namespace Payments.WechatPay.Parameters.Response
 {
     /// <summary>
     /// 微信支付通知服务
     /// </summary>
     [XmlRoot("xml")]
-    public class WechatpayNotifyResponse : WechatpayResponse
+    public class WechatPayNotifyResponse : WechatPayResponse
     {
         /// <summary>
         /// 签名类型

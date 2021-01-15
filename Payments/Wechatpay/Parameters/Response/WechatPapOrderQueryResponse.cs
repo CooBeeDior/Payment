@@ -1,11 +1,11 @@
 ﻿using System.Xml.Serialization;
-namespace Payments.Wechatpay.Parameters.Response
+namespace Payments.WechatPay.Parameters.Response
 {
     /// <summary>
     /// 查询扣款订单服务
     /// </summary>
     [XmlRoot("xml")]
-    public class WechatPapOrderQueryResponse: WechatpayResponse
+    public class WechatPapOrderQueryResponse: WechatPayResponse
     {
         /// <summary>
         /// 微信支付分配的终端设备号

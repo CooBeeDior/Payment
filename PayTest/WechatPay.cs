@@ -1,24 +1,41 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Payments.Extensions;
-using Payments.Wechatpay.Abstractions;
-using Payments.Wechatpay.Enums;
-using Payments.Wechatpay.Parameters.Requests;
+using Payments.WechatPay;
+using Payments.WechatPay.Abstractions;
+using Payments.WechatPay.Configs;
+using Payments.WechatPay.Enums;
+using Payments.WechatPay.Parameters.Requests;
 using System;
+using System.Collections.Generic;
 using System.Net.Http;
+using System.Threading.Tasks;
 
 namespace PayTest
 {
+    public class IdawdWechatPayConfigStorage : IWechatPayConfigStorage
+    {
+        public WechatPayConfig GetConfig(string name)
+        {
+            return null;
+        }
 
+        public Task<WechatPayConfig> GetConfigAsync(string name)
+        {
+            return null;
+        }
+    }
     [TestClass]
     public class Tests
     {
-        ServiceProvider serviceProvider = null;
+        ServiceProvider serviceProvideraaa = null;
+        IWehcatPayServiceProvider serviceProvider = null;
         public Tests()
         {
             ServiceCollection serviceDescriptors = new ServiceCollection();
             serviceDescriptors.AddLogging();
             serviceDescriptors.AddHttpContextAccessor();
+            serviceDescriptors.AddHttpClient();
             serviceDescriptors.AddWechatPay(w =>
            {
                w.AppId = "wx6e95a65ad4ee0135";
@@ -26,9 +43,13 @@ namespace PayTest
                w.PrivateKey = "XIAKEweixinpay2019shjGGYGHD54hlk";
                w.NotifyUrl = "https://www.baidu.com";
 
-           });
+           }).AddWehcatpayStorage<IdawdWechatPayConfigStorage>();
 
-            serviceProvider = serviceDescriptors.BuildServiceProvider();
+            serviceProvideraaa = serviceDescriptors.BuildServiceProvider();
+
+            serviceProvider = serviceProvideraaa.GetService<IWehcatPayServiceProvider>();
+
+
         }
 
 
@@ -40,16 +61,16 @@ namespace PayTest
         public void WechatNativePayTest()
         {
             //1.生成订单
-            string orderId = "123123123123";
-            var wechatpayNativePayService = serviceProvider.GetService<IWechatpayNativePayService>();
-            var wechatpayNativePayRequest = new WechatpayNativePayRequest()
+            string orderId = "789793535345";
+            var WechatPayNativePayService = serviceProvider.GetService<IWechatPayNativePayService>();
+            var WechatPayNativePayRequest = new WechatPayNativePayRequest()
             {
                 Body = "sssss",
                 OutTradeNo = orderId,
                 TotalFee = 0.01m,
                 Attach = "dadadaaaa",
                 FeeType = FeeType.CNY,
-                Detail = new WechatpayPayRequestBase.GoodsDetail()
+                Detail = new WechatPayPayRequestBase.GoodsDetail()
                 {
                     GoodsId = "GoodsId",
                     WxpayGoodsId = "WxpayGoodsId",
@@ -65,10 +86,10 @@ namespace PayTest
                 GoodsTag = "GoodsTag",
                 TimeExpire = DateTime.Now.AddHours(2),
                 TimeStart = DateTime.Now,
-                SceneInfo = new WechatpayPayRequestBase.StoreSceneInfo
+                SceneInfo = new WechatPayPayRequestBase.StoreSceneInfo
                 {
 
-                    store_info = new WechatpayPayRequestBase.StoreSceneInfoObj()
+                    store_info = new WechatPayPayRequestBase.StoreSceneInfoObj()
                     {
                         id = "Id",
                         address = "Address",
@@ -80,10 +101,13 @@ namespace PayTest
                 //OpenId = "98980989080980"
 
             };
-            var result = wechatpayNativePayService.PayAsync(wechatpayNativePayRequest).GetAwaiter().GetResult();
+
+            var result = WechatPayNativePayService.PayAsync(WechatPayNativePayRequest).GetAwaiter().GetResult();
 
             //2。查询订单
+
             var wechatOrderQueryService = serviceProvider.GetService<IWechatOrderQueryService>();
+
             var result2 = wechatOrderQueryService.QueryAsync(new WechatOrderQueryRequest()
             {
                 OutTradeNo = orderId
@@ -92,6 +116,9 @@ namespace PayTest
 
             //3.关闭订单
             var wechatCloseOrderService = serviceProvider.GetService<IWechatCloseOrderService>();
+            //var adad = new Dictionary<string, object>() { };
+            //adad.Add("1", "2");
+            //wechatCloseOrderService.ExtensionParameter(adad);
             var result3 = wechatCloseOrderService.CloseAsync(new WechatCloseOrderRequest()
             {
                 OutTradeNo = orderId
@@ -117,15 +144,15 @@ namespace PayTest
         {
             //1.生成订单
             string orderId = "xxsss1111111";
-            //var wechatpayNativePayService = serviceProvider.GetService<IWechatpayNativePayService>();
-            //var wechatpayNativePayRequest = new WechatpayNativePayRequest()
+            //var WechatPayNativePayService = serviceProvider.GetService<IWechatPayNativePayService>();
+            //var WechatPayNativePayRequest = new WechatPayNativePayRequest()
             //{
             //    Body = "sssss",
             //    OutTradeNo = orderId,
             //    TotalFee = 0.01m,
             //    Attach = "dadadaaaa",
             //    FeeType = FeeType.CNY,
-            //    Detail = new WechatpayPayRequestBase.GoodsDetail()
+            //    Detail = new WechatPayPayRequestBase.GoodsDetail()
             //    {
             //        GoodsId = "GoodsId",
             //        WxpayGoodsId = "WxpayGoodsId",
@@ -141,10 +168,10 @@ namespace PayTest
             //    GoodsTag = "GoodsTag",
             //    TimeExpire = DateTime.Now.AddHours(2),
             //    TimeStart = DateTime.Now,
-            //    SceneInfo = new WechatpayPayRequestBase.StoreSceneInfo
+            //    SceneInfo = new WechatPayPayRequestBase.StoreSceneInfo
             //    {
 
-            //        store_info = new WechatpayPayRequestBase.StoreSceneInfoObj()
+            //        store_info = new WechatPayPayRequestBase.StoreSceneInfoObj()
             //        {
             //            id = "Id",
             //            address = "Address",
@@ -156,7 +183,7 @@ namespace PayTest
             //    //OpenId = "98980989080980"
 
             //};
-            //var result = wechatpayNativePayService.PayAsync(wechatpayNativePayRequest).GetAwaiter().GetResult();
+            //var result = WechatPayNativePayService.PayAsync(WechatPayNativePayRequest).GetAwaiter().GetResult();
             //string url = result?.Data?.CodeUrl;
             //去支付
 

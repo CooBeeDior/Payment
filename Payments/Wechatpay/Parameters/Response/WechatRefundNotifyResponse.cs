@@ -1,16 +1,16 @@
-﻿using Payments.Wechatpay.Parameters.Response;
+﻿using Payments.WechatPay.Parameters.Response;
 using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Xml.Serialization;
 
-namespace Payments.Wechatpay.Parameters.Response
+namespace Payments.WechatPay.Parameters.Response
 {
     /// <summary>
     /// 订单退款通知服务
     /// </summary>
     [XmlRoot("xml")]
-    public class WechatRefundNotifyResponse : WechatpayResponse
+    public class WechatRefundNotifyResponse : WechatPayResponse
     {
         /// <summary>
         /// 加密信息

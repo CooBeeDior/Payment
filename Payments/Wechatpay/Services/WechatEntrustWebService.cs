@@ -1,24 +1,25 @@
 ﻿using Microsoft.Extensions.Logging;
 using Payments.Core;
 using Payments.Core.Response;
-using Payments.Wechatpay.Abstractions;
-using Payments.Wechatpay.Configs;
-using Payments.Wechatpay.Parameters;
-using Payments.Wechatpay.Parameters.Requests;
-using Payments.Wechatpay.Services.Base;
+using Payments.WechatPay;
+using Payments.WechatPay.Abstractions;
+using Payments.WechatPay.Configs;
+using Payments.WechatPay.Parameters;
+using Payments.WechatPay.Parameters.Requests;
+using Payments.WechatPay.Services.Base;
 using System;
 using System.Net.Http;
 using System.Threading.Tasks;
-namespace Payments.Wechatpay.Services
+namespace Payments.WechatPay.Services
 {
     /// <summary>
     /// 公众号APP申请签约
     /// </summary>
-    public class WechatEntrustWebService : WechatpayServiceBase<WechatEntrustWebRequest>, IWechatEntrustWebService
+    public class WechatEntrustWebService : WechatPayServiceBase<WechatEntrustWebRequest>, IWechatEntrustWebService
     {
 
 
-        public WechatEntrustWebService(IWechatpayConfigProvider configProvider, IHttpClientFactory httpClientFactory, ILoggerFactory loggerFactory) : base(configProvider, httpClientFactory, loggerFactory)
+        public WechatEntrustWebService( IHttpClientFactory httpClientFactory, ILoggerFactory loggerFactory) : base( httpClientFactory, loggerFactory)
         {
 
         }
@@ -32,17 +33,17 @@ namespace Payments.Wechatpay.Services
             return Task.FromResult($"{GetRequestUrl(Config)}?{url}");
         }
 
-        protected override string GetRequestUrl(WechatpayConfig config)
+        protected override string GetRequestUrl(WechatPayConfig config)
         {
             return config.GetEntrustWebUrl();
         }
 
-        protected override void InitBuilder(WechatpayParameterBuilder builder, WechatEntrustWebRequest param)
+        protected override void InitBuilder(WechatPayParameterBuilder builder, WechatEntrustWebRequest param)
         {
             builder.Add("plan_id", param.PlanId).Add("contract_code", param.ContractCode)
                  .Add("request_serial", param.RequestSerial).Add("contract_display_account", param.ContractDisplayAccount)
                  .NotifyUrl(param.NotifyUrl).Add("version", "1.0").Timestamp().Add("return_app", param.ReturnApp).Add("return_web", param.ReturnWeb)
-                 .Remove(WechatpayConst.SignType).Remove(WechatpayConst.NonceStr).Remove(WechatpayConst.SpbillCreateIp);
+                 .Remove(WechatPayConst.SignType).Remove(WechatPayConst.NonceStr).Remove(WechatPayConst.SpbillCreateIp);
         }
     }
 }

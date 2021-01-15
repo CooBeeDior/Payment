@@ -1,16 +1,16 @@
  using Newtonsoft.Json;
-using Payments.Wechatpay.Parameters.Response;
+using Payments.WechatPay.Parameters.Response;
 using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Xml.Serialization;
-namespace Payments.Wechatpay.Parameters.Response
+namespace Payments.WechatPay.Parameters.Response
 {
     /// <summary>
     /// H5纯签约
     /// </summary>
     [XmlRoot("xml")]
-    public class WechatH5EntrustWebResponse : WechatpayResponse
+    public class WechatH5EntrustWebResponse : WechatPayResponse
     {
         /// <summary>
         /// 跳转签约页面url，用户通过跳转访问此URL即可进入微信签约页面，进行签约。

@@ -1,16 +1,16 @@
  using Newtonsoft.Json;
-using Payments.Wechatpay.Parameters.Response;
+using Payments.WechatPay.Parameters.Response;
 using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Xml.Serialization;
-namespace Payments.Wechatpay.Parameters.Response
+namespace Payments.WechatPay.Parameters.Response
 {
     /// <summary>
     /// 发放裂变红包服务
     /// </summary>
     [XmlRoot("xml")]
-    public class WechatSendGroupRedPackResponse : WechatpayResponse
+    public class WechatSendGroupRedPackResponse : WechatPayResponse
     {
 
         /// <summary>

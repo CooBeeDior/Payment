@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Text;
 
-namespace Payments.Wechatpay.Enums
+namespace Payments.WechatPay.Enums
 {
     /// <summary>
     /// 货币类型

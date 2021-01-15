@@ -5,12 +5,12 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Text;
 
-namespace Payments.Wechatpay.Parameters.Requests
+namespace Payments.WechatPay.Parameters.Requests
 {
     /// <summary>
     /// 撤销订单 【暂时不能用】
     /// </summary>
-    public class WechatReverseOrderRequest : Validation, IWechatpayRequest, IValidation
+    public class WechatReverseOrderRequest : Validation, IWechatPayRequest, IValidation
     {
         /// <summary>
         /// 微信订单号

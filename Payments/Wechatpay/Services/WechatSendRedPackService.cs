@@ -2,50 +2,51 @@
 using Payments.Core.Response;
 using Payments.Extensions;
 using Payments.Util;
-using Payments.Wechatpay.Abstractions;
-using Payments.Wechatpay.Configs;
-using Payments.Wechatpay.Parameters;
-using Payments.Wechatpay.Parameters.Requests;
-using Payments.Wechatpay.Parameters.Response;
-using Payments.Wechatpay.Results;
-using Payments.Wechatpay.Services.Base;
+using Payments.WechatPay;
+using Payments.WechatPay.Abstractions;
+using Payments.WechatPay.Configs;
+using Payments.WechatPay.Parameters;
+using Payments.WechatPay.Parameters.Requests;
+using Payments.WechatPay.Parameters.Response;
+using Payments.WechatPay.Results;
+using Payments.WechatPay.Services.Base;
 using System;
 using System.Collections.Generic;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Payments.Wechatpay.Services
+namespace Payments.WechatPay.Services
 {
     /// <summary>
     /// 发放普通红包服务
     /// </summary>
-    public class WechatSendRedPackService : WechatpayServiceBase<WechatSendRedPackRequest>, IWechatSendRedPackService
+    public class WechatSendRedPackService : WechatPayServiceBase<WechatSendRedPackRequest>, IWechatSendRedPackService
     {
-        public WechatSendRedPackService(IWechatpayConfigProvider configProvider, IHttpClientFactory httpClientFactory, ILoggerFactory loggerFactory) : base(configProvider, httpClientFactory, loggerFactory)
+        public WechatSendRedPackService( IHttpClientFactory httpClientFactory, ILoggerFactory loggerFactory) : base( httpClientFactory, loggerFactory)
         {
         }
 
-        public Task<WechatpayResult<WechatSendRedPackResponse>> SendReadPack(WechatSendRedPackRequest request)
+        public Task<WechatPayResult<WechatSendRedPackResponse>> SendReadPack(WechatSendRedPackRequest request)
         {
             return Request<WechatSendRedPackResponse>(request);
         }
 
-        protected override string GetRequestUrl(WechatpayConfig config)
+        protected override string GetRequestUrl(WechatPayConfig config)
         {
             return config.GetSendRedPackUrl();
         }
 
-        protected override void InitBuilder(WechatpayParameterBuilder builder, WechatSendRedPackRequest param)
+        protected override void InitBuilder(WechatPayParameterBuilder builder, WechatSendRedPackRequest param)
         {
 
-            builder.Remove(WechatpayConst.AppId).Remove(WechatpayConst.SignType)
-                .Remove(WechatpayConst.SpbillCreateIp)
-                .Add(WechatpayConst.WxAppid, Config.AppId).Add(WechatpayConst.ClientIp, Server.GetLanIp())
-                .Add(WechatpayConst.MchBillNo, param.MchBillNo).Add(WechatpayConst.SendName, param.SendName).Add(WechatpayConst.ReOpenid, param.ReOpenId)
-                .Add(WechatpayConst.TotalAmount, (param.TotalAmount * 100).ToInt().ToString()).Add(WechatpayConst.TotalNum, param.TotalNum.ToString())
-                .Add(WechatpayConst.Wishing, param.Wishing).Add(WechatpayConst.ActName, param.ActName).Add(WechatpayConst.Remark, param.Remark)
-                .Add(WechatpayConst.SceneId, param.SceneId?.ToString()).Add(WechatpayConst.RiskInfo, param.RiskInfo);
+            builder.Remove(WechatPayConst.AppId).Remove(WechatPayConst.SignType)
+                .Remove(WechatPayConst.SpbillCreateIp)
+                .Add(WechatPayConst.WxAppid, Config.AppId).Add(WechatPayConst.ClientIp, Server.GetLanIp())
+                .Add(WechatPayConst.MchBillNo, param.MchBillNo).Add(WechatPayConst.SendName, param.SendName).Add(WechatPayConst.ReOpenid, param.ReOpenId)
+                .Add(WechatPayConst.TotalAmount, (param.TotalAmount * 100).ToInt().ToString()).Add(WechatPayConst.TotalNum, param.TotalNum.ToString())
+                .Add(WechatPayConst.Wishing, param.Wishing).Add(WechatPayConst.ActName, param.ActName).Add(WechatPayConst.Remark, param.Remark)
+                .Add(WechatPayConst.SceneId, param.SceneId?.ToString()).Add(WechatPayConst.RiskInfo, param.RiskInfo);
         }
 
       

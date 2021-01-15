@@ -1,19 +1,14 @@
 ﻿using Payments.Attributes;
-using Payments.Core;
 using Payments.Core.Enum;
-using Payments.Wechatpay.Abstractions.Base;
-using Payments.Wechatpay.Parameters.Response;
-using System;
-using System.Collections.Generic;
-using System.Text;
+using Payments.WechatPay.Parameters.Response;
 
-namespace Payments.Wechatpay.Abstractions
+namespace Payments.WechatPay.Abstractions
 {
     /// <summary>
     /// 订单退款通知服务
     /// </summary>
     [PayService("订单退款通知服务", PayOriginType.WechatPay)]
-    public interface IWechatRefundNotifyService : IWechatNotifyService<WechatRefundNotifyResponse>
+    public interface IWechatRefundNotifyService : IWechatConfigSetter, IWechatNotifyService<WechatRefundNotifyResponse>
     {
 
       

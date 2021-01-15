@@ -3,12 +3,12 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Text;
 
-namespace Payments.Wechatpay.Parameters.Requests
+namespace Payments.WechatPay.Parameters.Requests
 {
     /// <summary>
     /// NWeb支付
     /// </summary>
-    public class WechatpayMWebPayRequest : WechatpayPayRequestBase
+    public class WechatPayMWebPayRequest : WechatPayPayRequestBase
     {
         /// <summary>
         /// IOS移动应用{"h5_info": {"type":"IOS","app_name": "王者荣耀","bundle_id": "com.tencent.wzryIOS"}}

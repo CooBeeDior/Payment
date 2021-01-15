@@ -1,16 +1,16 @@
  using Newtonsoft.Json;
-using Payments.Wechatpay.Parameters.Response;
+using Payments.WechatPay.Parameters.Response;
 using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Xml.Serialization;
-namespace Payments.Wechatpay.Parameters.Response
+namespace Payments.WechatPay.Parameters.Response
 {
     /// <summary>
     /// 企业转账服务
     /// </summary>
     [XmlRoot("xml")]
-    public class WechatTransfersResponse : WechatpayResponse
+    public class WechatTransfersResponse : WechatPayResponse
     {
         /// <summary>
         /// 商户订单号，需保持历史全局唯一性(只能是字母或者数字，不能包含有其他字符)

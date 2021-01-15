@@ -4,28 +4,28 @@ using Payments.Core.Response;
 using Payments.Exceptions;
 using Payments.Extensions;
 using Payments.Util;
-using Payments.Wechatpay.Abstractions;
-using Payments.Wechatpay.Configs;
-using Payments.Wechatpay.Parameters;
-using Payments.Wechatpay.Parameters.Requests;
-using Payments.Wechatpay.Parameters.Response;
-using Payments.Wechatpay.Results;
-using Payments.Wechatpay.Services.Base;
+using Payments.WechatPay.Abstractions;
+using Payments.WechatPay.Configs;
+using Payments.WechatPay.Parameters;
+using Payments.WechatPay.Parameters.Requests;
+using Payments.WechatPay.Parameters.Response;
+using Payments.WechatPay.Results;
+using Payments.WechatPay.Services.Base;
 using System;
 using System.Threading.Tasks;
 using System.Net.Http;
-namespace Payments.Wechatpay.Services
+namespace Payments.WechatPay.Services
 {
     /// <summary>
     /// 微信小程序支付服务
     /// </summary> 
-    public class WechatpayMiniProgramPayService : WechatpayServiceBase, IWechatpayMiniProgramPayService
+    public class WechatPayMiniProgramPayService : WechatPayServiceBase, IWechatPayMiniProgramPayService
     {
         /// <summary>
         /// 初始化微信小程序支付服务
         /// </summary>
         /// <param name="provider">微信支付配置提供器</param>
-        public WechatpayMiniProgramPayService(IWechatpayConfigProvider configProvider, IHttpClientFactory httpClientFactory, ILoggerFactory loggerFactory) : base(configProvider, httpClientFactory, loggerFactory)
+        public WechatPayMiniProgramPayService( IHttpClientFactory httpClientFactory, ILoggerFactory loggerFactory) : base( httpClientFactory, loggerFactory)
         {
         }
 
@@ -33,9 +33,9 @@ namespace Payments.Wechatpay.Services
         /// 支付
         /// </summary>
         /// <param name="request">支付参数</param>
-        public Task<WechatpayResult<WechatpayMiniProgramPayResponse>> PayAsync(WechatpayMiniProgramPayRequest request)
+        public Task<WechatPayResult<WechatPayMiniProgramPayResponse>> PayAsync(WechatPayMiniProgramPayRequest request)
         {
-            return base.PayAsync<WechatpayMiniProgramPayResponse>(request);
+            return base.PayAsync<WechatPayMiniProgramPayResponse>(request);
         }
 
 

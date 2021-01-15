@@ -1,13 +1,14 @@
-﻿using System;
+﻿using Payments.WechatPay.Abstractions;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace Payments.Wechatpay.Parameters.Requests
+namespace Payments.WechatPay.Parameters.Requests
 {
     /// <summary>
     /// 微信支付请求参数
     /// </summary>
-    public interface IWechatpayRequest
+    public interface IWechatPayRequest
     {
     }
 }

@@ -3,13 +3,13 @@ using System.Collections.Generic;
 using System.Text;
 using System.Xml.Serialization;
 
-namespace Payments.Wechatpay.Parameters.Response
+namespace Payments.WechatPay.Parameters.Response
 {
     /// <summary>
     /// 查询签约关系服务
     /// </summary>
     [XmlRoot("xml")]
-    public class WechatQueryContractResponse : WechatpayResponse
+    public class WechatQueryContractResponse : WechatPayResponse
     {
         /// <summary>
         /// 委托代扣协议id

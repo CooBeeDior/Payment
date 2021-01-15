@@ -7,12 +7,12 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 
-namespace Payments.Wechatpay.Parameters.Requests
+namespace Payments.WechatPay.Parameters.Requests
 {
     /// <summary>
     /// 查询订单
     /// </summary>
-    public class WechatOrderQueryRequest : Validation, IWechatpayRequest, IValidation
+    public class WechatOrderQueryRequest : Validation, IWechatPayRequest, IValidation
     {
         /// <summary>
         /// 商户订单号

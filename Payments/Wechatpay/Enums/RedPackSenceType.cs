@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Payments.Wechatpay.Enums
+namespace Payments.WechatPay.Enums
 {
     /// <summary>
     /// 发放红包使用场景

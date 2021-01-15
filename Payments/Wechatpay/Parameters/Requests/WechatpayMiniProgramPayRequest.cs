@@ -1,12 +1,12 @@
 ﻿using Payments.Core;
 using System.ComponentModel.DataAnnotations;
 
-namespace Payments.Wechatpay.Parameters.Requests
+namespace Payments.WechatPay.Parameters.Requests
 {
     /// <summary>
     /// 微信小程序支付参数
     /// </summary>
-    public class WechatpayMiniProgramPayRequest : WechatpayPayRequestBase
+    public class WechatPayMiniProgramPayRequest : WechatPayPayRequestBase
     {
         /// <summary>
         /// 用户标识

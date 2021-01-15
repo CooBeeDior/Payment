@@ -2,7 +2,7 @@
 //using Util.Helpers;
 //using Util.Parameters;
 //using Util.Signatures;
-//namespace Payments.Wechatpay.Signatures
+//namespace Payments.WechatPay.Signatures
 //{
 //    /// <summary>
 //    /// 微信支付Md5签名服务

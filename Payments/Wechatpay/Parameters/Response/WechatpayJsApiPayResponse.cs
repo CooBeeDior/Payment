@@ -1,16 +1,16 @@
  using Newtonsoft.Json;
-using Payments.Wechatpay.Parameters.Response;
+using Payments.WechatPay.Parameters.Response;
 using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Xml.Serialization;
-namespace Payments.Wechatpay.Parameters.Response
+namespace Payments.WechatPay.Parameters.Response
 {
     /// <summary>
     /// 微信JsAPi支付
     /// </summary>
     [XmlRoot("xml")]
-    public class WechatpayJsApiPayResponse : WechatpayPayResponseBase
+    public class WechatPayJsApiPayResponse : WechatPayPayResponseBase
     {
         /// <summary>
         /// 用户标识

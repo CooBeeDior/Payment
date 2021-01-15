@@ -2,37 +2,38 @@
 using Payments.Core;
 using Payments.Core.Response;
 using Payments.Extensions;
-using Payments.Wechatpay.Abstractions;
-using Payments.Wechatpay.Configs;
-using Payments.Wechatpay.Parameters;
-using Payments.Wechatpay.Parameters.Requests;
-using Payments.Wechatpay.Parameters.Response;
-using Payments.Wechatpay.Results;
-using Payments.Wechatpay.Services.Base;
+using Payments.WechatPay;
+using Payments.WechatPay.Abstractions;
+using Payments.WechatPay.Configs;
+using Payments.WechatPay.Parameters;
+using Payments.WechatPay.Parameters.Requests;
+using Payments.WechatPay.Parameters.Response;
+using Payments.WechatPay.Results;
+using Payments.WechatPay.Services.Base;
 using System;
 using System.Net.Http;
 using System.Threading.Tasks;
-namespace Payments.Wechatpay.Services
+namespace Payments.WechatPay.Services
 {
     /// <summary>
     /// 退款订单查询
     /// </summary>
-    public class WechatRefundQueryService : WechatpayServiceBase<WechatRefundQueryRequest>, IWechatRefundQueryService
+    public class WechatRefundQueryService : WechatPayServiceBase<WechatRefundQueryRequest>, IWechatRefundQueryService
     {
         /// <summary>
         /// 初始化微信App支付服务
         /// </summary>
         /// <param name="provider">微信支付配置提供器</param>
-        public WechatRefundQueryService(IWechatpayConfigProvider configProvider, IHttpClientFactory httpClientFactory, ILoggerFactory loggerFactory) : base(configProvider, httpClientFactory, loggerFactory)
+        public WechatRefundQueryService( IHttpClientFactory httpClientFactory, ILoggerFactory loggerFactory) : base( httpClientFactory, loggerFactory)
         {
 
         }
 
-        public Task<WechatpayResult<WechatRefundQueryResponse>> RefundQuery(WechatRefundQueryRequest request)
+        public Task<WechatPayResult<WechatRefundQueryResponse>> RefundQuery(WechatRefundQueryRequest request)
         {
             return Request<WechatRefundQueryResponse>(request);
         }
-        protected override string GetRequestUrl(WechatpayConfig config)
+        protected override string GetRequestUrl(WechatPayConfig config)
         {
             return config.GetRefundQueryUrl();
         }
@@ -47,11 +48,11 @@ namespace Payments.Wechatpay.Services
                 throw new Exception("orderno all null");
             }
         }
-        protected override void InitBuilder(WechatpayParameterBuilder builder, WechatRefundQueryRequest param)
+        protected override void InitBuilder(WechatPayParameterBuilder builder, WechatRefundQueryRequest param)
         {
             builder.TransactionId(param.TransactionId).OutTradeNo(param.OutTradeNo)
                    .OutRefundNo(param.OutRefundNo).RefundId(param.RefundId).Offset(param.Offset)
-                   .Remove(WechatpayConst.SpbillCreateIp).Remove(WechatpayConst.NotifyUrl); ;
+                   .Remove(WechatPayConst.SpbillCreateIp).Remove(WechatPayConst.NotifyUrl); ;
         }
     }
 }

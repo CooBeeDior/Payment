@@ -3,44 +3,45 @@ using Payments.Core;
 using Payments.Core.Response;
 using Payments.Extensions;
 using Payments.Util;
-using Payments.Wechatpay.Abstractions;
-using Payments.Wechatpay.Configs;
-using Payments.Wechatpay.Parameters;
-using Payments.Wechatpay.Parameters.Requests;
-using Payments.Wechatpay.Parameters.Response;
-using Payments.Wechatpay.Results;
-using Payments.Wechatpay.Services.Base;
+using Payments.WechatPay;
+using Payments.WechatPay.Abstractions;
+using Payments.WechatPay.Configs;
+using Payments.WechatPay.Parameters;
+using Payments.WechatPay.Parameters.Requests;
+using Payments.WechatPay.Parameters.Response;
+using Payments.WechatPay.Results;
+using Payments.WechatPay.Services.Base;
 using System;
 using System.Net.Http;
 using System.Threading.Tasks;
 
 
-namespace Payments.Wechatpay.Services
+namespace Payments.WechatPay.Services
 {
     /// <summary>
     /// 企业转账服务
     /// </summary>
-    public class WechatTransfersService : WechatpayServiceBase<WechatTransfersRequest>, IWechatTransfersService
+    public class WechatTransfersService : WechatPayServiceBase<WechatTransfersRequest>, IWechatTransfersService
     {
-        public WechatTransfersService(IWechatpayConfigProvider configProvider, IHttpClientFactory httpClientFactory, ILoggerFactory loggerFactory) : base(configProvider, httpClientFactory, loggerFactory)
+        public WechatTransfersService( IHttpClientFactory httpClientFactory, ILoggerFactory loggerFactory) : base( httpClientFactory, loggerFactory)
         {
         }
-        public Task<WechatpayResult<WechatTransfersResponse>> Transfer(WechatTransfersRequest request)
+        public Task<WechatPayResult<WechatTransfersResponse>> Transfer(WechatTransfersRequest request)
         {
             return Request<WechatTransfersResponse>(request);
         }
 
-        protected override string GetRequestUrl(WechatpayConfig config)
+        protected override string GetRequestUrl(WechatPayConfig config)
         {
             return config.GetTransfersUrl();
         }
 
-        protected override void InitBuilder(WechatpayParameterBuilder builder, WechatTransfersRequest param)
+        protected override void InitBuilder(WechatPayParameterBuilder builder, WechatTransfersRequest param)
         {
-            builder.Add(WechatpayConst.MchAppId, Config.AppId).Add(WechatpayConst.MchId, Config.MerchantId).Add(WechatpayConst.DeviceInfo, param.DeviceInfo)
-               .Add(WechatpayConst.PartnerTradeNo, param.PartnerTradeNo).OpenId(param.OpenId)
-                .Add(WechatpayConst.CheckName, param.CheckName?.ToString()).Add(WechatpayConst.ReUserName, param.ReUserName)
-                .Add(WechatpayConst.Amount, (param.Amount * 100).ToInt()).Add(WechatpayConst.Desc, param.Desc);
+            builder.Add(WechatPayConst.MchAppId, Config.AppId).Add(WechatPayConst.MchId, Config.MerchantId).Add(WechatPayConst.DeviceInfo, param.DeviceInfo)
+               .Add(WechatPayConst.PartnerTradeNo, param.PartnerTradeNo).OpenId(param.OpenId)
+                .Add(WechatPayConst.CheckName, param.CheckName?.ToString()).Add(WechatPayConst.ReUserName, param.ReUserName)
+                .Add(WechatPayConst.Amount, (param.Amount * 100).ToInt()).Add(WechatPayConst.Desc, param.Desc);
 
         }
 

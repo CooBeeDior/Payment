@@ -1,16 +1,16 @@
 ﻿using Payments.Attributes;
 using Payments.Core.Enum;
-using Payments.Wechatpay.Parameters.Requests;
-using Payments.Wechatpay.Parameters.Response;
+using Payments.WechatPay.Parameters.Requests;
+using Payments.WechatPay.Parameters.Response;
 
-namespace Payments.Wechatpay.Abstractions
+namespace Payments.WechatPay.Abstractions
 {
     /// <summary>
     /// 微信JsAPi支付
     /// </summary>
 
     [PayService("微信JsApi支付", PayOriginType.WechatPay)]
-    public interface IWechatpayJsApiPayService : IWechatpayPayService<WechatpayJsApiPayRequest, WechatpayJsApiPayResponse>
+    public interface IWechatPayJsApiPayService : IWechatConfigSetter, IWechatPayExtParam, IWechatPayPayService<WechatPayJsApiPayRequest, WechatPayJsApiPayResponse>
     {
 
     }

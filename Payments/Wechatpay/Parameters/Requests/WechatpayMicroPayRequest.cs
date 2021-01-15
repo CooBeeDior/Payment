@@ -3,12 +3,12 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Text;
 
-namespace Payments.Wechatpay.Parameters.Requests
+namespace Payments.WechatPay.Parameters.Requests
 {
     /// <summary>
     /// 提交付款码支付
     /// </summary>
-    public class WechatpayMicroPayRequest : WechatpayPayRequestBase
+    public class WechatPayMicroPayRequest : WechatPayPayRequestBase
     {
         /// <summary>
         /// 扫码支付授权码，设备读取用户微信中的条码或者二维码信息

@@ -1,40 +1,40 @@
 ﻿using Microsoft.Extensions.Logging;
-using Payments.Wechatpay.Abstractions;
-using Payments.Wechatpay.Configs;
-using Payments.Wechatpay.Parameters;
-using Payments.Wechatpay.Parameters.Requests;
-using Payments.Wechatpay.Parameters.Response;
-using Payments.Wechatpay.Results;
-using Payments.Wechatpay.Services.Base;
+using Payments.WechatPay.Abstractions;
+using Payments.WechatPay.Configs;
+using Payments.WechatPay.Parameters;
+using Payments.WechatPay.Parameters.Requests;
+using Payments.WechatPay.Parameters.Response;
+using Payments.WechatPay.Results;
+using Payments.WechatPay.Services.Base;
 using System.Net.Http;
 using System.Threading.Tasks;
 
-namespace Payments.Wechatpay.Services
+namespace Payments.WechatPay.Services
 {
     /// <summary>
     /// 微信App支付服务
     /// </summary>
-    public class WechatpayAppPayService : WechatpayServiceBase, IWechatpayAppPayService
+    public class WechatPayAppPayService : WechatPayServiceBase, IWechatPayAppPayService
     {
         /// <summary>
         /// 初始化微信App支付服务
         /// </summary>
         /// <param name="provider">微信支付配置提供器</param>
-        public WechatpayAppPayService(IWechatpayConfigProvider configProvider, IHttpClientFactory httpClientFactory, ILoggerFactory loggerFactory) : base(configProvider, httpClientFactory, loggerFactory)
+        public WechatPayAppPayService( IHttpClientFactory httpClientFactory, ILoggerFactory loggerFactory) : base( httpClientFactory, loggerFactory)
         {
         }
 
-        public Task<WechatpayResult<WechatpayAppPayResponse>> PayAsync(WechatpayAppPayRequest request) 
+        public Task<WechatPayResult<WechatPayAppPayResponse>> PayAsync(WechatPayAppPayRequest request) 
         {
-            return base.PayAsync<WechatpayAppPayResponse>(request);
+            return base.PayAsync<WechatPayAppPayResponse>(request);
         }
       
 
 
-        protected override void InitBuilder(WechatpayParameterBuilder builder, WechatpayPayRequestBase param)
+        protected override void InitBuilder(WechatPayParameterBuilder builder, WechatPayPayRequestBase param)
         {
             base.InitBuilder(builder, param);
-            builder.Remove(WechatpayConst.SceneInfo);
+            builder.Remove(WechatPayConst.SceneInfo);
 
         }
         /// <summary>

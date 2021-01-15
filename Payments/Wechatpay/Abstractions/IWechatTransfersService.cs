@@ -1,27 +1,27 @@
 ﻿using Payments.Attributes;
 using Payments.Core.Enum;
 using Payments.Core.Response;
-using Payments.Wechatpay.Parameters.Requests;
-using Payments.Wechatpay.Parameters.Response;
-using Payments.Wechatpay.Results;
+using Payments.WechatPay.Parameters.Requests;
+using Payments.WechatPay.Parameters.Response;
+using Payments.WechatPay.Results;
 using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Payments.Wechatpay.Abstractions
+namespace Payments.WechatPay.Abstractions
 {
     /// <summary>
     /// 企业转账服务
     /// </summary>
     [PayService("企业转账服务", PayOriginType.WechatPay)]
-    public interface IWechatTransfersService
+    public interface IWechatTransfersService : IWechatConfigSetter, IWechatPayExtParam
     {
         /// <summary>
         /// 转账
         /// </summary>
         /// <param name="request"></param>
         /// <returns></returns>
-        Task<WechatpayResult<WechatTransfersResponse>> Transfer(WechatTransfersRequest request);
+        Task<WechatPayResult<WechatTransfersResponse>> Transfer(WechatTransfersRequest request);
     }
 }

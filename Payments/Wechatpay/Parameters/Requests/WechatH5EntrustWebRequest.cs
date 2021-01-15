@@ -1,12 +1,12 @@
 ﻿using Payments.Util.Validations;
 using System;
 using System.ComponentModel.DataAnnotations;
-namespace Payments.Wechatpay.Parameters.Requests
+namespace Payments.WechatPay.Parameters.Requests
 {
     /// <summary>
     /// H5纯签约
     /// </summary>
-    public class WechatH5EntrustWebRequest : Validation, IWechatpayRequest, IValidation
+    public class WechatH5EntrustWebRequest : Validation, IWechatPayRequest, IValidation
     {
         // <summary>
         /// 协议模板id，设置路径见 https://pay.weixin.qq.com/wiki/doc/api/pap.php?chapter=17_3

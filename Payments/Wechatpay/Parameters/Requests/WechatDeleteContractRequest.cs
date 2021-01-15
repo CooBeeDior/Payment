@@ -8,12 +8,12 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 
-namespace Payments.Wechatpay.Parameters.Requests
+namespace Payments.WechatPay.Parameters.Requests
 {
     /// <summary>
     /// 申请解约
     /// </summary>
-    public class WechatDeleteContractRequest : Validation, IWechatpayRequest, IValidation
+    public class WechatDeleteContractRequest : Validation, IWechatPayRequest, IValidation
     {
 
         /// <summary>

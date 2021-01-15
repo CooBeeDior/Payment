@@ -1,11 +1,11 @@
 ﻿using System.ComponentModel;
 
-namespace Payments.Wechatpay.Enums
+namespace Payments.WechatPay.Enums
 {
     /// <summary>
     /// 微信支付签名类型
     /// </summary>
-    public enum WechatpaySignType
+    public enum WechatPaySignType
     {
         /// <summary>
         /// Md5

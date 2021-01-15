@@ -4,33 +4,34 @@ using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
 using Payments.Core.Response;
 using Payments.Extensions;
-using Payments.Wechatpay.Abstractions;
-using Payments.Wechatpay.Configs;
-using Payments.Wechatpay.Parameters;
-using Payments.Wechatpay.Parameters.Requests;
-using Payments.Wechatpay.Parameters.Response;
-using Payments.Wechatpay.Results;
-using Payments.Wechatpay.Services.Base;
+using Payments.WechatPay;
+using Payments.WechatPay.Abstractions;
+using Payments.WechatPay.Configs;
+using Payments.WechatPay.Parameters;
+using Payments.WechatPay.Parameters.Requests;
+using Payments.WechatPay.Parameters.Response;
+using Payments.WechatPay.Results;
+using Payments.WechatPay.Services.Base;
 
-namespace Payments.Wechatpay.Services
+namespace Payments.WechatPay.Services
 {
-    public class WechatReverseOrderService : WechatpayServiceBase<WechatReverseOrderRequest>, IWechatReverseOrderService
+    public class WechatReverseOrderService : WechatPayServiceBase<WechatReverseOrderRequest>, IWechatReverseOrderService
     {
         /// <summary>
         /// 初始化微信App支付服务
         /// </summary>
         /// <param name="provider">微信支付配置提供器</param>
-        public WechatReverseOrderService(IWechatpayConfigProvider configProvider, IHttpClientFactory httpClientFactory, ILoggerFactory loggerFactory) : base(configProvider, httpClientFactory, loggerFactory)
+        public WechatReverseOrderService( IHttpClientFactory httpClientFactory, ILoggerFactory loggerFactory) : base( httpClientFactory, loggerFactory)
         {
 
         }
 
-        public Task<WechatpayResult<WechatReverseOrderResponse>> ReverseAsync(WechatReverseOrderRequest request)
+        public Task<WechatPayResult<WechatReverseOrderResponse>> ReverseAsync(WechatReverseOrderRequest request)
         {
             return Request<WechatReverseOrderResponse>(request);
         }
 
-        protected override string GetRequestUrl(WechatpayConfig config)
+        protected override string GetRequestUrl(WechatPayConfig config)
         {
             return config.GetReverseUrl();
         }
@@ -48,10 +49,10 @@ namespace Payments.Wechatpay.Services
         }
 
 
-        protected override void InitBuilder(WechatpayParameterBuilder builder, WechatReverseOrderRequest param)
+        protected override void InitBuilder(WechatPayParameterBuilder builder, WechatReverseOrderRequest param)
         {
             builder.TransactionId(param.TransactionId).OutTradeNo(param.OutTradeNo)
-                   .Remove(WechatpayConst.SpbillCreateIp);
+                   .Remove(WechatPayConst.SpbillCreateIp);
 
         }
      

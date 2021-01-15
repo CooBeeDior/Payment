@@ -1,23 +1,23 @@
 ﻿using System.Threading.Tasks;
 using Payments.Util.ParameterBuilders;
-namespace Payments.Wechatpay.Configs
+namespace Payments.WechatPay.Configs
 {
     /// <summary>
     /// 微信支付配置提供器
     /// </summary>
-    public interface IWechatpayConfigProvider
+    public interface IWechatPayConfigStorage
     {
         /// <summary>
         /// 获取配置
         /// </summary>
         /// <param name="parameters">参数服务</param>
-        Task<WechatpayConfig> GetConfigAsync(IParameterBuilder parameters = null);
+        Task<WechatPayConfig> GetConfigAsync(string name);
 
         /// <summary>
         /// 获取配置
         /// </summary>
         /// <param name="parameters"></param>
         /// <returns></returns>
-        WechatpayConfig GetConfig(IParameterBuilder parameters = null);
+        WechatPayConfig GetConfig(string name);
     }
 }

@@ -8,12 +8,12 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 
-namespace Payments.Wechatpay.Parameters.Requests
+namespace Payments.WechatPay.Parameters.Requests
 {
     /// <summary>
     /// 关闭订单
     /// </summary>
-    public class WechatCloseOrderRequest : Validation, IWechatpayRequest, IValidation
+    public class WechatCloseOrderRequest : Validation, IWechatPayRequest, IValidation
     {
         /// <summary>
         /// 商户订单号

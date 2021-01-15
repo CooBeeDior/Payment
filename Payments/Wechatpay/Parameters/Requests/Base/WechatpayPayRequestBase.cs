@@ -2,19 +2,19 @@
 using Payments.Properties;
 using Payments.Util.Validations;
 using Payments.Util.Validations.Attribbutes;
-using Payments.Wechatpay.Enums;
+using Payments.WechatPay.Enums;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 
-namespace Payments.Wechatpay.Parameters.Requests
+namespace Payments.WechatPay.Parameters.Requests
 {
     /// <summary>
     /// 订单支付参数
     /// </summary>
-    public class WechatpayPayRequestBase : Validation, IWechatpayRequest, IValidation
+    public class WechatPayPayRequestBase : Validation, IWechatPayRequest, IValidation
     {
         /// <summary>
         /// 订单标题

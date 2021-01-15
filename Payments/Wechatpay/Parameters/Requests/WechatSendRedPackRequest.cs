@@ -1,17 +1,17 @@
 ﻿using Payments.Util.Validations;
 using Payments.Util.Validations.Attribbutes;
-using Payments.Wechatpay.Enums;
+using Payments.WechatPay.Enums;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Text;
 
-namespace Payments.Wechatpay.Parameters.Requests
+namespace Payments.WechatPay.Parameters.Requests
 {
     /// <summary>
     /// 发放普通红包
     /// </summary>
-    public class WechatSendRedPackRequest : Validation, IWechatpayRequest, IValidation
+    public class WechatSendRedPackRequest : Validation, IWechatPayRequest, IValidation
     {
         /// <summary>
         /// 商户订单号

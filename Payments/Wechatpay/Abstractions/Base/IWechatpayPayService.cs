@@ -1,26 +1,22 @@
-﻿using Payments.Core;
-using Payments.Wechatpay.Parameters.Requests;
-using Payments.Wechatpay.Results;
-using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using Payments.WechatPay.Abstractions;
+using Payments.WechatPay.Parameters.Requests;
+using Payments.WechatPay.Parameters.Response;
+using Payments.WechatPay.Results;
 using System.Threading.Tasks;
-using Payments.Core.Response;
-using Payments.Wechatpay.Parameters.Response;
 
-namespace Payments.Wechatpay.Abstractions
+namespace Payments.WechatPay.Abstractions
 {
     /// <summary>
     /// 支付 
     /// </summary>
     /// <typeparam name="T"></typeparam>
-    public interface IWechatpayPayService<TRequest, TResponse> where TRequest : WechatpayPayRequestBase where TResponse : WechatpayPayResponseBase
+    public interface IWechatPayPayService<TRequest, TResponse> : IWechatConfigSetter,IWechatPayExtParam where TRequest : WechatPayPayRequestBase where TResponse : WechatPayPayResponseBase
     {
         /// <summary>
         /// 支付
         /// </summary>
         /// <param name="request"></param>
         /// <returns></returns>
-        Task<WechatpayResult<TResponse>> PayAsync(TRequest request);
+        Task<WechatPayResult<TResponse>> PayAsync(TRequest request);
     }
 }

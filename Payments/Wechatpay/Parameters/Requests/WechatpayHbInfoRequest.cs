@@ -1,12 +1,12 @@
 ﻿using Payments.Util.Validations;
 using System.ComponentModel.DataAnnotations;
 
-namespace Payments.Wechatpay.Parameters.Requests
+namespace Payments.WechatPay.Parameters.Requests
 {
     /// <summary>
     /// 查询红包记录服务
     /// </summary>
-    public class WechatpayHbInfoRequest : Validation, IWechatpayRequest, IValidation
+    public class WechatPayHbInfoRequest : Validation, IWechatPayRequest, IValidation
     {
         /// <summary>
         /// 商户订单号 

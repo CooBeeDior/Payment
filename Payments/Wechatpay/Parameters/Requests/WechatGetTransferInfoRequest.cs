@@ -1,11 +1,11 @@
 ﻿using Payments.Util.Validations;
 using System.ComponentModel.DataAnnotations;
-namespace Payments.Wechatpay.Parameters.Requests
+namespace Payments.WechatPay.Parameters.Requests
 {
     /// <summary>
     /// 查询企业付款
     /// </summary>
-    public class WechatGetTransferInfoRequest : Validation, IWechatpayRequest, IValidation
+    public class WechatGetTransferInfoRequest : Validation, IWechatPayRequest, IValidation
     {
         /// <summary>
         /// 商户订单号

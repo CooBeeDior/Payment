@@ -3,42 +3,43 @@ using Payments.Core;
 using Payments.Core.Response;
 using Payments.Extensions;
 using Payments.Properties;
-using Payments.Wechatpay.Abstractions;
-using Payments.Wechatpay.Configs;
-using Payments.Wechatpay.Parameters;
-using Payments.Wechatpay.Parameters.Requests;
-using Payments.Wechatpay.Parameters.Response;
-using Payments.Wechatpay.Results;
-using Payments.Wechatpay.Services.Base;
+using Payments.WechatPay;
+using Payments.WechatPay.Abstractions;
+using Payments.WechatPay.Configs;
+using Payments.WechatPay.Parameters;
+using Payments.WechatPay.Parameters.Requests;
+using Payments.WechatPay.Parameters.Response;
+using Payments.WechatPay.Results;
+using Payments.WechatPay.Services.Base;
 using System;
 using System.Net.Http;
 using System.Threading.Tasks;
 
-namespace Payments.Wechatpay.Services
+namespace Payments.WechatPay.Services
 {
     /// <summary>
     /// 订单查询服务
     /// </summary>
-    public class WechatOrderQueryService : WechatpayServiceBase<WechatOrderQueryRequest>, IWechatOrderQueryService
+    public class WechatOrderQueryService : WechatPayServiceBase<WechatOrderQueryRequest>, IWechatOrderQueryService
     {
 
         /// <summary>
         /// 初始化微信App支付服务
         /// </summary>
         /// <param name="provider">微信支付配置提供器</param>
-        public WechatOrderQueryService(IWechatpayConfigProvider configProvider, IHttpClientFactory httpClientFactory, ILoggerFactory loggerFactory) : base(configProvider, httpClientFactory, loggerFactory)
+        public WechatOrderQueryService( IHttpClientFactory httpClientFactory, ILoggerFactory loggerFactory) : base( httpClientFactory, loggerFactory)
         {
           
         }
 
 
 
-        public Task<WechatpayResult<WechatOrderQueryResponse>> QueryAsync(WechatOrderQueryRequest request)
+        public Task<WechatPayResult<WechatOrderQueryResponse>> QueryAsync(WechatOrderQueryRequest request)
         {
             return Request<WechatOrderQueryResponse>(request);
         }
 
-        protected override void InitBuilder(WechatpayParameterBuilder builder, WechatOrderQueryRequest param)
+        protected override void InitBuilder(WechatPayParameterBuilder builder, WechatOrderQueryRequest param)
         {
             builder.OutTradeNo(param.OutTradeNo).TransactionId(param.TransactionId);
         }
@@ -55,7 +56,7 @@ namespace Payments.Wechatpay.Services
         /// 获取功能Url
         /// </summary>
         /// <returns></returns>
-        protected override string GetRequestUrl(WechatpayConfig config)
+        protected override string GetRequestUrl(WechatPayConfig config)
         {
             return config.GetOrderQueryUrl();
         }

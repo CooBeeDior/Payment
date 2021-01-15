@@ -3,37 +3,37 @@ using Payments.Core;
 using Payments.Core.Response;
 using Payments.Extensions;
 using Payments.Util;
-using Payments.Wechatpay.Abstractions;
-using Payments.Wechatpay.Configs;
-using Payments.Wechatpay.Parameters;
-using Payments.Wechatpay.Parameters.Requests;
-using Payments.Wechatpay.Parameters.Response;
-using Payments.Wechatpay.Results;
-using Payments.Wechatpay.Services.Base;
+using Payments.WechatPay.Abstractions;
+using Payments.WechatPay.Configs;
+using Payments.WechatPay.Parameters;
+using Payments.WechatPay.Parameters.Requests;
+using Payments.WechatPay.Parameters.Response;
+using Payments.WechatPay.Results;
+using Payments.WechatPay.Services.Base;
 using System;
 using System.Net.Http;
 using System.Threading.Tasks;
 
-namespace Payments.Wechatpay.Services
+namespace Payments.WechatPay.Services
 {
      
 
     /// <summary>
     /// 微信NWeb支付服务
     /// </summary>
-    public class WechatpayMWebPayService : WechatpayServiceBase, IWechatpayMWebPayService
+    public class WechatPayMWebPayService : WechatPayServiceBase, IWechatPayMWebPayService
     {
         /// <summary>
         /// 初始化微信App支付服务
         /// </summary>
         /// <param name="provider">微信支付配置提供器</param>
-        public WechatpayMWebPayService(IWechatpayConfigProvider configProvider, IHttpClientFactory httpClientFactory, ILoggerFactory loggerFactory) : base(configProvider, httpClientFactory, loggerFactory)
+        public WechatPayMWebPayService( IHttpClientFactory httpClientFactory, ILoggerFactory loggerFactory) : base( httpClientFactory, loggerFactory)
         {
         }
 
-        public Task<WechatpayResult<WechatpayMWebPayResponse>> PayAsync(WechatpayMWebPayRequest request)
+        public Task<WechatPayResult<WechatPayMWebPayResponse>> PayAsync(WechatPayMWebPayRequest request)
         {
-            return base.PayAsync<WechatpayMWebPayResponse>(request);
+            return base.PayAsync<WechatPayMWebPayResponse>(request);
         }
 
 
@@ -48,7 +48,7 @@ namespace Payments.Wechatpay.Services
         /// 验证参数
         /// </summary>
         /// <param name="param">支付参数</param>
-        protected override void ValidateParam(WechatpayPayRequestBase param)
+        protected override void ValidateParam(WechatPayPayRequestBase param)
         {
       
         }

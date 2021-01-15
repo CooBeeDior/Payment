@@ -1,6 +1,7 @@
 ﻿using Payments.Util.Validations;
-using Payments.Wechatpay.Parameters.Response;
-using Payments.Wechatpay.Results;
+using Payments.WechatPay.Abstractions;
+using Payments.WechatPay.Parameters.Response;
+using Payments.WechatPay.Results;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -9,7 +10,7 @@ namespace Payments.Core
     /// <summary>
     /// 支付通知服务
     /// </summary>
-    public interface INotifyService 
+    public interface INotifyService :IWechatConfigSetter
     {         
         /// <summary>
         /// 验证

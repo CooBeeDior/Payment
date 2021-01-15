@@ -4,13 +4,13 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace Payments.Wechatpay.Abstractions
+namespace Payments.WechatPay.Abstractions
 {
     /// <summary>
     /// 扣款结果通知
     /// </summary>
     [PayService("扣款结果通知", PayOriginType.WechatPay)]
-    public interface IWechatContractNotifyService
+    public interface IWechatContractNotifyService : IWechatConfigSetter
     {
     }
 }

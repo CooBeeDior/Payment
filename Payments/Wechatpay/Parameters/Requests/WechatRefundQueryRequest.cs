@@ -3,12 +3,12 @@ using Payments.Util.Validations;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 
-namespace Payments.Wechatpay.Parameters.Requests
+namespace Payments.WechatPay.Parameters.Requests
 {
     /// <summary>
     /// 退款订单查询
     /// </summary>
-    public class WechatRefundQueryRequest : Validation, IWechatpayRequest, IValidation
+    public class WechatRefundQueryRequest : Validation, IWechatPayRequest, IValidation
     {
         /// <summary>
         /// 商户订单号

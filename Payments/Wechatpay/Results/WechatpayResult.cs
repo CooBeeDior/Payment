@@ -3,20 +3,20 @@ using Payments.Extensions;
 using Payments.Util;
 using Payments.Util.ParameterBuilders.Impl;
 using Payments.Util.Validations;
-using Payments.Wechatpay.Configs;
-using Payments.Wechatpay.Parameters.Response;
-using Payments.Wechatpay.Signatures;
+using Payments.WechatPay.Configs;
+using Payments.WechatPay.Parameters.Response;
+using Payments.WechatPay.Signatures;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Xml.Serialization;
 
-namespace Payments.Wechatpay.Results
+namespace Payments.WechatPay.Results
 {
     /// <summary>
     /// 微信支付结果
     /// </summary>
-    public class WechatpayResult<TResponse> where TResponse : WechatpayResponse
+    public class WechatPayResult<TResponse> where TResponse : WechatPayResponse
     {
 
         /// <summary>
@@ -32,7 +32,7 @@ namespace Payments.Wechatpay.Results
         /// <summary>
         /// 配置
         /// </summary>
-        private readonly WechatpayConfig _wechatpayConfig;
+        private readonly WechatPayConfig _WechatPayConfig;
 
         /// <summary>
         /// 微信支付原始响应
@@ -45,7 +45,7 @@ namespace Payments.Wechatpay.Results
         {
             get
             {
-                return GetResultCode() == WechatpayConst.Success && GetResultCode() == WechatpayConst.Success;
+                return GetResultCode() == WechatPayConst.Success && GetResultCode() == WechatPayConst.Success;
             }
         }
 
@@ -57,10 +57,10 @@ namespace Payments.Wechatpay.Results
         /// </summary>
         /// <param name="configProvider">配置提供器</param>
         /// <param name="response">xml响应消息</param>
-        public WechatpayResult(WechatpayConfig wechatpayConfig, string response, HttpRequest httpRequest = null)
+        public WechatPayResult(WechatPayConfig WechatPayConfig, string response, HttpRequest httpRequest = null)
         {
-            wechatpayConfig.CheckNull(nameof(wechatpayConfig));
-            _wechatpayConfig = wechatpayConfig;
+            WechatPayConfig.CheckNull(nameof(WechatPayConfig));
+            _WechatPayConfig = WechatPayConfig;
             Raw = response;
             Resolve(response);
             Request = httpRequest;
@@ -80,7 +80,7 @@ namespace Payments.Wechatpay.Results
             var elements = Xml.ToElements(response);
             elements.ForEach(node =>
             {
-                if (node.Name == WechatpayConst.Sign)
+                if (node.Name == WechatPayConst.Sign)
                 {
                     _sign = node.Value;
                     return;
@@ -134,7 +134,7 @@ namespace Payments.Wechatpay.Results
         public IDictionary<string, string> GetParams()
         {
             var builder = new ParameterBuilder(_builder);
-            builder.Add(WechatpayConst.Sign, _sign);
+            builder.Add(WechatPayConst.Sign, _sign);
             return builder.GetDictionary().ToDictionary(t => t.Key, t => t.Value.SafeString());
         }
 
@@ -143,7 +143,7 @@ namespace Payments.Wechatpay.Results
         /// </summary>
         public Task<ValidationResultCollection> ValidateAsync()
         {
-            if (GetReturnCode() != WechatpayConst.Success || GetResultCode() != WechatpayConst.Success)
+            if (GetReturnCode() != WechatPayConst.Success || GetResultCode() != WechatPayConst.Success)
                 return Task.FromResult(new ValidationResultCollection(GetReturnMessage()));
             var isValid = VerifySign();
             if (isValid == false)
@@ -156,7 +156,7 @@ namespace Payments.Wechatpay.Results
         /// </summary>
         public bool VerifySign()
         {
-            return SignManagerFactory.Create(_wechatpayConfig, Request, _builder).Verify(GetSign());
+            return SignManagerFactory.Create(_WechatPayConfig, Request, _builder).Verify(GetSign());
         }
     }
 }
