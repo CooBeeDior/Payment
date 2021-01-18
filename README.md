@@ -8,10 +8,10 @@
 ```c#
      serviceDescriptors.AddWechatPay(w =>
      {
-         w.AppId = "wx6e95a65ad4ee0135";
-         w.MerchantId = "1517630381";
-         w.PrivateKey = "XIAKEweixinpay2019shjGGYGHD54hlk";
-         w.NotifyUrl = "https://www.baidu.com";
+         w.AppId = "wx1111111111111";
+         w.MerchantId = "11111111111";
+         w.PrivateKey = "xxxxxxxxxxxxxxxxxxx";
+         w.NotifyUrl = "https://www.xxxx.com?NotifyUrl";
 
      }).AddWehcatpayStorage<MysqlWechatPayConfigStorage>();                        
            
