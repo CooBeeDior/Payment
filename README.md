@@ -1,6 +1,38 @@
 # Payments
-#### 基于netcore2.x实现的微信和支付宝支付的服务。
+#### 基于netcore实现的微信和支付宝支付等第三方的服务。
+# 使用方法，注册支付服务到容器里面.
 
+# 注入到容器
+`MysqlWechatPayConfigStorage`继承`IWechatPayConfigStorage` 主要是多商户支付配置，根据不同名称获取不同的支付配置。
+```c#
+           serviceDescriptors.AddWechatPay(w =>
+           {
+               w.AppId = "wx6e95a65ad4ee0135";
+               w.MerchantId = "1517630381";
+               w.PrivateKey = "XIAKEweixinpay2019shjGGYGHD54hlk";
+               w.NotifyUrl = "https://www.baidu.com";
+
+           }).AddWehcatpayStorage<MysqlWechatPayConfigStorage>();                        
+           
+```
+
+根据`IWehcatPayServiceProvider`去拿微信支付的服务【IWechatPayNativePayService】,参数是商户支付配置的名称。
+```c#
+    public class HomeController
+    {
+        private readonly IWechatPayNativePayService _wechatPayNativePayService;
+        public HomeController(IWehcatPayServiceProvider wehcatPayServiceProvider)
+        {
+            _wechatPayNativePayService = wehcatPayServiceProvider.GetService<IWechatPayNativePayService>("shanghu1");
+
+        }
+        public async Task<WechatPayResult<WechatPayNativePayResponse>> Pay(WechatPayNativePayRequest request)
+        {
+            var resp = await _wechatPayNativePayService.PayAsync(request);
+            return resp; 
+        }
+    }
+```
 # 微信支付服务
 #### [Native支付](https://pay.weixin.qq.com/wiki/doc/api/native.php?chapter=6_1)【IWechatpayNativePayService】
 #### [App支付](https://pay.weixin.qq.com/wiki/doc/api/app/app.php?chapter=8_1)【IWechatpayAppPayService】
@@ -57,25 +89,5 @@
 #### 同步回调【IAlipayReturnService】
 
 
-# 使用方法，注册支付服务到容器里面.
-```c#
-       service.AddPay(a =>
-       {
 
-           a.GatewayUrl = "https://openapi.alipay.com/gateway.do";
-           a.AppId = "xxxxxxx";
-           a.PrivateKey = " xxx";
-           a.PublicKey = " xxx";
-           a.Charset = "utf-8";
-           //a.NotifyUrl = "https://www.xxxxxx.com";
-       }, w =>
-       {
-
-           w.AppId = "xxxxxxx";
-           w.MerchantId = "xxxxx";
-           w.PrivateKey = "xxxxxx";
-           w.NotifyUrl = "https://www.xxxx.com";
-
-       });
-```
  
