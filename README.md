@@ -18,10 +18,10 @@
 
 根据`IWehcatPayServiceProvider`去拿微信支付的服务【IWechatPayNativePayService】,参数是商户支付配置的名称。
 ```c#
-    public class HomeController
+    public class PayController
     {
         private readonly IWechatPayNativePayService _wechatPayNativePayService;
-        public HomeController(IWehcatPayServiceProvider wehcatPayServiceProvider)
+        public PayController(IWehcatPayServiceProvider wehcatPayServiceProvider)
         {
             _wechatPayNativePayService = wehcatPayServiceProvider.GetService<IWechatPayNativePayService>("shanghu1");
 
