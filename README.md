@@ -1,18 +1,19 @@
 # Payments
 #### 基于netcore实现的微信和支付宝支付等第三方的服务。
-# 使用方法，注册支付服务到容器里面.
 
-# 注入到容器
+
+# 微信支付服务
+#### 使用方法如下：
 `MysqlWechatPayConfigStorage`继承`IWechatPayConfigStorage` 主要是多商户支付配置，根据不同名称获取不同的支付配置。
 ```c#
-           serviceDescriptors.AddWechatPay(w =>
-           {
-               w.AppId = "wx6e95a65ad4ee0135";
-               w.MerchantId = "1517630381";
-               w.PrivateKey = "XIAKEweixinpay2019shjGGYGHD54hlk";
-               w.NotifyUrl = "https://www.baidu.com";
+     serviceDescriptors.AddWechatPay(w =>
+     {
+         w.AppId = "wx6e95a65ad4ee0135";
+         w.MerchantId = "1517630381";
+         w.PrivateKey = "XIAKEweixinpay2019shjGGYGHD54hlk";
+         w.NotifyUrl = "https://www.baidu.com";
 
-           }).AddWehcatpayStorage<MysqlWechatPayConfigStorage>();                        
+     }).AddWehcatpayStorage<MysqlWechatPayConfigStorage>();                        
            
 ```
 
@@ -33,7 +34,7 @@
         }
     }
 ```
-# 微信支付服务
+
 #### [Native支付](https://pay.weixin.qq.com/wiki/doc/api/native.php?chapter=6_1)【IWechatpayNativePayService】
 #### [App支付](https://pay.weixin.qq.com/wiki/doc/api/app/app.php?chapter=8_1)【IWechatpayAppPayService】
 #### [JsApi支付](https://pay.weixin.qq.com/wiki/doc/api/jsapi.php?chapter=7_1)【IWechatpayJsApiPayService】
