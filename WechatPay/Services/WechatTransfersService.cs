@@ -41,7 +41,7 @@ namespace WechatPay.Services
             builder.Add(WechatPayConst.MchAppId, Config.AppId).Add(WechatPayConst.MchId, Config.MerchantId).Add(WechatPayConst.DeviceInfo, param.DeviceInfo)
                .Add(WechatPayConst.PartnerTradeNo, param.PartnerTradeNo).OpenId(param.OpenId)
                 .Add(WechatPayConst.CheckName, param.CheckName?.ToString()).Add(WechatPayConst.ReUserName, param.ReUserName)
-                .Add(WechatPayConst.Amount, (param.Amount * 100).ToInt()).Add(WechatPayConst.Desc, param.Desc);
+                .Add(WechatPayConst.Amount, (param.Amount * 100).ToInt()).Add(WechatPayConst.Desc, param.Desc).SpbillCreateIp(Server.GetLanIp()); ;
 
         }
 

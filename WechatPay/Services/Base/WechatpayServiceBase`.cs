@@ -45,7 +45,7 @@ namespace WechatPay.Services.Base
 
         }
 
-        public void SetConfig(WechatPayConfig config)
+        public virtual void SetConfig(WechatPayConfig config)
         {
             Config = config;
         }

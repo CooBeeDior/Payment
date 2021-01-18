@@ -45,7 +45,7 @@ namespace WechatPay.Parameters
         public virtual void Init()
         {
             AppId(Config.AppId).MerchantId(Config.MerchantId).SignType(Config.SignType.Description())
-                .NonceStr(Id.GetId()).SpbillCreateIp(Server.GetLanIp());
+                .NonceStr(Id.GetId());
         }
 
         /// <summary>
@@ -257,6 +257,13 @@ namespace WechatPay.Parameters
             Builder.Add(WechatPayConst.SceneInfo, sceneInfo);
             return this;
         }
+        public WechatPayParameterBuilder ProfitSharing(string profitSharing)
+        {
+            Builder.Add(WechatPayConst.ProfitSharing, profitSharing);
+            return this;
+        }
+
+
         /// <summary>
         /// 货币类型
         /// </summary>
@@ -315,6 +322,55 @@ namespace WechatPay.Parameters
             return this;
         }
 
+        /// <summary>
+        /// 对账单日期 下载对账单的日期，格式：20140603
+        /// </summary>
+        /// <param name="billDate"></param>
+        /// <returns></returns>
+        public WechatPayParameterBuilder BillDate(string billDate)
+        {
+            Builder.Add(WechatPayConst.BillDate, billDate);
+            return this;
+        }
+        /// <summary>
+        /// 账单类型     	
+        /// ALL（默认值），返回当日所有订单信息（不含充值退款订单）
+        /// SUCCESS，返回当日成功支付的订单（不含充值退款订单）
+        /// REFUND，返回当日退款订单（不含充值退款订单）
+        /// RECHARGE_REFUND，返回当日充值退款订单
+        /// </summary>
+        /// <param name="billType"></param>
+        /// <returns></returns>
+        public WechatPayParameterBuilder BillType(string billType)
+        {
+            Builder.Add(WechatPayConst.BillType, billType);
+            return this;
+        }
+        /// <summary>
+        /// 压缩账单
+        /// 非必传参数，固定值：GZIP，返回格式为.gzip的压缩包账单。不传则默认为数据流形式。
+        /// </summary>
+        /// <param name="tarType"></param>
+        /// <returns></returns>
+        public WechatPayParameterBuilder TarType(string tarType)
+        {
+            Builder.Add(WechatPayConst.TarType, tarType);
+            return this;
+        }
+        /// <summary>
+        /// 资金账户类型
+        /// 账单的资金来源账户：
+        /// Basic 基本账户
+        /// Operation 运营账户
+        /// Fees 手续费账户
+        /// </summary>
+        /// <param name="accountType"></param>
+        /// <returns></returns>
+        public WechatPayParameterBuilder AccountType(string accountType)
+        {
+            Builder.Add(WechatPayConst.AccountType, accountType);
+            return this;
+        }
 
         /// <summary>
         /// 获取回调通知地址
@@ -365,14 +421,48 @@ namespace WechatPay.Parameters
             Builder.Add(WechatPayConst.SignType, type);
             return this;
         }
-
-        /// <summary>
-        /// 设置伙伴标识
-        /// </summary>
-        /// <param name="partnerId">伙伴标识</param>
         public WechatPayParameterBuilder PartnerId(string partnerId)
         {
             Builder.Add(WechatPayConst.PartnerId, partnerId);
+            return this;
+        }
+        /// <summary>
+        /// 开始时间
+        /// </summary>
+        /// <param name="beginTime"></param>
+        /// <returns></returns>
+        public WechatPayParameterBuilder BeginTime(string beginTime)
+        {
+            Builder.Add(WechatPayConst.BeginTime, beginTime);
+            return this;
+        }
+        /// <summary>
+        /// 结束时间
+        /// </summary>
+        /// <param name="partnerId">伙伴标识</param>
+        public WechatPayParameterBuilder EndTime(string endTime)
+        {
+            Builder.Add(WechatPayConst.EndTime, endTime);
+            return this;
+        }
+        /// <summary>
+        /// 位移
+        /// </summary>
+        /// <param name="offset"></param>
+        /// <returns></returns>
+        public WechatPayParameterBuilder Offset(string offset)
+        {
+            Builder.Add(WechatPayConst.Offset, offset);
+            return this;
+        }
+        /// <summary>
+        /// 条数
+        /// </summary>
+        /// <param name="limit"></param>
+        /// <returns></returns>
+        public WechatPayParameterBuilder Limit(string limit)
+        {
+            Builder.Add(WechatPayConst.Limit, limit);
             return this;
         }
 

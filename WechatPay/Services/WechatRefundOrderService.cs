@@ -45,7 +45,7 @@ namespace WechatPay.Services
             builder.TransactionId(param.TransactionId).OutTradeNo(param.OutTradeNo)
                 .OutRefundNo(param.OutRefundNo).TotalFee(param.TotalFee).RefundFeeType(param.RefundFeeType)
                 .RefundFee(param.RefundFee).NotifyUrl(param.NotifyUrl).Add(WechatPayConst.RefundDesc, param.RefundDesc)
-               .RefundAccount(param.RefundAccount).Remove(WechatPayConst.SpbillCreateIp).Remove(WechatPayConst.NotifyUrl);
+               .RefundAccount(param.RefundAccount).Remove(WechatPayConst.NotifyUrl);
         }
 
         protected override void ValidateParam(WechatRefundOrderRequest param)

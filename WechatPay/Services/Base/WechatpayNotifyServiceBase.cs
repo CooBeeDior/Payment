@@ -39,8 +39,7 @@ namespace WechatPay.Services.Base
         /// </summary>
         /// <param name="configProvider">配置提供器</param>
         public WechatPayNotifyServiceBase( IHttpContextAccessor httpContextAccessor)
-        {
-            
+        {           
             
             Request = httpContextAccessor?.HttpContext?.Request;
             InitResult();
@@ -61,10 +60,7 @@ namespace WechatPay.Services.Base
             var response = sm?.ToContent();
             Result = new WechatPayResult<TResponse>(Config, response, Request);
 
-        }
-
-
-
+        } 
 
         /// <summary>
         /// 验证

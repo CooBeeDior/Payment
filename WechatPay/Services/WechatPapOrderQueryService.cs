@@ -42,7 +42,7 @@ namespace WechatPay.Services
 
         protected override void InitBuilder(WechatPayParameterBuilder builder, WechatPapOrderQueryRequest param)
         {
-            builder.TransactionId(param.TransactionId).OutTradeNo(param.OutTradeNo).Remove(WechatPayConst.SpbillCreateIp);
+            builder.TransactionId(param.TransactionId).OutTradeNo(param.OutTradeNo);
         }
 
         protected override void ValidateParam(WechatPapOrderQueryRequest param)

@@ -42,7 +42,7 @@ namespace WechatPay.Services
         protected override void InitBuilder(WechatPayParameterBuilder builder, WechatSendRedPackRequest param)
         {
             builder.Remove(WechatPayConst.AppId).Remove(WechatPayConst.SignType)
-               .Remove(WechatPayConst.SpbillCreateIp)
+               
                .Add(WechatPayConst.WxAppid, Config.AppId).Add(WechatPayConst.ClientIp, Server.GetLanIp())
                .Add(WechatPayConst.MchBillNo, param.MchBillNo).Add(WechatPayConst.SendName, param.SendName).Add(WechatPayConst.ReOpenid, param.ReOpenId)
                .Add(WechatPayConst.TotalAmount, (param.TotalAmount * 100).ToInt().ToString()).Add(WechatPayConst.TotalNum, param.TotalNum.ToString())

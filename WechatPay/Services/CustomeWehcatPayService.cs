@@ -17,7 +17,7 @@ using WechatPay.Services.Base;
 namespace WechatPay.Services
 {
    
-    public class CustomeWehcatPayService : WechatPayServiceBase<CustomeWechatPayRequest>, ICustomeWehcatPayService
+    public class CustomeWehcatPayService : WechatPayServiceBase<WechatPayCustomeRequest>, ICustomeWehcatPayService
     {
         private string _url = null;
         public CustomeWehcatPayService(IHttpClientFactory httpClientFactory, ILoggerFactory loggerFactory) : base(httpClientFactory, loggerFactory)
@@ -34,7 +34,7 @@ namespace WechatPay.Services
 
         public Task<WechatPayResult<WechatPayResponse>> Request()
         {
-            CustomeWechatPayRequest request = new CustomeWechatPayRequest();
+            WechatPayCustomeRequest request = new WechatPayCustomeRequest();
             return base.Request<WechatPayResponse>(request);
         }
 
@@ -54,7 +54,7 @@ namespace WechatPay.Services
         }
 
 
-        protected override void InitBuilder(WechatPayParameterBuilder builder, CustomeWechatPayRequest param)
+        protected override void InitBuilder(WechatPayParameterBuilder builder, WechatPayCustomeRequest param)
         {
 
         }

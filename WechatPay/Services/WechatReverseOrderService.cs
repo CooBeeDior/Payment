@@ -21,7 +21,7 @@ namespace WechatPay.Services
         /// 初始化微信App支付服务
         /// </summary>
         /// <param name="provider">微信支付配置提供器</param>
-        public WechatReverseOrderService( IHttpClientFactory httpClientFactory, ILoggerFactory loggerFactory) : base( httpClientFactory, loggerFactory)
+        public WechatReverseOrderService(IHttpClientFactory httpClientFactory, ILoggerFactory loggerFactory) : base(httpClientFactory, loggerFactory)
         {
 
         }
@@ -51,10 +51,9 @@ namespace WechatPay.Services
 
         protected override void InitBuilder(WechatPayParameterBuilder builder, WechatReverseOrderRequest param)
         {
-            builder.TransactionId(param.TransactionId).OutTradeNo(param.OutTradeNo)
-                   .Remove(WechatPayConst.SpbillCreateIp);
+            builder.TransactionId(param.TransactionId).OutTradeNo(param.OutTradeNo);
 
         }
-     
+
     }
 }

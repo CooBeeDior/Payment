@@ -18,12 +18,12 @@ namespace WechatPay.Services
     /// 查询红包记录服务
     /// </summary>
     public class WechatPayHbInfoService : WechatPayServiceBase<WechatPayHbInfoRequest>, IWechatPayHbInfoService
-    {      
+    {
         /// <summary>
-            /// 初始化微信App支付服务
-            /// </summary>
-            /// <param name="provider">微信支付配置提供器</param>
-        public WechatPayHbInfoService( IHttpClientFactory httpClientFactory, ILoggerFactory loggerFactory) : base( httpClientFactory, loggerFactory)
+        /// 初始化微信App支付服务
+        /// </summary>
+        /// <param name="provider">微信支付配置提供器</param>
+        public WechatPayHbInfoService(IHttpClientFactory httpClientFactory, ILoggerFactory loggerFactory) : base(httpClientFactory, loggerFactory)
         {
 
         }
@@ -40,9 +40,7 @@ namespace WechatPay.Services
 
         protected override void InitBuilder(WechatPayParameterBuilder builder, WechatPayHbInfoRequest param)
         {
-            builder.Remove(WechatPayConst.AppId).Remove(WechatPayConst.SignType)
-                     .Remove(WechatPayConst.SpbillCreateIp)
-                                    .Add(WechatPayConst.WxAppid, Config.AppId).Add(WechatPayConst.ClientIp, Server.GetLanIp())
+            builder.Remove(WechatPayConst.AppId).Add(WechatPayConst.WxAppid, Config.AppId).Add(WechatPayConst.ClientIp, Server.GetLanIp())
                .Add(WechatPayConst.MchBillNo, param.MchBillNo);
         }
     }

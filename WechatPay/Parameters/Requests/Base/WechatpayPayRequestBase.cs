@@ -102,6 +102,15 @@ namespace WechatPay.Parameters.Requests
         public virtual string Receipt { get; set; }
 
         /// <summary>
+        /// 是否需要分账
+        /// Y-是，需要分账
+        /// N-否，不分账
+        /// 字母要求大写，不传默认不分账
+        /// </summary>
+        [MaxLength(16)]
+        public virtual string ProfitSharing { get; set; }
+
+        /// <summary>
         /// 场景信息
         /// {"store_info" : {
         ///    "id": "SZTX001",

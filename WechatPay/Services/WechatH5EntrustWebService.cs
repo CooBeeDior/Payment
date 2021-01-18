@@ -47,7 +47,7 @@ namespace WechatPay.Services
             builder.Add("plan_id", param.PlanId).Add("contract_code", param.ContractCode)
                  .Add("request_serial", param.RequestSerial).Add("contract_display_account", param.ContractDisplayAccount)
                  .NotifyUrl(param.NotifyUrl).Add("version", "1.0").Timestamp().Add("clientip", Server.GetLanIp()).Add("return_appid", param.ReturnAppId)
-                 .Remove(WechatPayConst.SignType).Remove(WechatPayConst.NonceStr).Remove(WechatPayConst.SpbillCreateIp);
+                 .Remove(WechatPayConst.SignType).Remove(WechatPayConst.NonceStr);
         }
     }
 }

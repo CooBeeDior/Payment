@@ -40,7 +40,7 @@ namespace WechatPay.Services
         {
             builder.Add("plan_id", param.PlanId).Add("contract_code", param.ContractCode).Add("contract_id", param.ContractId).Add("contract_termination_remark", param.ContractTerminationRemark)
                 .Add("version", "1.0")
-                .Remove(WechatPayConst.NonceStr).Remove(WechatPayConst.SpbillCreateIp);
+                .Remove(WechatPayConst.NonceStr);
         }
     }
 }

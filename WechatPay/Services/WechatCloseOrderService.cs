@@ -37,7 +37,7 @@ namespace WechatPay.Services
 
         protected override void InitBuilder(WechatPayParameterBuilder builder, WechatCloseOrderRequest param)
         {
-            builder.OutTradeNo(param.OutTradeNo).Remove(WechatPayConst.SpbillCreateIp);//.Remove(WechatPayConst.NotifyUrl);
+            builder.OutTradeNo(param.OutTradeNo);//.Remove(WechatPayConst.NotifyUrl);
         }
 
        

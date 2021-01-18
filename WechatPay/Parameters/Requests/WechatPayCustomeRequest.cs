@@ -5,7 +5,7 @@ using System.Text;
 
 namespace WechatPay.Parameters.Requests
 {
-    public class CustomeWechatPayRequest : Validation, IWechatPayRequest, IValidation
+    public class WechatPayCustomeRequest : Validation, IWechatPayRequest, IValidation
     {
 
     }

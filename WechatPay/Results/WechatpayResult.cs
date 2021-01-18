@@ -65,11 +65,13 @@ namespace WechatPay.Results
             Resolve(response);
             Request = httpRequest;
         }
+        public WechatPayResult() { 
+        }
 
         /// <summary>
         /// 解析响应
         /// </summary>
-        private void Resolve(string response)
+        protected virtual void Resolve(string response)
         {
             if (response.IsEmpty())
                 return;
@@ -158,5 +160,7 @@ namespace WechatPay.Results
         {
             return SignManagerFactory.Create(_WechatPayConfig, Request, _builder).Verify(GetSign());
         }
+
+      
     }
 }

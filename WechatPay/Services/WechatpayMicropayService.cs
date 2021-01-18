@@ -62,7 +62,7 @@ namespace WechatPay.Services
              .TotalFee(param.TotalFee).NotifyUrl(param.NotifyUrl).Attach(param.Attach)
              .Detail(param.Detail).FeeType(param.FeeType).TimeStart(param.TimeStart)
              .TimeExpire(param.TimeExpire).GoodsTag(param.GoodsTag).LimitPay(param.LimitPay)
-             .Receipt(param.Receipt).SceneInfo(param.SceneInfo)
+             .Receipt(param.Receipt).ProfitSharing(param.ProfitSharing).SceneInfo(param.SceneInfo)
              .AuthCode(param.AuthCode).Remove(WechatPayConst.NotifyUrl);
         }
     }

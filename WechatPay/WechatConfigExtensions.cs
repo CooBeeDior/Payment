@@ -205,6 +205,26 @@ namespace WechatPay
         }
 
         /// <summary>
+        /// 企业付款到银行卡API
+        /// </summary>
+        /// <param name="WechatPayConfig"></param>
+        /// <returns></returns>
+        public static string GetPayBankUrl(this WechatPayConfig WechatPayConfig)
+        {
+            return Url.Combine(WechatPayConfig.GatewayUrl, "mmpaysptrans/pay_bank");
+        }
+        /// <summary>
+        /// 用于对商户企业付款到银行卡操作进行结果查询，返回付款操作详细结果。
+        /// </summary>
+        /// <param name="WechatPayConfig"></param>
+        /// <returns></returns>
+        public static string GetQueryPayBankUrl(this WechatPayConfig WechatPayConfig)
+        {
+            return Url.Combine(WechatPayConfig.GatewayUrl, "mmpaysptrans/query_bank");
+        }
+
+
+        /// <summary>
         /// 付款码支付
         /// </summary>
         /// <returns></returns>
@@ -219,7 +239,7 @@ namespace WechatPay
         /// <returns></returns>
         public static string GetAuthorizeUrl(this WechatPayConfig WechatPayConfig)
         {
-            return "https://open.weixin.qq.com/connect/oauth2/authorize";
+            return Url.Combine(WechatPayConfig.GatewayUrl, "connect/oauth2/authorize");
         }
 
         /// <summary>
@@ -237,7 +257,7 @@ namespace WechatPay
         /// <returns></returns>
         public static string GetEntrustWebUrl(this WechatPayConfig WechatPayConfig)
         {
-            return "https://api.mch.weixin.qq.com/papay/entrustweb";
+            return Url.Combine(WechatPayConfig.GatewayUrl, "papay/entrustweb");
         }
 
 
@@ -247,7 +267,7 @@ namespace WechatPay
         /// <returns></returns>
         public static string GetH5EntrustWebUrl(this WechatPayConfig WechatPayConfig)
         {
-            return "https://api.mch.weixin.qq.com/papay/h5entrustweb";
+            return Url.Combine(WechatPayConfig.GatewayUrl, "papay/h5entrustweb");
         }
 
         /// <summary>
@@ -256,7 +276,7 @@ namespace WechatPay
         /// <returns></returns>
         public static string GetContractOrderUrl(this WechatPayConfig WechatPayConfig)
         {
-            return "https://api.mch.weixin.qq.com/pay/contractorder";
+            return Url.Combine(WechatPayConfig.GatewayUrl, "papay/contractorder");
         }
 
         /// <summary>
@@ -265,7 +285,7 @@ namespace WechatPay
         /// <returns></returns>
         public static string GetQueryContractUrl(this WechatPayConfig WechatPayConfig)
         {
-            return "https://api.mch.weixin.qq.com/papay/querycontract";
+            return Url.Combine(WechatPayConfig.GatewayUrl, "papay/querycontract");
         }
 
         /// <summary>
@@ -274,7 +294,7 @@ namespace WechatPay
         /// <returns></returns>
         public static string GetPapPayApplyUrl(this WechatPayConfig WechatPayConfig)
         {
-            return "https://api.mch.weixin.qq.com/pay/pappayapply";
+            return Url.Combine(WechatPayConfig.GatewayUrl, "pay/pappayapply");
         }
 
         /// <summary>
@@ -283,7 +303,7 @@ namespace WechatPay
         /// <returns></returns>
         public static string GetPapOrderQueryUrl(this WechatPayConfig WechatPayConfig)
         {
-            return "https://api.mch.weixin.qq.com/pay/paporderquery";
+            return Url.Combine(WechatPayConfig.GatewayUrl, "pay/paporderquery");
         }
 
         /// <summary>
@@ -292,7 +312,16 @@ namespace WechatPay
         /// <returns></returns>
         public static string GetDeleteContractUrl(this WechatPayConfig WechatPayConfig)
         {
-            return "https://api.mch.weixin.qq.com/papay/deletecontract";
+            return Url.Combine(WechatPayConfig.GatewayUrl, "papay/deletecontract");
+        }
+
+        /// <summary>
+        /// 获取RSA加密公钥API
+        /// </summary>
+        /// <returns></returns>
+        public static string GetPublicKeyUrl(this WechatPayConfig WechatPayConfig)
+        {
+            return "https://fraud.mch.weixin.qq.com/risk/getpublickey";
         }
 
 

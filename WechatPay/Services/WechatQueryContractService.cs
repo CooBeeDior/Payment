@@ -45,7 +45,7 @@ namespace WechatPay.Services
         protected override void InitBuilder(WechatPayParameterBuilder builder, WechatQueryContractRequest param)
         {
             builder.Add("contract_id", param.ContractId).Add("plan_id", param.PlanId).Add("contract_code", param.ContractCode)
-                      .Add("version", "1.0").Remove(WechatPayConst.NonceStr).Remove(WechatPayConst.SpbillCreateIp);
+                      .Add("version", "1.0").Remove(WechatPayConst.NonceStr);
         }
     }
 }

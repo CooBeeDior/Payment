@@ -9,6 +9,7 @@ using WechatPay.Parameters.Response;
 using WechatPay.Results;
 using System.Net.Http;
 using System.Threading.Tasks;
+using Payments.Util;
 
 namespace WechatPay.Services.Base
 {
@@ -47,8 +48,8 @@ namespace WechatPay.Services.Base
                 .TotalFee(param.TotalFee).NotifyUrl(param.NotifyUrl).Attach(param.Attach)
                 .Detail(param.Detail).FeeType(param.FeeType).TimeStart(param.TimeStart)
                 .TimeExpire(param.TimeExpire).GoodsTag(param.GoodsTag).ProductId(param.ProductId)
-                .LimitPay(param.LimitPay).Receipt(param.Receipt).SceneInfo(param.SceneInfo)
-                .OpenId(param.OpenId);
+                .LimitPay(param.LimitPay).Receipt(param.Receipt).ProfitSharing(param.ProfitSharing).SceneInfo(param.SceneInfo)
+                .OpenId(param.OpenId).SpbillCreateIp(Server.GetLanIp());
 
         }
 

@@ -52,7 +52,7 @@ namespace WechatPay.Services
         {
             builder.TransactionId(param.TransactionId).OutTradeNo(param.OutTradeNo)
                    .OutRefundNo(param.OutRefundNo).RefundId(param.RefundId).Offset(param.Offset)
-                   .Remove(WechatPayConst.SpbillCreateIp).Remove(WechatPayConst.NotifyUrl); ;
+                   .Remove(WechatPayConst.NotifyUrl); ;
         }
     }
 }
