@@ -10,6 +10,7 @@ using System.Linq;
 using System.Reflection;
 using System.Security.Cryptography.X509Certificates;
 using System.Net.Http;
+using System.Security.Authentication;
 
 namespace WechatPay
 {
@@ -49,15 +50,24 @@ namespace WechatPay
             return new WechatBuilder(services);
         }
 
+
+ 
         public static void AddHttpClient(this IServiceCollection services, string name, WechatPayConfig WechatPayConfig)
         {
             if (WechatPayConfig.CertificateData != null)
             {
                 services.AddHttpClient(name).ConfigurePrimaryHttpMessageHandler(() =>
                 {
-                    var certificate = new X509Certificate2(WechatPayConfig.CertificateData, WechatPayConfig.CertificatePwd, X509KeyStorageFlags.MachineKeySet);
-                    var handler = new HttpClientHandler();
+                    var certificate = new X509Certificate2(WechatPayConfig.CertificateData, WechatPayConfig.CertificatePwd, X509KeyStorageFlags.MachineKeySet | X509KeyStorageFlags.PersistKeySet | X509KeyStorageFlags.Exportable);
+                    var handler = new HttpClientHandler()
+                    {
+                        ClientCertificateOptions = ClientCertificateOption.Manual,
+                        SslProtocols = SslProtocols.Tls12,
+                    };
                     handler.ClientCertificates.Add(certificate);
+                    handler.SslProtocols = SslProtocols.Tls12 | SslProtocols.Tls11 | SslProtocols.Tls;
+                    handler.ServerCertificateCustomValidationCallback = (message, cert, chain, errors) => true;
+
                     return handler;
                 });
             }

@@ -18,6 +18,8 @@ using System.Linq;
 using System.Net.Http;
 using System.Security.Cryptography.X509Certificates;
 using System.Threading.Tasks;
+using System.Security.Authentication;
+
 namespace WechatPay.Services.Base
 {
     /// <summary>
@@ -123,7 +125,25 @@ namespace WechatPay.Services.Base
         /// </summary>
         protected async Task<string> Request(WechatPayConfig config, WechatPayParameterBuilder builder)
         {
-            var client = HttpClientFactory.CreateClient("wechat");
+            //先这样处理把,看看有什么好的优化方案，实在不行通过反射把数据绑定上去，
+            //暂时不用IHttpClientFactory
+            //var client = HttpClientFactory.CreateClient("wechat");
+
+            var handler = new HttpClientHandler()
+            {
+                ClientCertificateOptions = ClientCertificateOption.Manual,
+                SslProtocols = SslProtocols.Tls12,
+            };
+            if (config.CertificateData != null)
+            {
+                var certificate = new X509Certificate2(config.CertificateData, config.CertificatePwd, X509KeyStorageFlags.MachineKeySet | X509KeyStorageFlags.PersistKeySet | X509KeyStorageFlags.Exportable);
+             
+                handler.ClientCertificates.Add(certificate);
+                handler.SslProtocols = SslProtocols.Tls12 | SslProtocols.Tls11 | SslProtocols.Tls;
+                handler.ServerCertificateCustomValidationCallback = (message, cert, chain, errors) => true;
+            }
+            var client = new HttpClient(handler);
+
             if (_extParam != null && _extParam.Any())
             {
                 foreach (var item in _extParam)
