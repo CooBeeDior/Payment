@@ -34,6 +34,31 @@
         }
     }
 ```
+如果微信有新增接口，但Payments没有更新该怎么调用呢
+```c#
+     public class CustomePayController
+    {
+        private readonly ICustomeWehcatPayService _customeWehcatPayService;
+        public CustomePayController(IWehcatPayServiceProvider wehcatPayServiceProvider)
+        {
+            _customeWehcatPayService = wehcatPayServiceProvider.GetService<ICustomeWehcatPayService>("shanghu1");
+
+        }
+        public async Task<WechatPayResult<WechatPayResponse>> Pay()
+        {
+            //设置请求url
+            _customeWehcatPayService.SetUrl("https://api.mch.weixin.qq.com/new/aaa");            
+            IDictionary<string, object> dic = new Dictionary<string, object>();
+            dic.Add("params1", "11");
+            dic.Add("params2", "22");
+            dic.Add("params3", "33");
+            //构造参数
+            _customeWehcatPayService.SetExtensionParameter(dic);
+            var resp = await _customeWehcatPayService.Request();          
+            return resp;
+        }
+    }
+```
 
 #### [Native支付](https://pay.weixin.qq.com/wiki/doc/api/native.php?chapter=6_1)【IWechatpayNativePayService】
 #### [App支付](https://pay.weixin.qq.com/wiki/doc/api/app/app.php?chapter=8_1)【IWechatpayAppPayService】
