@@ -7,9 +7,9 @@ namespace WechatPay.Configs
 {
     public interface IWehcatPayServiceProvider
     {
-        TWehcatService GetService<TWehcatService>(string configName = "default") where TWehcatService : class, IWechatConfigSetter;
+        TWehcatService GetService<TWehcatService>(string configName = "default") where TWehcatService : class;
 
 
-        TWehcatService GetService<TWehcatService>(WechatPayConfig WechatPayConfig) where TWehcatService : class, IWechatConfigSetter;
+        TWehcatService GetService<TWehcatService>(WechatPayConfig WechatPayConfig) where TWehcatService : class;
     }
 }

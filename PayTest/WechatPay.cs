@@ -9,11 +9,36 @@ using WechatPay.Abstractions;
 using WechatPay.Configs;
 using WechatPay.Enums;
 using WechatPay.Parameters.Requests;
+using WechatPay.Parameters.Response;
+using WechatPay.Results;
 using WechatPay.Services;
 
 namespace PayTest
 {
-    public class IdawdWechatPayConfigStorage : IWechatPayConfigStorage
+
+    public class CustomePayController
+    {
+        private readonly ICustomeWehcatPayService _customeWehcatPayService;
+        public CustomePayController(IWehcatPayServiceProvider wehcatPayServiceProvider)
+        {
+            _customeWehcatPayService = wehcatPayServiceProvider.GetService<ICustomeWehcatPayService>("shanghu1");
+
+        }
+        public async Task<WechatPayResult<WechatPayResponse>> Pay()
+        {
+            //设置请求url
+            _customeWehcatPayService.SetUrl("https://api.mch.weixin.qq.com/new/aaa");            
+            IDictionary<string, object> dic = new Dictionary<string, object>();
+            dic.Add("params1", "11");
+            dic.Add("params2", "22");
+            dic.Add("params3", "33");
+            //构造参数
+            _customeWehcatPayService.SetExtensionParameter(dic);
+            var resp = await _customeWehcatPayService.Request();          
+            return resp;
+        }
+    }
+    public class MysqlWechatPayConfigStorage : IWechatPayConfigStorage
     {
         public WechatPayConfig GetConfig(string name)
         {
@@ -36,6 +61,7 @@ namespace PayTest
             serviceDescriptors.AddLogging();
             serviceDescriptors.AddHttpContextAccessor();
             serviceDescriptors.AddHttpClient();
+
             serviceDescriptors.AddWechatPay(w =>
            {
                w.AppId = "wx6e95a65ad4ee0135";
@@ -43,7 +69,7 @@ namespace PayTest
                w.PrivateKey = "XIAKEweixinpay2019shjGGYGHD54hlk";
                w.NotifyUrl = "https://www.baidu.com";
 
-           }).AddWehcatpayStorage<IdawdWechatPayConfigStorage>();
+           }).AddWehcatpayStorage<MysqlWechatPayConfigStorage>();
 
             serviceProvideraaa = serviceDescriptors.BuildServiceProvider();
 
@@ -52,7 +78,10 @@ namespace PayTest
 
         }
 
-
+        public string GetAAA<T>(string aa, IWehcatPayServiceProvider serviceProvider, string bb = "3333", params object[] args)
+        {
+            return "124";
+        }
 
         /// <summary>
         /// Native下单
@@ -60,11 +89,12 @@ namespace PayTest
         [TestMethod]
         public void WechatNativePayTest()
         {
+            var aaa=typeof(Tests).GetMethod("GetAAA").GetParameters();
             var dic = new Dictionary<string, object>();
             dic.Add(WechatPayConst.OutTradeNo, "1212");
             var sss = serviceProvider.GetService<ICustomeWehcatPayService>();
             sss.SetUrl("pay/orderquery").SetExtensionParameter(dic);
-         
+
             var resu31lt = sss.Request().GetAwaiter().GetResult();
 
 

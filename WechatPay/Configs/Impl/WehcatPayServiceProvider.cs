@@ -4,6 +4,9 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using Microsoft.Extensions.DependencyInjection;
+using System.Reflection;
+using System.Linq;
+
 namespace WechatPay.Configs
 {
     public class WehcatPayServiceProvider : IWehcatPayServiceProvider
@@ -13,25 +16,19 @@ namespace WechatPay.Configs
         {
             _serviceProvider = serviceProvider;
         }
-        public TWehcatService GetService<TWehcatService>(string configName = "default") where TWehcatService : class, IWechatConfigSetter
+        public TWehcatService GetService<TWehcatService>(string configName = "default") where TWehcatService : class
         {
-            configName.CheckNull(nameof(configName));
-            var service = _serviceProvider.GetService(typeof(TWehcatService)) as TWehcatService;
-            if (service == null)
-            {
-                throw new Exception($"未找到服务{typeof(TWehcatService).FullName}的实现");
-            }
-            var WechatPayConfigFactory = _serviceProvider.GetService<IWechatPayConfigFactory>();
-            if (WechatPayConfigFactory == null)
+            var wechatPayConfigFactory = _serviceProvider.GetService<IWechatPayConfigFactory>();
+            if (wechatPayConfigFactory == null)
             {
                 throw new Exception($"未找到服务{typeof(IWechatPayConfigFactory).FullName}的实现");
             }
-            var WechatPayConfig = WechatPayConfigFactory.GetConfig(configName);
-            service.SetConfig(WechatPayConfig);
-            return service;
+            var wechatPayConfig = wechatPayConfigFactory.GetConfig(configName);
+            return this.GetService<TWehcatService>(wechatPayConfig);
+
         }
 
-        public TWehcatService GetService<TWehcatService>(WechatPayConfig WechatPayConfig) where TWehcatService : class, IWechatConfigSetter
+        public TWehcatService GetService<TWehcatService>(WechatPayConfig WechatPayConfig) where TWehcatService : class
         {
             WechatPayConfig.CheckNull(nameof(WechatPayConfig));
             var service = _serviceProvider.GetService(typeof(TWehcatService)) as TWehcatService;
@@ -39,7 +36,51 @@ namespace WechatPay.Configs
             {
                 throw new Exception($"未找到服务{typeof(TWehcatService).FullName}的实现");
             }
-            service.SetConfig(WechatPayConfig);
+            if (service is IWechatConfigSetter wechatConfigSetter)
+            {
+                wechatConfigSetter.SetConfig(WechatPayConfig);
+            }
+            else
+            {
+                var methodType = service.GetType().GetMethod("SetConfig");        
+                if (methodType == null)
+                {
+                    throw new Exception($"未找到方法SetConfig");
+                }
+                if(methodType.IsStatic||methodType.IsAbstract)
+                {
+                    throw new Exception($"未找到非静态或非抽象的方法SetConfig");
+                }
+                IList<object> args = new List<object>();
+                bool flag = false;
+                foreach (var item in methodType.GetParameters())
+                {
+                    if (item.HasDefaultValue)
+                    {
+                        args.Add(item.DefaultValue);
+                    }
+                    else if (item.ParameterType == typeof(WechatPayConfig))
+                    {
+                        flag = true;
+                        args.Add(WechatPayConfig);
+                    }
+                    else if (item.IsOptional)
+                    {
+
+                    }
+                    else
+                    {
+                        var arg = _serviceProvider.GetService(item.ParameterType);
+                        args.Add(arg);
+                    }
+
+                }
+                if (!flag)
+                {
+                    throw new Exception($"方法SetConfig缺少WechatPayConfig参数");
+                }
+                methodType.Invoke(service, args.ToArray());
+            }
             return service;
         }
     }
