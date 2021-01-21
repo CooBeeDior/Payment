@@ -1,9 +1,8 @@
-﻿using Microsoft.AspNetCore.Mvc.Rendering;
+﻿using AliPay.Configs;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.AspNetCore.Razor.TagHelpers;
-using Payments.Alipay.Configs;
 using System.IO;
-using Util;
-namespace Payments.Alipay.Parameters
+namespace AliPay.Parameters
 {
     /// <summary>
     /// 支付宝表单生成器

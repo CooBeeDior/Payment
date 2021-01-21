@@ -1,9 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using AliPay.Configs;
 using Newtonsoft.Json.Linq;
-using Payments.Alipay.Configs;
-using Util;
+using System.Collections.Generic;
 
-namespace Payments.Alipay.Results {
+namespace AliPay.Results
+{
     /// <summary>
     /// 支付宝结果
     /// </summary>

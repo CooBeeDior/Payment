@@ -4,6 +4,7 @@ using WechatPay.Parameters.Response;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using WechatPay.Configs;
 
 namespace WechatPay.Abstractions
 { /// <summary>

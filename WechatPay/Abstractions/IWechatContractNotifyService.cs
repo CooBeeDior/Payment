@@ -3,6 +3,7 @@ using Payments.Core.Enum;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using WechatPay.Configs;
 
 namespace WechatPay.Abstractions
 {

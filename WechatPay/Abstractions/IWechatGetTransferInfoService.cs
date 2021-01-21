@@ -5,7 +5,7 @@ using WechatPay.Parameters.Requests;
 using WechatPay.Parameters.Response;
 using WechatPay.Results;
 using System.Threading.Tasks;
-
+using WechatPay.Configs;
 
 namespace WechatPay.Abstractions
 {

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Payments.Alipay.Parameters.Requests
+namespace AliPay.Parameters.Requests
 {
     /// <summary>
     /// 阿里支付参数

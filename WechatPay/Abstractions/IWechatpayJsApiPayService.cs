@@ -1,5 +1,6 @@
 ﻿using Payments.Attributes;
 using Payments.Core.Enum;
+using WechatPay.Configs;
 using WechatPay.Parameters.Requests;
 using WechatPay.Parameters.Response;
 

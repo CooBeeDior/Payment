@@ -1,13 +1,13 @@
 ﻿using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
-using Payments.Alipay.Abstractions;
-using Payments.Alipay.Configs;
-using Payments.Alipay.Parameters;
-using Payments.Alipay.Parameters.Requests;
-using Payments.Alipay.Services.Base;
+using AliPay.Abstractions;
+using AliPay.Configs;
+using AliPay.Parameters;
+using AliPay.Parameters.Requests;
+using AliPay.Services.Base;
 using Payments.Core;
 
-namespace Payments.Alipay.Services
+namespace AliPay.Services
 {
     /// <summary>
     /// 支付宝App支付服务
@@ -18,7 +18,7 @@ namespace Payments.Alipay.Services
         /// 初始化支付宝App支付服务
         /// </summary>
         /// <param name="provider">支付宝配置提供器</param>
-        public AlipayAppPayService(IAlipayConfigProvider provider, ILoggerFactory loggerFactory) : base(provider, loggerFactory)
+        public AlipayAppPayService(IAliPayConfigProvider provider, ILoggerFactory loggerFactory) : base(provider, loggerFactory)
         {
         }
 
@@ -27,7 +27,7 @@ namespace Payments.Alipay.Services
         /// <summary>
         /// 请求结果
         /// </summary>
-        protected override Task<PayResult> RequstResult(AlipayConfig config, AlipayParameterBuilder builder)
+        protected override Task<PayResult> RequstResult(AliPayConfig config, AlipayParameterBuilder builder)
         {
             var result = builder.Result(true);
             WriteLog(config, builder, result);

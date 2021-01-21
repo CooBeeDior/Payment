@@ -1,14 +1,14 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Payments.Exceptions;
+using Payments.Util.Validations;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
-using Util.Exceptions;
-using Util.Validations;
 
-namespace Payments.Alipay.Configs
+namespace AliPay.Configs
 {
     /// <summary>
     /// 支付宝配置
     /// </summary>
-    public class AlipayConfig
+    public class AliPayConfig : Validation
     {
         /// <summary>
         /// 支付网关地址,默认为正式地址： https://openapi.alipay.com/gateway.do ,如果进行测试，则设置为 https://openapi.alipaydev.com/gateway.do
@@ -58,14 +58,5 @@ namespace Payments.Alipay.Configs
 
 
 
-        /// <summary>
-        /// 验证
-        /// </summary>
-        public void Validate()
-        {
-            var result = DataAnnotationValidation.Validate(this);
-            if (result.IsValid == false)
-                throw new Warning(result.First().ErrorMessage);
-        }
     }
 }

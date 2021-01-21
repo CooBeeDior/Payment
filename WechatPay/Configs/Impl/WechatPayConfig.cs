@@ -10,7 +10,7 @@ namespace WechatPay.Configs
     /// <summary>
     /// 微信支付配置
     /// </summary>
-    public class WechatPayConfig
+    public class WechatPayConfig: Validation
     {
         /// <summary>
         /// 支付网关地址,默认为正式地址： https://api.mch.weixin.qq.com
@@ -57,15 +57,7 @@ namespace WechatPay.Configs
         /// </summary>
         public virtual string NotifyUrl { get; set; }
 
-        /// <summary>
-        /// 验证
-        /// </summary>
-        public void Validate()
-        {
-            var result = DataAnnotationValidation.Validate(this);
-            if (result.IsValid == false)
-                throw new Warning(result.First().ErrorMessage);
-        }
+      
 
 
 

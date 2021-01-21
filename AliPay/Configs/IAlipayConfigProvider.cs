@@ -1,13 +1,13 @@
-﻿using System.Threading.Tasks;
+﻿using Payments.Core.Service;
+using System.Threading.Tasks;
 
-namespace Payments.Alipay.Configs {
+namespace AliPay.Configs {
     /// <summary>
     /// 支付宝配置提供器
     /// </summary>
-    public interface IAlipayConfigProvider {
-        /// <summary>
-        /// 获取配置
-        /// </summary>
-        Task<AlipayConfig> GetConfigAsync();
+    public interface IAliPayConfigProvider : IPayServiceProvider
+    {
+
+        TAliPayService GetService<TAliPayService>(AliPayConfig AliPayConfig) where TAliPayService : class;
     }
 }

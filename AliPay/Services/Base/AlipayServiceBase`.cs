@@ -1,8 +1,8 @@
 ﻿using Microsoft.Extensions.Logging;
-using Payments.Alipay.Configs;
-using Payments.Alipay.Parameters;
-using Payments.Alipay.Parameters.Requests;
-using Payments.Alipay.Results;
+using AliPay.Configs;
+using AliPay.Parameters;
+using AliPay.Parameters.Requests;
+using AliPay.Results;
 using Payments.Core.Response;
 using Payments.Extensions;
 using Payments.Util.Http;
@@ -11,14 +11,14 @@ using Payments.Util.Validations;
 using System;
 using System.Threading.Tasks;
 
-namespace Payments.Alipay.Services.Base
+namespace AliPay.Services.Base
 {
     public abstract class AlipayServiceBase<TPayParam> where TPayParam : class, IAlipayRequest, IValidation, new()
     {
         /// <summary>
         /// 配置提供器
         /// </summary>
-        protected readonly IAlipayConfigProvider ConfigProvider;
+        protected readonly IAliPayConfigProvider ConfigProvider;
 
         protected ILogger<AlipayServiceBase> Logger { get; }
 
@@ -26,7 +26,7 @@ namespace Payments.Alipay.Services.Base
         /// 初始化支付宝支付服务
         /// </summary>
         /// <param name="provider">支付宝配置提供器</param>
-        protected AlipayServiceBase(IAlipayConfigProvider provider, ILoggerFactory loggerFactory)
+        protected AlipayServiceBase(IAliPayConfigProvider provider, ILoggerFactory loggerFactory)
         {
             provider.CheckNull(nameof(provider));
             ConfigProvider = provider;
@@ -50,7 +50,7 @@ namespace Payments.Alipay.Services.Base
         /// <summary>
         /// 验证
         /// </summary>
-        protected void Validate(AlipayConfig config, TPayParam param)
+        protected void Validate(AliPayConfig config, TPayParam param)
         {
             config.CheckNull(nameof(config));
             param.CheckNull(nameof(param));
@@ -113,7 +113,7 @@ namespace Payments.Alipay.Services.Base
         /// <summary>
         /// 请求结果
         /// </summary>
-        protected virtual async Task<PayResult> RequstResult(AlipayConfig config, AlipayParameterBuilder builder)
+        protected virtual async Task<PayResult> RequstResult(AliPayConfig config, AlipayParameterBuilder builder)
         {
             var result = new AlipayResult(await Request(config, builder));
             WriteLog(config, builder, result);
@@ -123,7 +123,7 @@ namespace Payments.Alipay.Services.Base
         /// <summary>
         /// 发送请求
         /// </summary>
-        protected virtual async Task<string> Request(AlipayConfig config, AlipayParameterBuilder builder)
+        protected virtual async Task<string> Request(AliPayConfig config, AlipayParameterBuilder builder)
         {
             var resonse = await Web.Client()
                 .Post(config.GetGatewayUrl())
@@ -137,7 +137,7 @@ namespace Payments.Alipay.Services.Base
         /// <summary>
         /// 写日志
         /// </summary>
-        protected void WriteLog(AlipayConfig config, AlipayParameterBuilder builder, AlipayResult result)
+        protected void WriteLog(AliPayConfig config, AlipayParameterBuilder builder, AlipayResult result)
         {
             var logContent = LogContentBuilder.CreateLogContentBuilder()
                 .SetEventId(Guid.NewGuid()).SetMoudle(GetType().FullName).SetTitle("支付宝支付")

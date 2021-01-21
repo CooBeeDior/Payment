@@ -28,9 +28,9 @@ namespace WechatPay.Configs
 
         }
 
-        public TWehcatService GetService<TWehcatService>(WechatPayConfig WechatPayConfig) where TWehcatService : class
+        public TWehcatService GetService<TWehcatService>(WechatPayConfig wechatPayConfig) where TWehcatService : class
         {
-            WechatPayConfig.CheckNull(nameof(WechatPayConfig));
+            wechatPayConfig.CheckNull(nameof(WechatPayConfig));
             var service = _serviceProvider.GetService(typeof(TWehcatService)) as TWehcatService;
             if (service == null)
             {
@@ -38,16 +38,16 @@ namespace WechatPay.Configs
             }
             if (service is IWechatConfigSetter wechatConfigSetter)
             {
-                wechatConfigSetter.SetConfig(WechatPayConfig);
+                wechatConfigSetter.SetConfig(wechatPayConfig);
             }
             else
             {
-                var methodType = service.GetType().GetMethod("SetConfig");        
+                var methodType = service.GetType().GetMethod("SetConfig");
                 if (methodType == null)
                 {
                     throw new Exception($"未找到方法SetConfig");
                 }
-                if(methodType.IsStatic||methodType.IsAbstract)
+                if (methodType.IsStatic || methodType.IsAbstract)
                 {
                     throw new Exception($"未找到非静态或非抽象的方法SetConfig");
                 }
@@ -62,7 +62,7 @@ namespace WechatPay.Configs
                     else if (item.ParameterType == typeof(WechatPayConfig))
                     {
                         flag = true;
-                        args.Add(WechatPayConfig);
+                        args.Add(wechatPayConfig);
                     }
                     else if (item.IsOptional)
                     {

@@ -1,4 +1,4 @@
-﻿namespace Payments.Alipay.Configs
+﻿namespace AliPay.Configs
 {
     /// <summary>
     /// 支付宝常量

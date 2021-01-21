@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel;
 
-namespace Payments.Alipay.Enums {
+namespace AliPay.Enums {
     /// <summary>
     /// 支付宝交易状态
     /// </summary>

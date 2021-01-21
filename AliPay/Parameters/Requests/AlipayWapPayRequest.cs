@@ -1,4 +1,4 @@
-﻿namespace Payments.Alipay.Parameters.Requests {
+﻿namespace AliPay.Parameters.Requests {
     /// <summary>
     /// 手机网站支付参数
     /// </summary>

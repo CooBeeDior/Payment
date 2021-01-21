@@ -3,6 +3,7 @@ using Payments.Core.Enum;
 using Payments.Core.Response;
 using WechatPay.Parameters.Requests;
 using System.Threading.Tasks;
+using WechatPay.Configs;
 
 namespace WechatPay.Abstractions
 {

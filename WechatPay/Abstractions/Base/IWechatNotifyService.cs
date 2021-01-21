@@ -1,4 +1,5 @@
 ﻿using Payments.Core;
+using WechatPay.Configs;
 using WechatPay.Parameters.Response;
 using WechatPay.Results;
 

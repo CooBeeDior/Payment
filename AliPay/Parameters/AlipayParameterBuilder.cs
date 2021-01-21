@@ -1,10 +1,10 @@
-﻿using Payments.Alipay.Configs;
+﻿using AliPay.Configs;
 using Payments.Extensions;
 using Payments.Util.ParameterBuilders.Impl;
 using System;
 using System.Collections.Generic;
 
-namespace Payments.Alipay.Parameters
+namespace AliPay.Parameters
 {
     /// <summary>
     /// 支付宝参数生成器
@@ -19,7 +19,7 @@ namespace Payments.Alipay.Parameters
         /// <summary>
         /// 配置
         /// </summary>
-        public AlipayConfig Config { get; }
+        public AliPayConfig Config { get; }
 
         /// <summary>
         /// 内容
@@ -30,7 +30,7 @@ namespace Payments.Alipay.Parameters
         /// 初始化支付宝参数生成器
         /// </summary>
         /// <param name="config">配置</param>
-        public AlipayParameterBuilder(AlipayConfig config)
+        public AlipayParameterBuilder(AliPayConfig config)
         {
             config.CheckNull(nameof(config));
             Config = config;

@@ -2,14 +2,13 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using Payments.Core.Service;
 
 namespace WechatPay.Configs
 {
-    public interface IWehcatPayServiceProvider
-    {
-        TWehcatService GetService<TWehcatService>(string configName = "default") where TWehcatService : class;
+    public interface IWehcatPayServiceProvider: IPayServiceProvider
+    { 
 
-
-        TWehcatService GetService<TWehcatService>(WechatPayConfig WechatPayConfig) where TWehcatService : class;
+        TWehcatService GetService<TWehcatService>(WechatPayConfig wechatPayConfig) where TWehcatService : class;
     }
 }

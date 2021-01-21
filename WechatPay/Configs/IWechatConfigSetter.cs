@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Text;
 using Payments.Core.Service;
 
-namespace WechatPay.Abstractions
+namespace WechatPay.Configs
 {
     public interface IWechatConfigSetter : IConfigSetter<WechatPayConfig>
     {

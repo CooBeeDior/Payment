@@ -2,7 +2,7 @@
 using Payments.Util.Validations;
 using System.ComponentModel.DataAnnotations;
 
-namespace Payments.Alipay.Parameters.Requests
+namespace AliPay.Parameters.Requests
 {
     /// <summary>
     /// 支付宝支付参数

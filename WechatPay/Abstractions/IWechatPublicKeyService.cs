@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using WechatPay.Results;
 using WechatPay.Parameters.Response;
+using WechatPay.Configs;
 
 namespace WechatPay.Abstractions
 {

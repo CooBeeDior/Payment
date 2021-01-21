@@ -1,15 +1,13 @@
-﻿using Microsoft.Extensions.Logging;
-using Payments.Alipay.Abstractions;
-using Payments.Alipay.Configs;
-using Payments.Alipay.Parameters;
-using Payments.Alipay.Parameters.Requests;
-using Payments.Alipay.Services.Base;
-using Payments.Core;
-using Payments.Properties;
-using System.Threading.Tasks;
-using Util;
-using Util.Exceptions;
-namespace Payments.Alipay.Services
+﻿using AliPay.Abstractions;
+using AliPay.Configs;
+using AliPay.Parameters;
+using AliPay.Parameters.Requests;
+using AliPay.Services.Base;
+using Microsoft.Extensions.Logging;
+using Payments.Exceptions;
+using Payments.Extensions;
+
+namespace AliPay.Services
 {
     /// <summary>
     /// 支付宝条码支付服务
@@ -20,7 +18,7 @@ namespace Payments.Alipay.Services
         /// 初始化支付宝条码支付服务
         /// </summary>
         /// <param name="provider">支付宝配置提供器</param>
-        public AlipayBarcodePayService(IAlipayConfigProvider provider, ILoggerFactory loggerFactory) : base(provider, loggerFactory)
+        public AlipayBarcodePayService(IAliPayConfigProvider provider, ILoggerFactory loggerFactory) : base(provider, loggerFactory)
         {
         }
 

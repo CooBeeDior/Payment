@@ -1,9 +1,10 @@
 ﻿using Payments.Attributes;
+using Payments.Util.Validations;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using Util.Validations;
 
-namespace Payments.Alipay.Abstractions {
+namespace AliPay.Abstractions
+{
     /// <summary>
     /// 支付宝返回服务
     /// </summary>

@@ -1,7 +1,7 @@
 ﻿using Payments.Attributes;
 using Payments.Core;
 
-namespace Payments.Alipay.Abstractions {
+namespace AliPay.Abstractions {
     /// <summary>
     /// 支付宝通知服务
     /// </summary>

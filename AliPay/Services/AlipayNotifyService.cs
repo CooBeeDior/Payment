@@ -1,12 +1,12 @@
-﻿using Payments.Alipay.Abstractions;
-using Payments.Alipay.Configs;
-using Payments.Alipay.Enums;
-using Payments.Alipay.Services.Base;
-using Util;
-using Util.Parameters;
-using Util.Validations;
+﻿using AliPay.Abstractions;
+using AliPay.Configs;
+using AliPay.Enums;
+using AliPay.Services.Base;
+using Payments.Util.ParameterBuilders.Impl;
+using Payments.Util.Validations;
 
-namespace Payments.Alipay.Services {
+namespace AliPay.Services
+{
     /// <summary>
     /// 支付宝回调通知服务
     /// </summary>
@@ -15,7 +15,7 @@ namespace Payments.Alipay.Services {
         /// 初始化支付宝通知服务
         /// </summary>
         /// <param name="configProvider">配置提供器</param>
-        public AlipayNotifyService( IAlipayConfigProvider configProvider ) : base( configProvider ) {
+        public AlipayNotifyService( IAliPayConfigProvider configProvider ) : base( configProvider ) {
         }
 
         /// <summary>

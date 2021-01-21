@@ -1,15 +1,14 @@
-﻿using System.Collections.Generic;
+﻿using AliPay.Configs;
+using Payments.Extensions;
+using Payments.Util.ParameterBuilders.Impl;
+using Payments.Util.Signatures;
+using Payments.Util.Validations;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Payments.Alipay.Configs;
-using Util;
-using Util.Logs;
-using Util.Logs.Extensions;
-using Util.Parameters;
-using Util.Signatures;
-using Util.Validations;
 
-namespace Payments.Alipay.Services.Base {
+namespace AliPay.Services.Base
+{
     /// <summary>
     /// 支付宝通知服务
     /// </summary>
@@ -21,7 +20,7 @@ namespace Payments.Alipay.Services.Base {
         /// <summary>
         /// 配置提供器
         /// </summary>
-        private readonly IAlipayConfigProvider _configProvider;
+        private readonly IAliPayConfigProvider _configProvider;
         /// <summary>
         /// 是否已加载
         /// </summary>
@@ -31,7 +30,7 @@ namespace Payments.Alipay.Services.Base {
         /// 初始化支付宝通知服务
         /// </summary>
         /// <param name="configProvider">配置提供器</param>
-        protected AlipayNotifyServiceBase( IAlipayConfigProvider configProvider ) {
+        protected AlipayNotifyServiceBase( IAliPayConfigProvider configProvider ) {
             configProvider.CheckNull( nameof( configProvider ) );
             _configProvider = configProvider;
             _builder = new UrlParameterBuilder();

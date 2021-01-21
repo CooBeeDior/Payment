@@ -1,10 +1,10 @@
 ﻿using System.Threading.Tasks;
-using Payments.Alipay.Parameters.Requests;
+using AliPay.Parameters.Requests;
 using Payments.Attributes;
 using Payments.Core;
 using Payments.Core.Response;
 
-namespace Payments.Alipay.Abstractions {
+namespace AliPay.Abstractions {
     /// <summary>
     /// 支付宝条码支付服务
     /// </summary>

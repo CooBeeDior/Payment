@@ -1,7 +1,7 @@
-﻿using Payments.Alipay.Configs;
+﻿using AliPay.Configs;
 using Payments.Util.ParameterBuilders.Impl;
 
-namespace Payments.Alipay.Parameters
+namespace AliPay.Parameters
 {
     /// <summary>
     /// 支付宝内容参数生成器

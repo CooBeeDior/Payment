@@ -1,9 +1,9 @@
 ﻿using System.Threading.Tasks;
-using Payments.Alipay.Parameters.Requests;
+using AliPay.Parameters.Requests;
 using Payments.Attributes;
 using Payments.Core;
 
-namespace Payments.Alipay.Abstractions {
+namespace AliPay.Abstractions {
     /// <summary>
     /// 支付宝二维码支付
     /// </summary>

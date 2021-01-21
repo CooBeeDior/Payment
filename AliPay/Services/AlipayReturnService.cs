@@ -1,9 +1,10 @@
-﻿using Payments.Alipay.Abstractions;
-using Payments.Alipay.Configs;
-using Payments.Alipay.Services.Base;
+﻿using AliPay.Abstractions;
+using AliPay.Configs;
+using AliPay.Services.Base;
+using Payments.Util.ParameterBuilders.Impl;
 using Util.Parameters;
 
-namespace Payments.Alipay.Services {
+namespace AliPay.Services {
     /// <summary>
     /// 支付宝返回服务
     /// </summary>
@@ -12,7 +13,7 @@ namespace Payments.Alipay.Services {
         /// 初始化支付宝返回服务
         /// </summary>
         /// <param name="configProvider">配置提供器</param>
-        public AlipayReturnService( IAlipayConfigProvider configProvider ) : base(configProvider){
+        public AlipayReturnService( IAliPayConfigProvider configProvider ) : base(configProvider){
         }
 
         /// <summary>
