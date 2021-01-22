@@ -32,7 +32,7 @@ namespace WechatPay.Results
         /// <summary>
         /// 配置
         /// </summary>
-        private readonly WechatPayConfig _WechatPayConfig;
+        private readonly WechatPayConfig _wechatPayConfig;
 
         /// <summary>
         /// 微信支付原始响应
@@ -57,10 +57,10 @@ namespace WechatPay.Results
         /// </summary>
         /// <param name="configProvider">配置提供器</param>
         /// <param name="response">xml响应消息</param>
-        public WechatPayResult(WechatPayConfig WechatPayConfig, string response, HttpRequest httpRequest = null)
+        public WechatPayResult(WechatPayConfig wechatPayConfig, string response, HttpRequest httpRequest = null)
         {
-            WechatPayConfig.CheckNull(nameof(WechatPayConfig));
-            _WechatPayConfig = WechatPayConfig;
+            wechatPayConfig.CheckNull(nameof(wechatPayConfig));
+            _wechatPayConfig = wechatPayConfig;
             Raw = response;
             Resolve(response);
             Request = httpRequest;
@@ -158,7 +158,7 @@ namespace WechatPay.Results
         /// </summary>
         public bool VerifySign()
         {
-            return SignManagerFactory.Create(_WechatPayConfig, Request, _builder).Verify(GetSign());
+            return SignManagerFactory.Create(_wechatPayConfig, Request, _builder).Verify(GetSign());
         }
 
       

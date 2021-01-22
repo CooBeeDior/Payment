@@ -1,5 +1,6 @@
 ﻿using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
+using Payments.Core.Enum;
 using Payments.Properties;
 using Payments.Util;
 using Payments.Util.Logger;
@@ -22,6 +23,25 @@ namespace Payments.Extensions
 {
     public static partial class Extensions
     {
+
+        #region PaySignType
+        public static PaySignType? ToPaySignType(this object obj)
+        {
+            if (obj == null)
+            {
+                return null;
+            }
+            else if (string.Compare(PaySignType.HmacSha256.Description(), obj?.ToString(), StringComparison.OrdinalIgnoreCase) == 0)
+            {
+                return PaySignType.HmacSha256;
+            }
+            else if (string.Compare(PaySignType.Md5.Description(), obj?.ToString(), StringComparison.OrdinalIgnoreCase) == 0)
+            {
+                return PaySignType.Md5;
+            }
+            return null;
+        }
+        #endregion
         #region 参数验证
         /// <summary>
         /// 检测对象是否为null,为null则抛出<see cref="ArgumentNullException"/>异常
@@ -791,9 +811,6 @@ namespace Payments.Extensions
             return response;
         }
         #endregion
-
-
-
 
         #region HttpClientHandler
         /// <summary>

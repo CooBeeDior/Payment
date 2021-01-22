@@ -12,6 +12,7 @@ using WechatPay.Services.Base;
 using System;
 using System.Net.Http;
 using System.Threading.Tasks;
+using Payments.Core.Enum;
 
 namespace WechatPay.Services
 {
@@ -32,7 +33,7 @@ namespace WechatPay.Services
             Validate(Config, request);
             var builder = CreateParameterBuilder();
             BuildConfig(builder, request);
-            string url = builder.ToUrl(true, WechatPaySignType.HmacSha256);
+            string url = builder.ToUrl(true, PaySignType.HmacSha256);
             return Task.FromResult($"{GetRequestUrl(Config)}?{url}");
 
         }

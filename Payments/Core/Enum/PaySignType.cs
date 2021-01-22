@@ -1,11 +1,14 @@
-﻿using System.ComponentModel;
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Text;
 
-namespace WechatPay.Enums
+namespace Payments.Core.Enum
 {
     /// <summary>
-    /// 微信支付签名类型
+    /// 支付签名类型
     /// </summary>
-    public enum WechatPaySignType
+    public enum PaySignType
     {
         /// <summary>
         /// Md5

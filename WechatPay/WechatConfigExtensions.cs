@@ -10,24 +10,7 @@ namespace WechatPay
 {
     public static class WechatConfigExtensions
     {
-        #region WechatPaySignType
-        public static WechatPaySignType? ToWechatPaySignType(this object obj)
-        {
-            if (obj == null)
-            {
-                return null;
-            }
-            else if (string.Compare(WechatPaySignType.HmacSha256.Description(), obj?.ToString(), StringComparison.OrdinalIgnoreCase) == 0)
-            {
-                return WechatPaySignType.HmacSha256;
-            }
-            else if (string.Compare(WechatPaySignType.Md5.Description(), obj?.ToString(), StringComparison.OrdinalIgnoreCase) == 0)
-            {
-                return WechatPaySignType.Md5;
-            }
-            return null;
-        }
-        #endregion
+      
         /// <summary>
         /// 获取统一下单地址
         /// </summary>

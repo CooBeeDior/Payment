@@ -4,13 +4,15 @@ using Payments.Util.Validations;
 using WechatPay.Enums;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
+using Payments.Core.Configs;
+using Payments.Core.Enum;
 
 namespace WechatPay.Configs
 {
     /// <summary>
     /// 微信支付配置
     /// </summary>
-    public class WechatPayConfig: Validation
+    public class WechatPayConfig : Validation, IPayConfig
     {
         /// <summary>
         /// 支付网关地址,默认为正式地址： https://api.mch.weixin.qq.com
@@ -50,14 +52,14 @@ namespace WechatPay.Configs
         /// <summary>
         /// 签名类型，默认Md5
         /// </summary>
-        public virtual WechatPaySignType SignType { get; set; } = WechatPaySignType.Md5;
+        public virtual PaySignType SignType { get; set; } = PaySignType.Md5;
 
         /// <summary>
         /// 回调通知地址
         /// </summary>
         public virtual string NotifyUrl { get; set; }
 
-      
+
 
 
 

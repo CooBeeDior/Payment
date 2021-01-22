@@ -9,6 +9,7 @@ using WechatPay.Signatures;
 using System;
 using System.Xml;
 using static WechatPay.Parameters.Requests.WechatPayPayRequestBase;
+using Payments.Core.Enum;
 
 namespace WechatPay.Parameters
 {
@@ -550,7 +551,7 @@ namespace WechatPay.Parameters
         /// <summary>
         /// 获取Xml结果，包含签名
         /// </summary>
-        public string ToXml(bool isSign = true, WechatPaySignType? signType = null)
+        public string ToXml(bool isSign = true, PaySignType? signType = null)
         {
             return ToXmlDocument(GetSignBuilder(isSign, signType)).OuterXml;
         }
@@ -582,7 +583,7 @@ namespace WechatPay.Parameters
         /// <summary>
         /// 获取签名的参数生成器
         /// </summary>
-        protected virtual ParameterBuilder GetSignBuilder(bool isSign = true, WechatPaySignType? signType = null)
+        protected virtual ParameterBuilder GetSignBuilder(bool isSign = true, PaySignType? signType = null)
         {
             var builder = new ParameterBuilder(Builder);
             if (isSign)
@@ -595,7 +596,7 @@ namespace WechatPay.Parameters
         /// <summary>
         /// 获取签名
         /// </summary>
-        public string GetSign(WechatPaySignType? signType = null)
+        public string GetSign(PaySignType? signType = null)
         {
             return SignManagerFactory.Create(Config, Request, Builder, signType).Sign();
         }
@@ -611,7 +612,7 @@ namespace WechatPay.Parameters
         /// <summary>
         /// 获取Json结果，包含签名
         /// </summary>
-        public string ToJson(bool isSign = true, WechatPaySignType? signType = null)
+        public string ToJson(bool isSign = true, PaySignType? signType = null)
         {
             return GetSignBuilder(isSign, signType).ToJson();
         }
@@ -620,7 +621,7 @@ namespace WechatPay.Parameters
         /// 转换成Url
         /// </summary>
         /// <returns></returns>
-        public string ToUrl(bool isSign = true, WechatPaySignType? signType = null)
+        public string ToUrl(bool isSign = true, PaySignType? signType = null)
         {
             return GetSignBuilder(isSign, signType).ToUrl();
         }

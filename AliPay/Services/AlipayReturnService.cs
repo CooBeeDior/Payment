@@ -2,9 +2,9 @@
 using AliPay.Configs;
 using AliPay.Services.Base;
 using Payments.Util.ParameterBuilders.Impl;
-using Util.Parameters;
 
-namespace AliPay.Services {
+namespace AliPay.Services
+{
     /// <summary>
     /// 支付宝返回服务
     /// </summary>

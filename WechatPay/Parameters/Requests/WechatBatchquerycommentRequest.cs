@@ -1,4 +1,5 @@
-﻿using Payments.Extensions;
+﻿using Payments.Core.Enum;
+using Payments.Extensions;
 using Payments.Util.Validations;
 using System;
 using System.Collections.Generic;
@@ -16,7 +17,7 @@ namespace WechatPay.Parameters.Requests
         /// <summary>
         /// 签名类型，目前仅支持HMAC-SHA256
         /// </summary>
-        public string SignType { get; } = WechatPaySignType.HmacSha256.Description();
+        public string SignType { get; } = PaySignType.HmacSha256.Description();
         /// <summary>
         /// 开始时间 按用户评论时间批量拉取的起始时间，格式为yyyyMMddHHmmss
         /// </summary>

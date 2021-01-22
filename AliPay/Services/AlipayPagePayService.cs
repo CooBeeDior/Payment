@@ -5,6 +5,7 @@ using AliPay.Parameters.Requests;
 using AliPay.Services.Base;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
+using Payments.Util.Http;
 using System.Threading.Tasks;
 
 namespace AliPay.Services
@@ -33,10 +34,8 @@ namespace AliPay.Services
             var builder = new AlipayParameterBuilder(config);
             Config(builder, param);
             var form = GetForm(builder);
-            if (IsWriteLog)
-            {
-                WriteLog(config, builder, form);
-            }
+            WriteLog(config, builder, form);
+
             return new PayResult { Result = form };
         }
 

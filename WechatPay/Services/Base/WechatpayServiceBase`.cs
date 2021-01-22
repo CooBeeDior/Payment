@@ -153,7 +153,7 @@ namespace WechatPay.Services.Base
             }
             var resonse = await Web.Client(client)
                 .Post(GetRequestUrl(config))
-                .XmlData(builder.ToXml(true, builder.Get(WechatPayConst.SignType).ToWechatPaySignType()))
+                .XmlData(builder.ToXml(true, builder.Get(WechatPayConst.SignType).ToPaySignType()))
                 .ResultAsync();
             return await resonse.Content.ReadAsStringAsync();
         }
