@@ -19,6 +19,7 @@ using System.Net.Http;
 using System.Security.Cryptography.X509Certificates;
 using System.Threading.Tasks;
 using System.Security.Authentication;
+using Payments.Core.Enum;
 
 namespace WechatPay.Services.Base
 {
@@ -35,6 +36,8 @@ namespace WechatPay.Services.Base
         protected WechatPayConfig Config { get; private set; }
 
         protected IHttpClientFactory HttpClientFactory;
+
+        protected TPayParam PayParam { get; private set; }
 
         /// <summary>
         /// 初始化微信支付服务
@@ -72,8 +75,8 @@ namespace WechatPay.Services.Base
         /// <returns></returns>
         protected async Task<WechatPayResult<TResponse>> Request<TResponse>(TPayParam param) where TResponse : WechatPayResponse
         {
-            //var config = await ConfigProvider.GetConfigAsync();
             Validate(Config, param);
+            PayParam = param;
             var builder = CreateParameterBuilder();
             BuildConfig(builder, param);
             return await RequstResult<TResponse>(Config, builder);
@@ -117,8 +120,23 @@ namespace WechatPay.Services.Base
         /// <param name="param">支付参数</param>
         protected abstract void InitBuilder(WechatPayParameterBuilder builder, TPayParam param);
 
+        /// <summary>
+        /// 请求类型
+        /// </summary>
+        /// <returns></returns>
+        protected virtual RequestType RequestDataType()
+        {
+            return RequestType.Xml;
+        }
 
-
+        /// <summary>
+        /// 是否使用证书
+        /// </summary>
+        /// <returns></returns>
+        protected virtual bool UseCertificate()
+        {
+            return false;
+        }
 
         /// <summary>
         /// 发送请求
@@ -134,14 +152,22 @@ namespace WechatPay.Services.Base
                 ClientCertificateOptions = ClientCertificateOption.Manual,
                 SslProtocols = SslProtocols.Tls12,
             };
-            if (config.CertificateData != null)
+            if (UseCertificate())
             {
-                var certificate = new X509Certificate2(config.CertificateData, config.CertificatePwd, X509KeyStorageFlags.MachineKeySet | X509KeyStorageFlags.PersistKeySet | X509KeyStorageFlags.Exportable);
-             
-                handler.ClientCertificates.Add(certificate);
-                handler.SslProtocols = SslProtocols.Tls12 | SslProtocols.Tls11 | SslProtocols.Tls;
-                handler.ServerCertificateCustomValidationCallback = (message, cert, chain, errors) => true;
+                if (config.CertificateData != null)
+                {
+                    var certificate = new X509Certificate2(config.CertificateData, config.CertificatePwd, X509KeyStorageFlags.MachineKeySet | X509KeyStorageFlags.PersistKeySet | X509KeyStorageFlags.Exportable);
+
+                    handler.ClientCertificates.Add(certificate);
+                    handler.SslProtocols = SslProtocols.Tls12 | SslProtocols.Tls11 | SslProtocols.Tls;
+                    handler.ServerCertificateCustomValidationCallback = (message, cert, chain, errors) => true;
+                }
+                else
+                {
+                    throw new Exception($"请求{GetRequestUrl(config)}需要证书");
+                }
             }
+          
             var client = new HttpClient(handler);
 
             if (_extParam != null && _extParam.Any())
@@ -151,11 +177,27 @@ namespace WechatPay.Services.Base
                     builder.Add(item.Key, item.Value);
                 }
             }
-            var resonse = await Web.Client(client)
-                .Post(GetRequestUrl(config))
-                .XmlData(builder.ToXml(true, builder.Get(WechatPayConst.SignType).ToPaySignType()))
-                .ResultAsync();
-            return await resonse.Content.ReadAsStringAsync();
+            HttpResponseMessage response = null;
+            var requestType = RequestDataType();
+            switch (requestType)
+            {
+                case RequestType.Json:
+                    response = await Web.Client(client)
+                      .Post(GetRequestUrl(config))
+                      .JsonData(builder.ToJson(true, builder.Get(WechatPayConst.SignType).ToPaySignType()))
+                      .ResultAsync();
+                    break;
+                case RequestType.Xml:
+                default:
+                    response = await Web.Client(client)
+                      .Post(GetRequestUrl(config))
+                      .JsonData(builder.ToJson(true, builder.Get(WechatPayConst.SignType).ToPaySignType()))
+                      .ResultAsync();
+
+                    break;
+            }
+            return await response?.Content?.ReadAsStringAsync();
+
         }
 
         private IDictionary<string, object> _extParam = null;

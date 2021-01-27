@@ -34,9 +34,10 @@ namespace WechatPay.Services
         {
             if (!request.IsNew)
             {
-                if (File.Exists(file_path))
+                string filePath = Path.Combine(Config.AppId, file_path);
+                if (File.Exists(filePath))
                 {
-                    var publicKey = File.ReadAllText(file_path);
+                    var publicKey = File.ReadAllText(filePath);
                     if (!publicKey.IsEmpty())
                     {
                         var result = new WechatPayResult<WechatPublicKeyResponse>();
@@ -51,13 +52,13 @@ namespace WechatPay.Services
             var resp = await Request<WechatPublicKeyResponse>(request);
             if (resp.GetResultCode() == WechatPayConst.Success && resp.GetReturnCode() == WechatPayConst.Success)
             {
-                File.WriteAllText(file_path, resp.Data.PubKey);
+                File.WriteAllText(filePath, resp.Data.PubKey);
             }
             return resp;
         }
 
         protected override string GetRequestUrl(WechatPayConfig config)
-        {
+        {   
             return config.GetPublicKeyUrl();
         }
 

@@ -1,14 +1,12 @@
 ﻿using Microsoft.AspNetCore.Http;
+using Payments.Core.Configs;
+using Payments.Core.Enum;
 using Payments.Extensions;
-using Payments.Util.Http;
 using Payments.Util.ParameterBuilders.Impl;
 using Payments.Util.Signatures;
-using WechatPay.Configs;
-using WechatPay.Enums;
 using System;
-using Payments.Core.Enum;
 
-namespace WechatPay.Signatures
+namespace Payments.Util.Signatures
 {
     /// <summary>
     /// 微信支付签名工厂
@@ -20,7 +18,7 @@ namespace WechatPay.Signatures
         /// </summary>
         /// <param name="config">微信支付配置</param>
         /// <param name="builder">参数生成器</param>
-        public static ISignManager Create(WechatPayConfig config, HttpRequest httpRequest, ParameterBuilder builder, PaySignType? signType = null)
+        public static ISignManager Create(IPayConfig config, HttpRequest httpRequest, ParameterBuilder builder, PaySignType? signType = null)
         {
             if (signType != null && signType == PaySignType.Md5)
             {
@@ -30,11 +28,11 @@ namespace WechatPay.Signatures
             {
                 return new HmacSha256SignManager(new SignKey(config.PrivateKey), httpRequest, builder);
             }
-            if (builder.GetValue(WechatPayConst.SignType)?.ToString() == PaySignType.Md5.Description())
+            if (builder.GetValue(config.SignType.ToString())?.ToString() == PaySignType.Md5.Description())
             {
                 return new Md5SignManager(new SignKey(config.PrivateKey), httpRequest, builder);
             }
-            if (builder.GetValue(WechatPayConst.SignType)?.ToString() == PaySignType.HmacSha256.Description())
+            if (builder.GetValue(config.SignType.ToString())?.ToString() == PaySignType.HmacSha256.Description())
             {
                 return new HmacSha256SignManager(new SignKey(config.PrivateKey), httpRequest, builder);
             }

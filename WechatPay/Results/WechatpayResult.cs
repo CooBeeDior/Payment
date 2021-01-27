@@ -2,14 +2,14 @@
 using Payments.Extensions;
 using Payments.Util;
 using Payments.Util.ParameterBuilders.Impl;
+using Payments.Util.Signatures;
 using Payments.Util.Validations;
-using WechatPay.Configs;
-using WechatPay.Parameters.Response;
-using WechatPay.Signatures;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Xml.Serialization;
+using WechatPay.Configs;
+using WechatPay.Parameters.Response;
 
 namespace WechatPay.Results
 {

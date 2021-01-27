@@ -1,4 +1,6 @@
-﻿using Payments.Exceptions;
+﻿using Payments.Core.Configs;
+using Payments.Core.Enum;
+using Payments.Exceptions;
 using Payments.Util.Validations;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -8,7 +10,7 @@ namespace AliPay.Configs
     /// <summary>
     /// 支付宝配置
     /// </summary>
-    public class AliPayConfig : Validation
+    public class AliPayConfig : Validation, IPayConfig
     {
         /// <summary>
         /// 支付网关地址,默认为正式地址： https://openapi.alipay.com/gateway.do ,如果进行测试，则设置为 https://openapi.alipaydev.com/gateway.do
@@ -46,6 +48,11 @@ namespace AliPay.Configs
         /// 字符编码，默认值：utf-8
         /// </summary>
         public string Charset { get; set; } = "utf-8";
+
+        /// <summary>
+        /// 签名类型
+        /// </summary>
+        public PaySignType SignType { get; set; } = PaySignType.Md5;
 
         /// <summary>
         /// 获取支付网关地址

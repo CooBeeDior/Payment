@@ -6,6 +6,7 @@ using AliPay.Parameters;
 using AliPay.Parameters.Requests;
 using AliPay.Services.Base;
 using Payments.Core;
+using AliPay.Results;
 
 namespace AliPay.Services
 {
@@ -27,7 +28,7 @@ namespace AliPay.Services
         /// <summary>
         /// 请求结果
         /// </summary>
-        protected override Task<PayResult> RequstResult(AliPayConfig config, AlipayParameterBuilder builder)
+        protected override Task<AlipayResult> RequstResult(AliPayConfig config, AlipayParameterBuilder builder)
         {
             var result = builder.Result(true);
             WriteLog(config, builder, result);

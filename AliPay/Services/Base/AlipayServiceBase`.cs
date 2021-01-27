@@ -113,7 +113,7 @@ namespace AliPay.Services.Base
         /// <summary>
         /// 请求结果
         /// </summary>
-        protected virtual async Task<PayResult> RequstResult(AliPayConfig config, AlipayParameterBuilder builder)
+        protected virtual async Task<AlipayResult> RequstResult(AliPayConfig config, AlipayParameterBuilder builder)
         {
             var result = new AlipayResult(await Request(config, builder));
             WriteLog(config, builder, result);
@@ -160,7 +160,7 @@ namespace AliPay.Services.Base
         /// <summary>
         /// 创建结果
         /// </summary>
-        protected virtual PayResult CreateResult(AlipayParameterBuilder builder, AlipayResult result)
+        protected virtual AlipayResult CreateResult(AlipayParameterBuilder builder, AlipayResult result)
         {
             return new PayResult(result.Success, result.GetTradeNo(), result.Raw)
             {
