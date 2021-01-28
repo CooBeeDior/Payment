@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Http;
+using Newtonsoft.Json;
 using Payments.Extensions;
 using Payments.Util;
 using Payments.Util.ParameterBuilders.Impl;
@@ -6,6 +7,7 @@ using Payments.Util.Signatures;
 using Payments.Util.Validations;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Threading.Tasks;
 using System.Xml.Serialization;
 using WechatPay.Configs;
@@ -62,16 +64,24 @@ namespace WechatPay.Results
             wechatPayConfig.CheckNull(nameof(wechatPayConfig));
             _wechatPayConfig = wechatPayConfig;
             Raw = response;
-            Resolve(response);
             Request = httpRequest;
         }
-        public WechatPayResult() { 
+        public WechatPayResult()
+        {
         }
 
         /// <summary>
         /// 解析响应
         /// </summary>
-        protected virtual void Resolve(string response)
+        public virtual void Resolve(string response)
+        {
+            XmlResolve(response);
+
+        }
+
+
+
+        protected void XmlResolve(string response)
         {
             if (response.IsEmpty())
                 return;
@@ -93,7 +103,31 @@ namespace WechatPay.Results
         }
 
 
+        protected void JsonResolve(string response)
+        {
+            if (response.IsEmpty())
+                return;
 
+            Data = JsonConvert.DeserializeObject<TResponse>(response);
+            _sign = Data.Sign;
+            var properties = typeof(TResponse).GetProperties(BindingFlags.Public | BindingFlags.Instance);
+            foreach (var item in properties)
+            {
+                if (item.Name.ToLower() != WechatPayConst.Sign)
+                {
+                    var jsonIngoreAttribute = item.GetCustomAttribute<JsonIgnoreAttribute>();
+                    if (jsonIngoreAttribute != null)
+                    {
+                        continue;
+                    }
+                    var jsonPropertyAttribute = item.GetCustomAttribute<JsonPropertyAttribute>();
+                    _builder.Add(jsonPropertyAttribute.PropertyName ?? item.Name.ToLower(), item.GetValue(Data));
+                }
+
+            }
+
+
+        }
 
 
 
@@ -161,6 +195,6 @@ namespace WechatPay.Results
             return SignManagerFactory.Create(_wechatPayConfig, Request, _builder).Verify(GetSign());
         }
 
-      
+
     }
 }

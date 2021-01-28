@@ -125,6 +125,13 @@ namespace Payments.Util.Http
             return this;
         }
 
+
+        public WebClient Data(HttpContent content)
+        {
+            Content = content;
+            return this;
+        }
+
         /// <summary>
         /// FormUrlEncodedContent
         /// </summary>

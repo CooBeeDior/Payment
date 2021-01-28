@@ -20,6 +20,7 @@ using System.Security.Cryptography.X509Certificates;
 using System.Threading.Tasks;
 using System.Security.Authentication;
 using Payments.Core.Enum;
+using System.Text;
 
 namespace WechatPay.Services.Base
 {
@@ -124,9 +125,10 @@ namespace WechatPay.Services.Base
         /// 请求类型
         /// </summary>
         /// <returns></returns>
-        protected virtual RequestType RequestDataType()
+        protected virtual HttpContent BuildHttpContent(WechatPayParameterBuilder wechatPayParameterBuilder)
         {
-            return RequestType.Xml;
+            string content = wechatPayParameterBuilder.ToJson(true, wechatPayParameterBuilder.Get(WechatPayConst.SignType).ToPaySignType());
+            return new StringContent(content, Encoding.UTF8, "text/xml");
         }
 
         /// <summary>
@@ -167,7 +169,7 @@ namespace WechatPay.Services.Base
                     throw new Exception($"请求{GetRequestUrl(config)}需要证书");
                 }
             }
-          
+
             var client = new HttpClient(handler);
 
             if (_extParam != null && _extParam.Any())
@@ -177,25 +179,10 @@ namespace WechatPay.Services.Base
                     builder.Add(item.Key, item.Value);
                 }
             }
-            HttpResponseMessage response = null;
-            var requestType = RequestDataType();
-            switch (requestType)
-            {
-                case RequestType.Json:
-                    response = await Web.Client(client)
-                      .Post(GetRequestUrl(config))
-                      .JsonData(builder.ToJson(true, builder.Get(WechatPayConst.SignType).ToPaySignType()))
-                      .ResultAsync();
-                    break;
-                case RequestType.Xml:
-                default:
-                    response = await Web.Client(client)
-                      .Post(GetRequestUrl(config))
-                      .JsonData(builder.ToJson(true, builder.Get(WechatPayConst.SignType).ToPaySignType()))
-                      .ResultAsync();
-
-                    break;
-            }
+            HttpResponseMessage response = await Web.Client(client)
+                       .Post(GetRequestUrl(config))
+                       .Data(BuildHttpContent(builder))
+                       .ResultAsync();
             return await response?.Content?.ReadAsStringAsync();
 
         }
@@ -211,10 +198,25 @@ namespace WechatPay.Services.Base
         /// </summary>
         protected async Task<WechatPayResult<TResponse>> RequstResult<TResponse>(WechatPayConfig config, WechatPayParameterBuilder builder) where TResponse : WechatPayResponse
         {
-            var result = new WechatPayResult<TResponse>(Config, await Request(config, builder));
+            var result = await CreateWechatPayResult<TResponse>(config, builder);
             WriteLog(config, builder, result);
             await ValidateResult(result);
             return result;
+        }
+
+
+        protected async Task<WechatPayResult<TResponse>> CreateWechatPayResult<TResponse>(WechatPayConfig config, WechatPayParameterBuilder builder) where TResponse : WechatPayResponse
+        {
+            var result = new WechatPayResult<TResponse>(Config, await Request(config, builder));
+            await ResoveResult(result);
+            return result;
+        }
+
+
+        protected virtual Task ResoveResult<TResponse>(WechatPayResult<TResponse> wechatPayResult) where TResponse : WechatPayResponse
+        {
+            wechatPayResult.Resolve(wechatPayResult.Raw);
+            return Task.CompletedTask;
         }
 
 

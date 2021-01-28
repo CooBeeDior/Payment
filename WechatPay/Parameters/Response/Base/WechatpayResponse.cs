@@ -17,6 +17,7 @@ namespace WechatPay.Parameters.Response
         /// 此字段是通信标识，非交易标识，交易是否成功需要查看result_code来判断
         /// </summary>
         [XmlElement("return_code")]
+        [JsonProperty("return_code")]
         public virtual string ReturnCode { get; set; }
 
         /// <summary>
@@ -25,12 +26,14 @@ namespace WechatPay.Parameters.Response
         /// 参数格式校验错误
         /// </summary>
         [XmlElement("return_msg")]
+        [JsonProperty("return_msg")]
         public virtual string ReturnMsg { get; set; }
 
         /// <summary>
         /// 业务结果 SUCCESS/FAIL
         /// </summary>
         [XmlElement("result_code")]
+        [JsonProperty("result_code")]
         public virtual string ResultCode { get; set; }
 
 
@@ -38,24 +41,28 @@ namespace WechatPay.Parameters.Response
         /// 调用接口提交的公众账号ID
         /// </summary>
         [XmlElement("appid")]
+        [JsonProperty("appid")]
         public virtual string AppId { get; set; }
 
         /// <summary>
         /// 调用接口提交的商户号
         /// </summary>
         [XmlElement("mch_id")]
+        [JsonProperty("mch_id")]
         public virtual string MchId { get; set; }
 
         /// <summary>
         /// 微信返回的随机字符串
         /// </summary>
         [XmlElement("nonce_str")]
+        [JsonProperty("nonce_str")]
         public virtual string NonceStr { get; set; }
 
         /// <summary>
         /// 微信返回的签名值，详见签名算法
         /// </summary>
         [XmlElement("sign")]
+        [JsonProperty("sign")]
         public virtual string Sign { get; set; }
 
 
@@ -63,18 +70,21 @@ namespace WechatPay.Parameters.Response
         /// 附加数据，在查询API和支付通知中原样返回，可作为自定义参数使用。
         /// </summary>
         [XmlElement("attach")]
+        [JsonProperty("attach")]
         public virtual string Attach { get; set; }
 
         /// <summary>
         /// 错误代码
         /// </summary>
         [XmlElement("err_code")]
+        [JsonProperty("err_code")]
         public string ErrCode { get; set; }
 
         /// <summary>
         /// 当result_code为FAIL时返回错误描述，详细参见下文错误列表
         /// </summary>
         [XmlElement("err_code_des")]
+        [JsonProperty("err_code_des")]
         public string ErrCodeDes { get; set; }
     }
 }
