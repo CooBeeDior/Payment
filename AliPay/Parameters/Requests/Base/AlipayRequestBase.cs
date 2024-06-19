@@ -1,5 +1,6 @@
 ﻿using Payments.Core;
 using Payments.Util.Validations;
+using System;
 using System.ComponentModel.DataAnnotations;
 
 namespace AliPay.Parameters.Requests
@@ -45,7 +46,7 @@ namespace AliPay.Parameters.Requests
         /// 绝对超时时间，格式为yyyy-MM-dd HH:mm。 注：1）以支付宝系统时间为准；2）如果和timeout_express参数同时传入，以time_expire为准
         /// </summary>
         [MaxLength(32)]
-        public virtual string TimeExpire { get; set; }
+        public virtual DateTime TimeExpire { get; set; }
 
         /// <summary>
         /// 订单总金额，单位为元，精确到小数点后两位，取值范围[0.01,100000000]

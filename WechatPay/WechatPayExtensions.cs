@@ -16,6 +16,7 @@ namespace WechatPay
 {
     public static class WechatPayExtensions
     {
+   
         public static IWechatBuilder AddWechatPay(this IServiceCollection services, WechatPayConfig defaultConfig = null)
         {
             var provider = new WechatPayConfigStorage();
@@ -32,7 +33,7 @@ namespace WechatPay
             return new WechatBuilder(services);
         }
 
-        public static IWechatBuilder AddWechatPay(this IServiceCollection services, Action<WechatPayConfig> action = null)
+        public static IWechatBuilder AddWechatPay(this IServiceCollection services, Action<WechatPayConfig> action)
         {
             var provider = new WechatPayConfigStorage();
             if (action != null)
@@ -51,7 +52,7 @@ namespace WechatPay
         }
 
 
- 
+
         public static void AddHttpClient(this IServiceCollection services, string name, WechatPayConfig WechatPayConfig)
         {
             if (WechatPayConfig.CertificateData != null)

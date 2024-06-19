@@ -32,9 +32,9 @@ namespace WechatPay.Services
 
         public async Task<WechatPayResult<WechatPublicKeyResponse>> GetPublicKey(WechatPublicKeyRequest request)
         {
+            string filePath = Path.Combine(Config.AppId, file_path);
             if (!request.IsNew)
-            {
-                string filePath = Path.Combine(Config.AppId, file_path);
+            {             
                 if (File.Exists(filePath))
                 {
                     var publicKey = File.ReadAllText(filePath);

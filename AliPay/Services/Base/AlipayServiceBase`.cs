@@ -38,7 +38,7 @@ namespace AliPay.Services.Base
         /// 支付
         /// </summary>
         /// <param name="param">支付参数</param>
-        public virtual async Task<PayResult> PayAsync(TPayParam param)
+        public virtual async Task<AlipayResult> PayAsync(TPayParam param)
         {
             var config = await ConfigProvider.GetConfigAsync();
             Validate(config, param);
@@ -162,7 +162,7 @@ namespace AliPay.Services.Base
         /// </summary>
         protected virtual AlipayResult CreateResult(AlipayParameterBuilder builder, AlipayResult result)
         {
-            return new PayResult(result.Success, result.GetTradeNo(), result.Raw)
+            return new AlipayResult(result.Success, result.GetTradeNo(), result.Raw)
             {
                 Parameter = builder.ToString(),
                 Message = result.GetMessage()

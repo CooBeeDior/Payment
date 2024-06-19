@@ -2,6 +2,7 @@
 using AliPay.Configs;
 using AliPay.Parameters;
 using AliPay.Parameters.Requests;
+using AliPay.Results;
 using AliPay.Services.Base;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
@@ -27,7 +28,7 @@ namespace AliPay.Services
         /// 支付
         /// </summary>
         /// <param name="param">支付参数</param>
-        public override async Task<PayResult> PayAsync(AlipayPagePayRequest param)
+        public override async Task<AlipayResult> PayAsync(AlipayPagePayRequest param)
         {
             var config = await ConfigProvider.GetConfigAsync();
             Validate(config, param);
@@ -36,7 +37,7 @@ namespace AliPay.Services
             var form = GetForm(builder);
             WriteLog(config, builder, form);
 
-            return new PayResult { Result = form };
+            return new AlipayResult { Result = form };
         }
 
         /// <summary>

@@ -37,9 +37,9 @@ namespace AliPay.Services
         /// <summary>
         /// 创建结果
         /// </summary>
-        protected override PayResult CreateResult(AlipayParameterBuilder builder, AlipayResult result)
+        protected override AlipayResult CreateResult(AlipayParameterBuilder builder, AlipayResult result)
         {
-            return new PayResult(result.Success, result.GetTradeNo(), result.Raw)
+            return new AlipayResult(result.Success, result.GetTradeNo(), result.Raw)
             {
                 Parameter = builder.ToString(),
                 Message = result.GetMessage(),

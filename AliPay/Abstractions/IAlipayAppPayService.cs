@@ -1,5 +1,6 @@
 ﻿using System.Threading.Tasks;
 using AliPay.Parameters.Requests;
+using AliPay.Results;
 using Payments.Attributes;
 using Payments.Core;
 using Payments.Core.Response;
@@ -14,6 +15,6 @@ namespace AliPay.Abstractions {
         /// 支付
         /// </summary>
         /// <param name="request">支付参数</param>
-        Task<PayResult> PayAsync( AlipayAppPayRequest request );
+        Task<AlipayResult> PayAsync(AlipayAppPayRequest request);
     }
 }

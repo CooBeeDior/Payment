@@ -32,7 +32,7 @@ namespace AliPay.Services
         {
             var result = builder.Result(true);
             WriteLog(config, builder, result);
-            return Task.FromResult(new PayResult { Result = result });
+            return Task.FromResult(new AlipayResult { Result = result });
         }
 
         /// <summary>
@@ -44,8 +44,8 @@ namespace AliPay.Services
         }
         protected override void InitContentBuilder(AlipayContentBuilder builder, AlipayAppPayRequest param)
         {
-            builder.OutTradeNo(param.OrderId).TotalAmount(param.Money).Subject(param.Subject)
-           .Body(param.Body).PassbackParams(param.Attach).TimeoutExpress(param.Timeout).NotifyUrl(param.NotifyUrl);
+            builder.OutTradeNo(param.OutTradeNo).TotalAmount(param.TotalAmount).Subject(param.Subject)
+           .Body(param.Body).PassbackParams(param.Attach).TimeoutExpress(param.TimeExpire.Second - System.DateTime.Now.Second);//NotifyUrl(param.NotifyUrl);
 
         }
 

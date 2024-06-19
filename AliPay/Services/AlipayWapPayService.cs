@@ -7,6 +7,7 @@ using AliPay.Parameters.Requests;
 using AliPay.Services.Base;
 using Payments.Core.Response;
 using System.Threading.Tasks;
+using AliPay.Results;
 
 namespace AliPay.Services
 {
@@ -25,14 +26,14 @@ namespace AliPay.Services
         /// 支付
         /// </summary>
         /// <param name="param">支付参数</param>
-        public override async Task<PayResult> PayAsync( AlipayWapPayRequest param ) {
+        public override async Task<AlipayResult> PayAsync( AlipayWapPayRequest param ) {
             var config = await ConfigProvider.GetConfigAsync();
             Validate( config, param );
             var builder = new AlipayParameterBuilder( config );
             Config( builder, param );
             var form = GetForm( builder );
             WriteLog( config, builder, form );
-            return new PayResult { Result = form };
+            return new AlipayResult { Result = form };
         }
 
         /// <summary>

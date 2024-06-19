@@ -58,7 +58,7 @@ namespace WechatPay.Services.Base
         /// 获取功能Url
         /// </summary>
         /// <returns></returns>
-        protected override string GetRequestUrl(WechatPayConfig config, WechatPayPayRequestBase param)
+        protected override string GetRequestUrl(WechatPayConfig config)
         {
             return config.GetOrderUrl();
         }

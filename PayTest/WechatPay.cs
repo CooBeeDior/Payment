@@ -15,41 +15,6 @@ using WechatPay.Services;
 
 namespace PayTest
 {
-
-    public class CustomePayController
-    {
-        private readonly ICustomeWehcatPayService _customeWehcatPayService;
-        public CustomePayController(IWehcatPayServiceProvider wehcatPayServiceProvider)
-        {
-            _customeWehcatPayService = wehcatPayServiceProvider.GetService<ICustomeWehcatPayService>("shanghu1");
-
-        }
-        public async Task<WechatPayResult<WechatPayResponse>> Pay()
-        {
-            //设置请求url
-            _customeWehcatPayService.SetUrl("https://api.mch.weixin.qq.com/new/aaa");            
-            IDictionary<string, object> dic = new Dictionary<string, object>();
-            dic.Add("params1", "11");
-            dic.Add("params2", "22");
-            dic.Add("params3", "33");
-            //构造参数
-            _customeWehcatPayService.SetExtensionParameter(dic);
-            var resp = await _customeWehcatPayService.Request();          
-            return resp;
-        }
-    }
-    public class MysqlWechatPayConfigStorage : IWechatPayConfigStorage
-    {
-        public WechatPayConfig GetConfig(string name)
-        {
-            return null;
-        }
-
-        public Task<WechatPayConfig> GetConfigAsync(string name)
-        {
-            return null;
-        }
-    }
     [TestClass]
     public class Tests
     {
@@ -62,14 +27,15 @@ namespace PayTest
             serviceDescriptors.AddHttpContextAccessor();
             serviceDescriptors.AddHttpClient();
 
-            serviceDescriptors.AddWechatPay(w =>
-           {
-               w.AppId = "wx6e95a65ad4ee0135";
-               w.MerchantId = "1517630381";
-               w.PrivateKey = "XIAKEweixinpay2019shjGGYGHD54hlk";
-               w.NotifyUrl = "https://www.baidu.com";
+            serviceDescriptors.AddWechatPay(
+            //    w =>            {
+            //    w.AppId = "wx6e95a65ad4ee0135";
+            //    w.MerchantId = "1517630381";
+            //    w.PrivateKey = "XIAKEweixinpay2019shjGGYGHD54hlk";
+            //    w.NotifyUrl = "https://www.baidu.com";
 
-           }).AddWehcatpayStorage<MysqlWechatPayConfigStorage>();
+            //}
+                ).AddWehcatpayStorage<MysqlWechatPayConfigStorage>();
 
             serviceProvideraaa = serviceDescriptors.BuildServiceProvider();
 
@@ -89,7 +55,7 @@ namespace PayTest
         [TestMethod]
         public void WechatNativePayTest()
         {
-            var aaa=typeof(Tests).GetMethod("GetAAA").GetParameters();
+            var aaa = typeof(Tests).GetMethod("GetAAA").GetParameters();
             var dic = new Dictionary<string, object>();
             dic.Add(WechatPayConst.OutTradeNo, "1212");
             var sss = serviceProvider.GetService<ICustomeWehcatPayService>();
@@ -184,47 +150,47 @@ namespace PayTest
         {
             //1.生成订单
             string orderId = "xxsss1111111";
-            //var WechatPayNativePayService = serviceProvider.GetService<IWechatPayNativePayService>();
-            //var WechatPayNativePayRequest = new WechatPayNativePayRequest()
-            //{
-            //    Body = "sssss",
-            //    OutTradeNo = orderId,
-            //    TotalFee = 0.01m,
-            //    Attach = "dadadaaaa",
-            //    FeeType = FeeType.CNY,
-            //    Detail = new WechatPayPayRequestBase.GoodsDetail()
-            //    {
-            //        GoodsId = "GoodsId",
-            //        WxpayGoodsId = "WxpayGoodsId",
-            //        GoodsName = "GoodsName",
-            //        Quantity = 2,
-            //        Price = 1
+            var WechatPayNativePayService = serviceProvider.GetService<IWechatPayNativePayService>();
+            var WechatPayNativePayRequest = new WechatPayNativePayRequest()
+            {
+                Body = "sssss",
+                OutTradeNo = orderId,
+                TotalFee = 0.01m,
+                Attach = "dadadaaaa",
+                FeeType = FeeType.CNY,
+                Detail = new WechatPayPayRequestBase.GoodsDetail()
+                {
+                    GoodsId = "GoodsId",
+                    WxpayGoodsId = "WxpayGoodsId",
+                    GoodsName = "GoodsName",
+                    Quantity = 2,
+                    Price = 1
 
-            //    },
-            //    Receipt = "Y",
-            //    LimitPay = "no_credit",
+                },
+                Receipt = "Y",
+                LimitPay = "no_credit",
 
-            //    ProductId = "ProductId",
-            //    GoodsTag = "GoodsTag",
-            //    TimeExpire = DateTime.Now.AddHours(2),
-            //    TimeStart = DateTime.Now,
-            //    SceneInfo = new WechatPayPayRequestBase.StoreSceneInfo
-            //    {
+                ProductId = "ProductId",
+                GoodsTag = "GoodsTag",
+                TimeExpire = DateTime.Now.AddHours(2),
+                TimeStart = DateTime.Now,
+                SceneInfo = new WechatPayPayRequestBase.StoreSceneInfo
+                {
 
-            //        store_info = new WechatPayPayRequestBase.StoreSceneInfoObj()
-            //        {
-            //            id = "Id",
-            //            address = "Address",
-            //            area_code = "AreaCode",
-            //            name = "Name"
-            //        },
-            //    }.ToJson(),
+                    store_info = new WechatPayPayRequestBase.StoreSceneInfoObj()
+                    {
+                        id = "Id",
+                        address = "Address",
+                        area_code = "AreaCode",
+                        name = "Name"
+                    },
+                }.ToJson(),
 
-            //    //OpenId = "98980989080980"
+                //OpenId = "98980989080980"
 
-            //};
-            //var result = WechatPayNativePayService.PayAsync(WechatPayNativePayRequest).GetAwaiter().GetResult();
-            //string url = result?.Data?.CodeUrl;
+            };
+            var result = WechatPayNativePayService.PayAsync(WechatPayNativePayRequest).GetAwaiter().GetResult();
+            string url = result?.Data?.CodeUrl;
             //去支付
 
             //2。查询订单
@@ -265,16 +231,44 @@ namespace PayTest
             }).GetAwaiter().GetResult();
 
 
-        }
-
-
-
-
-
-
-
-
+        } 
 
 
     }
+    public class CustomePayController
+    {
+        private readonly ICustomeWehcatPayService _customeWehcatPayService;
+        public CustomePayController(IWehcatPayServiceProvider wehcatPayServiceProvider)
+        {
+            _customeWehcatPayService = wehcatPayServiceProvider.GetService<ICustomeWehcatPayService>("shanghu1");
+
+        }
+        public async Task<WechatPayResult<WechatPayResponse>> Pay()
+        {
+            //设置请求url
+            _customeWehcatPayService.SetUrl("https://api.mch.weixin.qq.com/new/aaa");            
+            IDictionary<string, object> dic = new Dictionary<string, object>();
+            dic.Add("params1", "11");
+            dic.Add("params2", "22");
+            dic.Add("params3", "33");
+            //构造参数
+            _customeWehcatPayService.SetExtensionParameter(dic);
+            var resp = await _customeWehcatPayService.Request();          
+            return resp;
+        }
+    }
+    public class MysqlWechatPayConfigStorage : IWechatPayConfigStorage
+    {
+        public WechatPayConfig GetConfig(string name)
+        {
+            return null;
+        }
+
+        public Task<WechatPayConfig> GetConfigAsync(string name)
+        {
+            return null;
+        }
+    }
+
+
 }
