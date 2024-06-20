@@ -13,11 +13,14 @@
          w.PrivateKey = "xxxxxxxxxxxxxxxxxxx";
          w.NotifyUrl = "https://www.xxxx.com?NotifyUrl";
 
-     }).AddWehcatpayStorage<MysqlWechatPayConfigStorage>();                        
+     })；
+     
+     
+      serviceDescriptors.AddWechatPay().AddWehcatpayStorage<MysqlWechatPayConfigStorage>();                        
            
 ```
 
-根据`IWehcatPayServiceProvider`去拿微信支付的服务【IWechatPayNativePayService】,参数是商户支付配置的名称。
+根据`IWehcatPayServiceProvider`去获取微信支付的服务【IWechatPayNativePayService】,参数是商户支付配置的唯一标识。
 ```c#
     public class PayController
     {
@@ -27,12 +30,36 @@
             _wechatPayNativePayService = wehcatPayServiceProvider.GetService<IWechatPayNativePayService>("shanghu1");
 
         }
+
+        //支付
         public async Task<WechatPayResult<WechatPayNativePayResponse>> Pay(WechatPayNativePayRequest request)
         {
             var resp = await _wechatPayNativePayService.PayAsync(request);
             return resp; 
-        }
+        } 
     }
+```
+
+
+```csharp
+
+   //2。查询订单
+   var wechatOrderQueryService = serviceProvider.GetService<IWechatOrderQueryService>();
+   var result2 =await wechatOrderQueryService.QueryAsync(new WechatOrderQueryRequest()
+   {
+       OutTradeNo = orderId
+
+   });
+
+
+    //3.关闭订单
+    var wechatCloseOrderService = serviceProvider.GetService<IWechatCloseOrderService>(); 
+    var result3 = await wechatCloseOrderService.CloseAsync(new WechatCloseOrderRequest()
+    {
+        OutTradeNo = orderId
+
+    });
+
 ```
 如果微信有新增接口，但Payments没有更新该怎么调用呢
 ```c#
@@ -114,6 +141,9 @@
 #### 异步回调【IAlipayNotifyService】
 #### 同步回调【IAlipayReturnService】
 
-
+---
+欢迎大家一起来完善代码，欢迎大家赞助
+<img src="./img/wechat_shoukuan.jpg" alt='微信' style="width:200px;">
+<img src="./img/alipay_shoukuan.jpg" alt='支付宝' style="width:200px;">
 
  
